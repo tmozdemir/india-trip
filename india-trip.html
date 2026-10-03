@@ -1,0 +1,1599 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>India October 2026 — Trip Dossier</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🇮🇳</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+<style>
+:root {
+  --bg:        #0F1628;
+  --bg2:       #151e38;
+  --bg3:       #1c2744;
+  --surface:   rgba(255,255,255,0.06);
+  --surface2:  rgba(255,255,255,0.10);
+  --border:    rgba(255,255,255,0.10);
+  --border2:   rgba(255,255,255,0.18);
+  --text:      #F5F0E8;
+  --text-dim:  rgba(245,240,232,0.60);
+  --text-mute: rgba(245,240,232,0.38);
+  --saffron:   #E8973A;
+  --saffron2:  #C87820;
+  --rose:      #C4846A;
+  --teal:      #4ABFBF;
+  --green:     #5CB88A;
+  --red:       #E07070;
+  --navy:      #0F1628;
+  --safe-top:  env(safe-area-inset-top, 0px);
+  --safe-bot:  env(safe-area-inset-bottom, 0px);
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; font-size: 16px; }
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Inter', -apple-system, sans-serif;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+  padding-bottom: calc(env(safe-area-inset-bottom, 0px) + 24px);
+}
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; animation: none !important; } }
+
+/* ── HERO ── */
+.hero {
+  background: linear-gradient(160deg, #1a0f2e 0%, #0F1628 40%, #1a2a0a 100%);
+  padding: calc(var(--safe-top) + 56px) 24px 48px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.hero::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse 800px 400px at 50% 0%, rgba(232,151,58,0.15), transparent 70%);
+  pointer-events: none;
+}
+.hero-flag { font-size: 48px; display: block; margin-bottom: 16px; }
+.hero h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(32px, 7vw, 62px);
+  font-weight: 900;
+  line-height: 1.05;
+  color: var(--text);
+  margin-bottom: 10px;
+}
+.hero h1 span { color: var(--saffron); }
+.hero-sub {
+  color: var(--text-dim);
+  font-size: 15px;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  margin-bottom: 32px;
+}
+.countdown-strip {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.cd-box {
+  background: var(--surface2);
+  border: 1px solid var(--border2);
+  border-radius: 12px;
+  padding: 14px 20px;
+  min-width: 80px;
+  text-align: center;
+}
+.cd-num {
+  font-family: 'Playfair Display', serif;
+  font-size: 36px;
+  font-weight: 700;
+  color: var(--saffron);
+  line-height: 1;
+  display: block;
+}
+.cd-label {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  color: var(--text-mute);
+  text-transform: uppercase;
+  margin-top: 4px;
+  display: block;
+}
+.hero-dates {
+  margin-top: 20px;
+  font-size: 13px;
+  color: var(--text-dim);
+}
+
+/* ── NAV ── */
+.nav {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(15,22,40,0.92);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+  padding: 0 16px;
+  padding-top: var(--safe-top);
+}
+.nav-inner {
+  max-width: 1000px;
+  margin: 0 auto;
+  display: flex;
+  gap: 4px;
+  overflow-x: auto;
+  scrollbar-width: none;
+  padding: 8px 0;
+}
+.nav-inner::-webkit-scrollbar { display: none; }
+.nav-btn {
+  flex-shrink: 0;
+  background: none;
+  border: none;
+  color: var(--text-dim);
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  padding: 6px 14px;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: all 0.2s;
+  white-space: nowrap;
+}
+.nav-btn:hover { color: var(--text); background: var(--surface); }
+.nav-btn.active { color: var(--navy); background: var(--saffron); font-weight: 600; }
+
+/* ── MAIN ── */
+.main { max-width: 1000px; margin: 0 auto; padding: 32px 20px; }
+.section { display: none; }
+.section.active { display: block; }
+
+/* ── SECTION HEADER ── */
+.section-head {
+  margin-bottom: 28px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--border);
+}
+.section-head h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(24px, 4vw, 34px);
+  font-weight: 700;
+  color: var(--text);
+  line-height: 1.2;
+}
+.section-head p {
+  color: var(--text-dim);
+  font-size: 14px;
+  margin-top: 6px;
+}
+
+/* ── CARDS ── */
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 20px 24px;
+  margin-bottom: 16px;
+}
+.card-title {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-mute);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-bottom: 12px;
+}
+
+/* ── OVERVIEW GRID ── */
+.overview-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 14px;
+  margin-bottom: 28px;
+}
+.stat-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 18px 20px;
+}
+.stat-card .label { font-size: 11px; font-weight: 600; color: var(--text-mute); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 6px; }
+.stat-card .value { font-size: 20px; font-weight: 700; color: var(--text); }
+.stat-card .sub { font-size: 12px; color: var(--text-dim); margin-top: 3px; }
+
+/* ── ITINERARY TIMELINE ── */
+.timeline { position: relative; padding-left: 32px; }
+.timeline::before {
+  content: '';
+  position: absolute;
+  left: 10px; top: 8px; bottom: 8px;
+  width: 2px;
+  background: linear-gradient(to bottom, var(--saffron), var(--teal));
+  border-radius: 2px;
+}
+.tl-item {
+  position: relative;
+  margin-bottom: 24px;
+}
+.tl-dot {
+  position: absolute;
+  left: -27px; top: 6px;
+  width: 14px; height: 14px;
+  border-radius: 50%;
+  border: 2px solid var(--bg);
+  background: var(--saffron);
+  box-shadow: 0 0 0 2px var(--saffron);
+}
+.tl-dot.work { background: var(--teal); box-shadow: 0 0 0 2px var(--teal); }
+.tl-dot.travel { background: var(--rose); box-shadow: 0 0 0 2px var(--rose); }
+.tl-dot.personal { background: var(--green); box-shadow: 0 0 0 2px var(--green); }
+.tl-date {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--text-mute);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 4px;
+}
+.tl-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  overflow: hidden;
+}
+.tl-header {
+  padding: 14px 18px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  cursor: pointer;
+  user-select: none;
+}
+.tl-header:hover { background: var(--surface2); }
+.tl-title {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text);
+  flex: 1;
+}
+.tl-location {
+  font-size: 12px;
+  color: var(--text-dim);
+  margin-top: 2px;
+}
+.tl-badge {
+  font-size: 10px;
+  font-weight: 700;
+  padding: 3px 8px;
+  border-radius: 20px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  white-space: nowrap;
+}
+.badge-work { background: rgba(74,191,191,0.15); color: var(--teal); }
+.badge-travel { background: rgba(196,132,106,0.15); color: var(--rose); }
+.badge-personal { background: rgba(92,184,138,0.15); color: var(--green); }
+.tl-chevron {
+  color: var(--text-mute);
+  font-size: 12px;
+  transition: transform 0.2s;
+  flex-shrink: 0;
+}
+.tl-card.open .tl-chevron { transform: rotate(180deg); }
+.tl-body {
+  display: none;
+  padding: 0 18px 16px;
+  border-top: 1px solid var(--border);
+}
+.tl-card.open .tl-body { display: block; }
+.tl-activities { margin-top: 12px; }
+.tl-act {
+  display: flex;
+  gap: 12px;
+  padding: 8px 0;
+  border-bottom: 1px solid var(--border);
+  font-size: 13px;
+}
+.tl-act:last-child { border-bottom: none; }
+.tl-act-time {
+  color: var(--saffron);
+  font-weight: 600;
+  min-width: 80px;
+  flex-shrink: 0;
+  font-size: 12px;
+}
+.tl-act-desc { color: var(--text-dim); line-height: 1.5; }
+
+/* ── NOTES ── */
+.note-area {
+  margin-top: 14px;
+  padding-top: 14px;
+  border-top: 1px solid var(--border);
+}
+.note-label {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text-mute);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.note-label .sync-dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--text-mute);
+  transition: background 0.3s;
+}
+.note-label .sync-dot.synced { background: var(--green); }
+.note-label .sync-dot.syncing { background: var(--saffron); }
+textarea.note-input {
+  width: 100%;
+  background: rgba(0,0,0,0.25);
+  border: 1px solid var(--border2);
+  border-radius: 8px;
+  color: var(--text);
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
+  line-height: 1.6;
+  padding: 10px 12px;
+  resize: vertical;
+  min-height: 80px;
+  transition: border-color 0.2s;
+}
+textarea.note-input::placeholder { color: var(--text-mute); }
+textarea.note-input:focus { outline: none; border-color: var(--saffron); }
+
+/* ── CHECKLISTS ── */
+.checklist-group { margin-bottom: 24px; }
+.checklist-group-title {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--saffron);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.checklist-group-title .progress-pill {
+  font-size: 10px;
+  font-weight: 700;
+  padding: 2px 8px;
+  background: var(--surface2);
+  border-radius: 20px;
+  color: var(--text-dim);
+  letter-spacing: 0;
+  text-transform: none;
+}
+.check-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--border);
+  transition: opacity 0.3s;
+}
+.check-item:last-child { border-bottom: none; }
+.check-item.done { opacity: 0.45; }
+.check-item.done .check-text { text-decoration: line-through; }
+.check-cb {
+  width: 20px; height: 20px;
+  border-radius: 50%;
+  border: 2px solid var(--border2);
+  cursor: pointer;
+  flex-shrink: 0;
+  margin-top: 1px;
+  appearance: none;
+  -webkit-appearance: none;
+  transition: all 0.2s;
+  position: relative;
+}
+.check-cb:checked {
+  background: var(--green);
+  border-color: var(--green);
+}
+.check-cb:checked::after {
+  content: '✓';
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 11px;
+  font-weight: 700;
+}
+.check-text { font-size: 14px; color: var(--text); flex: 1; line-height: 1.5; }
+.check-link {
+  color: var(--saffron);
+  text-decoration: none;
+  font-size: 12px;
+  font-weight: 600;
+  padding: 2px 8px;
+  border: 1px solid rgba(232,151,58,0.3);
+  border-radius: 6px;
+  white-space: nowrap;
+  margin-top: 2px;
+  display: inline-block;
+  transition: all 0.2s;
+  flex-shrink: 0;
+}
+.check-link:hover { background: rgba(232,151,58,0.12); }
+
+/* ── MAPS ── */
+.map-container { border-radius: 14px; overflow: hidden; border: 1px solid var(--border); margin-bottom: 24px; }
+#world-map { height: 320px; }
+#india-map { height: 480px; }
+.leaflet-tile-pane { filter: brightness(0.85) saturate(0.9); }
+.map-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  padding: 14px 16px;
+  background: var(--surface);
+  border-top: 1px solid var(--border);
+  font-size: 12px;
+  color: var(--text-dim);
+}
+.legend-item { display: flex; align-items: center; gap: 6px; }
+.legend-dot { width: 10px; height: 10px; border-radius: 50%; }
+
+/* ── FLIGHTS TABLE ── */
+.flight-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  margin-bottom: 16px;
+  overflow: hidden;
+}
+.flight-header {
+  padding: 16px 20px;
+  background: var(--surface2);
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.flight-header h3 { font-size: 16px; font-weight: 700; color: var(--text); }
+.flight-header .ref { font-size: 12px; color: var(--saffron); font-weight: 600; }
+.flight-leg {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  padding: 18px 20px;
+  gap: 16px;
+  border-bottom: 1px solid var(--border);
+}
+.flight-leg:last-child { border-bottom: none; }
+.leg-airport { font-size: 13px; color: var(--text-dim); margin-top: 2px; }
+.leg-time { font-size: 22px; font-weight: 700; color: var(--text); }
+.leg-mid { text-align: center; }
+.leg-flight { font-size: 11px; font-weight: 700; color: var(--saffron); }
+.leg-arrow { font-size: 20px; color: var(--text-mute); display: block; margin: 2px 0; }
+.leg-class { font-size: 10px; color: var(--text-mute); font-weight: 600; }
+
+/* ── HOTELS ── */
+.hotel-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 14px; margin-bottom: 24px; }
+.hotel-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 18px 20px;
+  position: relative;
+}
+.hotel-date { font-size: 11px; font-weight: 700; color: var(--text-mute); text-transform: uppercase; letter-spacing: 0.07em; margin-bottom: 8px; }
+.hotel-name { font-size: 16px; font-weight: 700; color: var(--text); margin-bottom: 4px; }
+.hotel-location { font-size: 12px; color: var(--text-dim); margin-bottom: 10px; }
+.hotel-price { font-size: 18px; font-weight: 700; color: var(--saffron); }
+.hotel-price span { font-size: 12px; color: var(--text-dim); font-weight: 400; }
+.hotel-highlights { font-size: 12px; color: var(--text-dim); margin: 8px 0; line-height: 1.6; }
+.hotel-book {
+  display: inline-block;
+  margin-top: 10px;
+  padding: 7px 14px;
+  background: rgba(232,151,58,0.12);
+  border: 1px solid rgba(232,151,58,0.3);
+  border-radius: 8px;
+  color: var(--saffron);
+  font-size: 12px;
+  font-weight: 700;
+  text-decoration: none;
+  transition: all 0.2s;
+}
+.hotel-book:hover { background: rgba(232,151,58,0.22); }
+.hotel-work { border-color: rgba(74,191,191,0.3); }
+.hotel-work .hotel-name { color: var(--teal); }
+
+/* ── COSTS ── */
+.cost-table { width: 100%; border-collapse: collapse; font-size: 14px; }
+.cost-table th { text-align: left; padding: 10px 14px; font-size: 11px; font-weight: 700; color: var(--text-mute); text-transform: uppercase; letter-spacing: 0.07em; border-bottom: 1px solid var(--border); }
+.cost-table td { padding: 12px 14px; border-bottom: 1px solid var(--border); color: var(--text-dim); vertical-align: top; }
+.cost-table td:last-child { color: var(--text); font-weight: 600; text-align: right; white-space: nowrap; }
+.cost-table tr.total td { color: var(--text); font-weight: 700; font-size: 16px; border-bottom: none; border-top: 2px solid var(--saffron); }
+.cost-table tr.total td:last-child { color: var(--saffron); font-size: 20px; }
+
+/* ── PACKING / PIN GATE ── */
+.pin-gate {
+  text-align: center;
+  padding: 60px 24px;
+  max-width: 360px;
+  margin: 0 auto;
+}
+.pin-gate h3 { font-family: 'Playfair Display', serif; font-size: 24px; margin-bottom: 8px; }
+.pin-gate p { color: var(--text-dim); font-size: 14px; margin-bottom: 28px; }
+.pin-inputs { display: flex; gap: 12px; justify-content: center; margin-bottom: 20px; }
+.pin-digit {
+  width: 52px; height: 60px;
+  background: var(--surface2);
+  border: 2px solid var(--border2);
+  border-radius: 10px;
+  color: var(--text);
+  font-size: 24px;
+  font-weight: 700;
+  text-align: center;
+  font-family: 'Playfair Display', serif;
+  transition: border-color 0.2s;
+}
+.pin-digit:focus { outline: none; border-color: var(--saffron); }
+.pin-error { color: var(--red); font-size: 13px; min-height: 20px; }
+.pin-btn {
+  background: var(--saffron);
+  color: var(--navy);
+  border: none;
+  border-radius: 10px;
+  padding: 12px 32px;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  font-family: 'Inter', sans-serif;
+  transition: background 0.2s;
+  margin-top: 8px;
+}
+.pin-btn:hover { background: var(--saffron2); }
+
+/* ── PACKING LIST ── */
+.packing-category { margin-bottom: 24px; }
+.packing-cat-title {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--saffron);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 12px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--border);
+}
+.pack-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 8px 0;
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+  font-size: 13px;
+  color: var(--text-dim);
+  line-height: 1.5;
+  transition: opacity 0.2s;
+}
+.pack-item:last-child { border-bottom: none; }
+.pack-item.packed { opacity: 0.45; }
+.pack-item.packed .pack-text { text-decoration: line-through; }
+.pack-cb {
+  width: 18px; height: 18px;
+  border-radius: 4px;
+  border: 2px solid var(--border2);
+  cursor: pointer;
+  flex-shrink: 0;
+  appearance: none;
+  -webkit-appearance: none;
+  margin-top: 1px;
+  position: relative;
+  transition: all 0.15s;
+}
+.pack-cb:checked { background: var(--saffron); border-color: var(--saffron); }
+.pack-cb:checked::after { content: '✓'; position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; color: var(--navy); font-size: 10px; font-weight: 800; }
+.pack-note { font-size: 11px; color: var(--text-mute); margin-top: 2px; }
+.pack-status {
+  font-size: 11px;
+  padding: 2px 7px;
+  border-radius: 4px;
+  font-weight: 600;
+  flex-shrink: 0;
+  margin-left: auto;
+  align-self: center;
+}
+.pack-status.considering { background: rgba(232,151,58,0.12); color: var(--saffron); }
+.pack-status.owned { background: rgba(92,184,138,0.12); color: var(--green); }
+
+/* ── SHOPPING ── */
+.shop-table { width: 100%; border-collapse: collapse; font-size: 13px; margin-bottom: 24px; }
+.shop-table th { text-align: left; padding: 8px 12px; font-size: 11px; font-weight: 700; color: var(--text-mute); text-transform: uppercase; letter-spacing: 0.07em; border-bottom: 1px solid var(--border); }
+.shop-table td { padding: 10px 12px; border-bottom: 1px solid rgba(255,255,255,0.05); color: var(--text-dim); vertical-align: top; }
+.shop-table tr:hover td { background: var(--surface); }
+.shop-status-badge {
+  display: inline-block;
+  font-size: 10px;
+  font-weight: 700;
+  padding: 2px 7px;
+  border-radius: 4px;
+}
+.s-considering { background: rgba(232,151,58,0.12); color: var(--saffron); }
+.s-owned { background: rgba(92,184,138,0.12); color: var(--green); }
+.s-bought { background: rgba(74,191,191,0.12); color: var(--teal); }
+.spend-summary {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 20px;
+  margin-top: 16px;
+}
+.spend-row { display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid var(--border); font-size: 14px; }
+.spend-row:last-child { border-bottom: none; }
+.spend-row.total { font-weight: 700; font-size: 16px; color: var(--text); margin-top: 4px; }
+.spend-row.total span:last-child { color: var(--saffron); }
+.spend-row span:last-child { font-weight: 600; color: var(--text); }
+
+/* ── SYNC STATUS ── */
+.sync-bar {
+  position: fixed;
+  bottom: calc(var(--safe-bot) + 16px);
+  right: 16px;
+  background: var(--bg3);
+  border: 1px solid var(--border2);
+  border-radius: 20px;
+  padding: 6px 14px;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text-dim);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: opacity 0.4s;
+  z-index: 200;
+}
+.sync-bar .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--text-mute); }
+.sync-bar.online .dot { background: var(--green); }
+.sync-bar.syncing .dot { background: var(--saffron); animation: pulse 1s infinite; }
+@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.4} }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 600px) {
+  .flight-leg { grid-template-columns: 1fr auto 1fr; gap: 8px; }
+  .leg-time { font-size: 18px; }
+  .hotel-grid { grid-template-columns: 1fr; }
+  .overview-grid { grid-template-columns: 1fr 1fr; }
+  .shop-table { font-size: 12px; }
+  .shop-table th:nth-child(3), .shop-table td:nth-child(3) { display: none; }
+  textarea.note-input { font-size: 16px; }
+}
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <span class="hero-flag">🇮🇳</span>
+  <h1>India <span>October</span> 2026</h1>
+  <p class="hero-sub">Gurugram Work Visit · Jaipur · Udaipur · Delhi</p>
+  <div class="countdown-strip" id="countdown"></div>
+  <p class="hero-dates" id="heroDate">17 Oct – 29 Oct 2026 · BCD Ref: 79QPUU · Locator: X3YL6I</p>
+</div>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav-inner">
+    <button class="nav-btn active" onclick="show('overview')">Overview</button>
+    <button class="nav-btn" onclick="show('itinerary')">Itinerary</button>
+    <button class="nav-btn" onclick="show('flights')">Flights</button>
+    <button class="nav-btn" onclick="show('hotels')">Hotels</button>
+    <button class="nav-btn" onclick="show('maps')">Maps</button>
+    <button class="nav-btn" onclick="show('checklist')">Checklist</button>
+    <button class="nav-btn" onclick="show('tim')">Tim</button>
+  </div>
+</nav>
+
+<div class="main">
+
+<!-- ══ OVERVIEW ══ -->
+<div class="section active" id="sec-overview">
+  <div class="section-head">
+    <h2>Trip Overview</h2>
+    <p>17–29 October 2026 · Business class both ways · Work-covered flights & Gurugram hotel</p>
+  </div>
+  <div class="overview-grid">
+    <div class="stat-card"><div class="label">Departure</div><div class="value">17 Oct 2026</div><div class="sub">BA1465 07:40 EDI → LHR</div></div>
+    <div class="stat-card"><div class="label">Return</div><div class="value">29 Oct 2026</div><div class="sub">BA256 10:50 DEL → LHR</div></div>
+    <div class="stat-card"><div class="label">Office</div><div class="value">Mon–Fri</div><div class="sub">NatWest Candor TechSpace, Sec 21</div></div>
+    <div class="stat-card"><div class="label">Personal Days</div><div class="value">6 days</div><div class="sub">Jaipur · Udaipur · Delhi</div></div>
+    <div class="stat-card"><div class="label">Flights</div><div class="value">Business Class</div><div class="sub">Both long-haul legs</div></div>
+    <div class="stat-card"><div class="label">Est. Personal Cost</div><div class="value">~£620</div><div class="sub">Flights & work hotel covered</div></div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Route</div>
+    <div style="overflow-x:auto">
+    <table style="width:100%;border-collapse:collapse;font-size:13px;">
+      <thead><tr style="border-bottom:1px solid var(--border)">
+        <th style="padding:8px 12px;text-align:left;color:var(--text-mute);font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.07em">Date</th>
+        <th style="padding:8px 12px;text-align:left;color:var(--text-mute);font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.07em">Location</th>
+        <th style="padding:8px 12px;text-align:left;color:var(--text-mute);font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.07em">Notes</th>
+      </tr></thead>
+      <tbody id="overview-table"></tbody>
+    </table>
+    </div>
+  </div>
+</div>
+
+<!-- ══ ITINERARY ══ -->
+<div class="section" id="sec-itinerary">
+  <div class="section-head">
+    <h2>Day-by-Day Itinerary</h2>
+    <p>Tap any day to expand. Notes sync across all devices.</p>
+  </div>
+  <div class="timeline" id="timeline"></div>
+</div>
+
+<!-- ══ FLIGHTS ══ -->
+<div class="section" id="sec-flights">
+  <div class="section-head">
+    <h2>Confirmed Flights</h2>
+    <p>BCD Travel ref: 79QPUU · Airline locator: X3YL6I · Check in at ba.com</p>
+  </div>
+  <div class="flight-card">
+    <div class="flight-header">
+      <div><h3>Outbound — Saturday 17 October</h3><div style="font-size:12px;color:var(--text-dim);margin-top:3px">Covered by work · ✓ Confirmed</div></div>
+      <div class="ref">Business Class</div>
+    </div>
+    <div class="flight-leg">
+      <div><div class="leg-time">07:40</div><div class="leg-airport">Edinburgh (EDI)</div></div>
+      <div class="leg-mid"><div class="leg-flight">BA1465 · Seat 4A</div><span class="leg-arrow">✈</span><div class="leg-class">1h 35m</div></div>
+      <div style="text-align:right"><div class="leg-time">09:15</div><div class="leg-airport">London Heathrow (LHR)</div></div>
+    </div>
+    <div class="flight-leg">
+      <div><div class="leg-time">10:20</div><div class="leg-airport">London Heathrow (LHR) T5</div></div>
+      <div class="leg-mid"><div class="leg-flight">BA143 · Seat 11A</div><span class="leg-arrow">✈</span><div class="leg-class">~8h 25m · Business</div></div>
+      <div style="text-align:right"><div class="leg-time">~23:35</div><div class="leg-airport">Delhi Indira Gandhi (DEL)</div></div>
+    </div>
+  </div>
+  <div class="flight-card">
+    <div class="flight-header">
+      <div><h3>Return — Thursday 29 October</h3><div style="font-size:12px;color:var(--text-dim);margin-top:3px">Covered by work · ✓ Confirmed</div></div>
+      <div class="ref">Business / Club Europe</div>
+    </div>
+    <div class="flight-leg">
+      <div><div class="leg-time">10:50</div><div class="leg-airport">Delhi Indira Gandhi (DEL) T3</div></div>
+      <div class="leg-mid"><div class="leg-flight">BA256 · Seat 7A</div><span class="leg-arrow">✈</span><div class="leg-class">~9h 25m · Business</div></div>
+      <div style="text-align:right"><div class="leg-time">15:15</div><div class="leg-airport">London Heathrow (LHR) T5</div></div>
+    </div>
+    <div class="flight-leg">
+      <div><div class="leg-time">17:05</div><div class="leg-airport">London Heathrow (LHR) T5</div></div>
+      <div class="leg-mid"><div class="leg-flight">BA1456 · Seat 4A</div><span class="leg-arrow">✈</span><div class="leg-class">~1h 30m · Club Europe</div></div>
+      <div style="text-align:right"><div class="leg-time">18:35</div><div class="leg-airport">Edinburgh (EDI)</div></div>
+    </div>
+  </div>
+  <div class="card" style="font-size:13px;color:var(--text-dim);line-height:1.8">
+    ⚠️ BA256 arrives T5 at 15:15 — Galleries Club lounge open until 22:30, plenty of time before BA1456 at 17:05.<br>
+    ⚠️ Staying at ibis Aerocity on 28 Oct — short taxi to T3 on morning of 29th.
+  </div>
+</div>
+
+<!-- ══ HOTELS ══ -->
+<div class="section" id="sec-hotels">
+  <div class="section-head">
+    <h2>Accommodation</h2>
+    <p>Work hotel confirmed by NatWest. Personal hotels — book now, October is peak season.</p>
+  </div>
+  <div class="hotel-grid" id="hotel-grid"></div>
+</div>
+
+<!-- ══ MAPS ══ -->
+<div class="section" id="sec-maps">
+  <div class="section-head">
+    <h2>Maps & Routes</h2>
+    <p>World flight route and detailed India journey map.</p>
+  </div>
+  <div class="card" style="margin-bottom:12px;padding:12px 16px;font-size:13px;color:var(--text-dim)">
+    🌍 <strong style="color:var(--text)">World route</strong> — Edinburgh → Delhi (via London)
+  </div>
+  <div class="map-container">
+    <div id="world-map"></div>
+    <div class="map-legend">
+      <div class="legend-item"><div class="legend-dot" style="background:#E8973A"></div>Edinburgh</div>
+      <div class="legend-item"><div class="legend-dot" style="background:#C4846A"></div>London</div>
+      <div class="legend-item"><div class="legend-dot" style="background:#4ABFBF"></div>Delhi</div>
+    </div>
+  </div>
+  <div class="card" style="margin-bottom:12px;padding:12px 16px;font-size:13px;color:var(--text-dim)">
+    🗺️ <strong style="color:var(--text)">India journey</strong> — Delhi → Gurugram (work) → Jaipur → Udaipur → Delhi Aerocity
+  </div>
+  <div class="map-container">
+    <div id="india-map"></div>
+    <div class="map-legend">
+      <div class="legend-item"><div class="legend-dot" style="background:#4ABFBF"></div>Delhi / Gurugram</div>
+      <div class="legend-item"><div class="legend-dot" style="background:#E8973A"></div>Jaipur</div>
+      <div class="legend-item"><div class="legend-dot" style="background:#5CB88A"></div>Udaipur</div>
+      <div class="legend-item"><div class="legend-dot" style="background:#C4846A"></div>Delhi Aerocity</div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ CHECKLIST ══ -->
+<div class="section" id="sec-checklist">
+  <div class="section-head">
+    <h2>Pre-Departure Checklist</h2>
+    <p>Shared checklist — progress syncs across all devices.</p>
+  </div>
+  <div id="checklist-content"></div>
+</div>
+
+<!-- ══ COSTS ══ -->
+<div class="section" id="sec-costs">
+  <div class="section-head">
+    <h2>Personal Cost Estimate</h2>
+    <p>Flights and Gurugram hotel are covered by work. Personal spend from Sat 24 Oct.</p>
+  </div>
+  <div class="card">
+    <table class="cost-table">
+      <thead><tr><th>Category</th><th>Detail</th><th style="text-align:right">Est. Cost</th></tr></thead>
+      <tbody>
+        <tr><td>Accommodation (5 nights)</td><td>Umaid Mahal x2 (~£50) + Kotra Haveli x2 (~£35) + ibis Aerocity x1 (~£47)</td><td>~£210</td></tr>
+        <tr><td>Domestic flights</td><td>Delhi→Jaipur + JAI→UDR + UDR→DEL (~£35 each)</td><td>~£105</td></tr>
+        <tr><td>Local transport</td><td>Taxis, rickshaws, local travel</td><td>~£35</td></tr>
+        <tr><td>Entrance fees</td><td>Amber Fort, City Palace, Jantar Mantar, Udaipur City Palace</td><td>~£25</td></tr>
+        <tr><td>Food & drink</td><td>6 days — street food, local restaurants, hotel dining</td><td>~£165</td></tr>
+        <tr><td>Incidentals</td><td>Rickshaws, tips, shopping, water, misc.</td><td>~£100</td></tr>
+        <tr class="total"><td>Total</td><td>Personal spend, 6 days</td><td>~£640</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="card" style="font-size:13px;color:var(--text-dim)">
+    ⚠️ All India costs estimated at ₹107/£1. October is peak season — prices may be slightly higher.<br>
+    ⚠️ Accommodation saving vs original plan: ~£340.
+  </div>
+</div>
+
+<!-- ══ PACKING (moved into Tim) ══ -->
+<div class="section" id="sec-packing" style="display:none!important">
+  <div class="section-head">
+    <h2>Packing List <span style="font-size:16px">🔒</span></h2>
+    <p>Private — PIN protected.</p>
+  </div>
+  <div id="packing-gate">
+    <div class="pin-gate">
+      <div style="font-size:40px;margin-bottom:16px">🔒</div>
+      <h3>Private Section</h3>
+      <p>Enter your PIN to access your personal packing list and shopping tracker.</p>
+      <div class="pin-inputs">
+        <input class="pin-digit" type="password" maxlength="1" inputmode="numeric" id="p1">
+        <input class="pin-digit" type="password" maxlength="1" inputmode="numeric" id="p2">
+        <input class="pin-digit" type="password" maxlength="1" inputmode="numeric" id="p3">
+        <input class="pin-digit" type="password" maxlength="1" inputmode="numeric" id="p4">
+      </div>
+      <div class="pin-error" id="pin-error"></div>
+      <button class="pin-btn" onclick="checkPin()">Unlock</button>
+    </div>
+  </div>
+  <div id="packing-content" style="display:none">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;flex-wrap:wrap;gap:8px">
+      <div style="font-size:13px;color:var(--green)">✓ Unlocked</div>
+      <button onclick="lockPacking()" style="background:none;border:1px solid var(--border2);color:var(--text-dim);padding:5px 12px;border-radius:8px;cursor:pointer;font-size:12px;font-family:Inter,sans-serif">Lock</button>
+    </div>
+    <div id="packing-list"></div>
+  </div>
+</div>
+
+<!-- ══ SHOPPING ══ -->
+<div class="section" id="sec-shopping">
+  <div class="section-head">
+    <h2>Shopping Tracker</h2>
+    <p>Drop a link in the chat and Claude will check it and update the status.</p>
+  </div>
+  <div class="card" style="overflow-x:auto">
+    <table class="shop-table">
+      <thead><tr>
+        <th>Category</th><th>Item</th><th>Est.</th><th>Status</th><th>Link</th>
+      </tr></thead>
+      <tbody id="shopping-table"></tbody>
+    </table>
+  </div>
+  <div class="spend-summary" id="spend-summary"></div>
+</div>
+
+<!-- ══ TIM (PRIVATE) ══ -->
+<div class="section" id="sec-tim">
+  <div id="tim-gate">
+    <div class="pin-gate">
+      <div style="font-size:40px;margin-bottom:16px">👤</div>
+      <h3>Tim's Section</h3>
+      <p>Enter your PIN to continue.</p>
+      <div class="pin-inputs">
+        <input class="pin-digit" type="password" maxlength="1" inputmode="numeric" id="t1">
+        <input class="pin-digit" type="password" maxlength="1" inputmode="numeric" id="t2">
+        <input class="pin-digit" type="password" maxlength="1" inputmode="numeric" id="t3">
+        <input class="pin-digit" type="password" maxlength="1" inputmode="numeric" id="t4">
+      </div>
+      <div class="pin-error" id="tim-pin-error"></div>
+      <button class="pin-btn" onclick="checkTimPin()">Unlock</button>
+    </div>
+  </div>
+  <div id="tim-content" style="display:none">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:28px;flex-wrap:wrap;gap:8px">
+      <div style="font-size:13px;color:var(--green)">✓ Unlocked</div>
+      <button onclick="lockTim()" style="background:none;border:1px solid var(--border2);color:var(--text-dim);padding:5px 12px;border-radius:8px;cursor:pointer;font-size:12px;font-family:Inter,sans-serif">Lock</button>
+    </div>
+
+    <div class="section-head">
+      <h2>Personal Costs</h2>
+      <p>Flights and Gurugram hotel are covered by work. Personal spend from Sat 24 Oct.</p>
+    </div>
+    <div class="card" style="margin-bottom:16px;overflow-x:auto">
+      <table class="cost-table">
+        <thead><tr><th>Category</th><th>Detail</th><th style="text-align:right">Est. Cost</th></tr></thead>
+        <tbody>
+          <tr><td>Accommodation (5 nights)</td><td>Umaid Mahal x2 (~£50) + Kotra Haveli x2 (~£35) + ibis Aerocity x1 (~£47)</td><td>~£210</td></tr>
+          <tr><td>Domestic flights</td><td>Delhi→Jaipur + JAI→UDR + UDR→DEL (~£35 each)</td><td>~£105</td></tr>
+          <tr><td>Local transport</td><td>Taxis, rickshaws, local travel</td><td>~£35</td></tr>
+          <tr><td>Entrance fees</td><td>Amber Fort, City Palace, Jantar Mantar, Udaipur City Palace</td><td>~£25</td></tr>
+          <tr><td>Food & drink</td><td>6 days — street food, local restaurants, hotel dining</td><td>~£165</td></tr>
+          <tr><td>Incidentals</td><td>Rickshaws, tips, shopping, water, misc.</td><td>~£100</td></tr>
+          <tr class="total"><td>Total</td><td>Personal spend, 6 days</td><td>~£640</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="card" style="font-size:13px;color:var(--text-dim);margin-bottom:36px">
+      ⚠️ All India costs at ₹107/£1. October is peak season — prices may be slightly higher.<br>
+      ⚠️ Accommodation saving vs original plan: ~£340.
+    </div>
+
+    <div class="section-head">
+      <h2>Shopping Tracker</h2>
+      <p>Drop a link in chat and Claude will check it and update the status.</p>
+    </div>
+    <div class="card" style="overflow-x:auto;margin-bottom:16px">
+      <table class="shop-table">
+        <thead><tr><th>Category</th><th>Item</th><th>Est.</th><th>Status</th><th>Link</th></tr></thead>
+        <tbody id="shopping-table"></tbody>
+      </table>
+    </div>
+    <div class="spend-summary" id="spend-summary"></div>
+
+    <div class="section-head" style="margin-top:40px">
+      <h2>Packing List</h2>
+      <p>Stored locally on this device only — not synced.</p>
+    </div>
+    <div id="packing-list"></div>
+  </div>
+</div>
+
+</div><!-- /main -->
+
+<div class="sync-bar" id="sync-bar"><div class="dot"></div><span id="sync-label">Connecting…</span></div>
+
+<script type="module">
+import { initializeApp } from 'https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js';
+import { getFirestore, doc, setDoc, getDoc, onSnapshot, collection } from 'https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js';
+
+const firebaseConfig = {
+  apiKey: "AIzaSyCTkpTqmf0NgjpBqSLfeg9LdvrKLpFmTKY",
+  authDomain: "india-trip-72c8a.firebaseapp.com",
+  projectId: "india-trip-72c8a",
+  storageBucket: "india-trip-72c8a.firebasestorage.app",
+  messagingSenderId: "87327350224",
+  appId: "1:87327350224:web:a55efb019f381cd175add5"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+window._db = db;
+window._firestore = { doc, setDoc, getDoc, onSnapshot, collection };
+
+const syncBar = document.getElementById('sync-bar');
+const syncLabel = document.getElementById('sync-label');
+
+function setSyncState(state, label) {
+  syncBar.className = 'sync-bar ' + state;
+  syncLabel.textContent = label;
+}
+setSyncState('', 'Connecting…');
+
+// ── CHECKLIST SYNC ──
+const checkDoc = doc(db, 'india2026', 'checklist');
+onSnapshot(checkDoc, snap => {
+  setSyncState('online', 'Synced');
+  if (snap.exists()) {
+    const data = snap.data();
+    Object.entries(data).forEach(([id, val]) => {
+      const el = document.getElementById('chk-' + id);
+      if (el) { el.checked = val; el.closest('.check-item')?.classList.toggle('done', val); }
+    });
+  }
+}, () => setSyncState('', 'Offline'));
+
+window.saveCheck = async function(id, val) {
+  setSyncState('syncing', 'Saving…');
+  try {
+    await setDoc(checkDoc, { [id]: val }, { merge: true });
+    setSyncState('online', 'Synced');
+  } catch(e) { setSyncState('', 'Offline — saved locally'); }
+};
+
+// ── NOTES SYNC ──
+const notesDoc = doc(db, 'india2026', 'notes');
+let notesData = {};
+let noteTimers = {};
+
+onSnapshot(notesDoc, snap => {
+  if (snap.exists()) {
+    notesData = snap.data();
+    Object.entries(notesData).forEach(([id, val]) => {
+      const el = document.getElementById('note-' + id);
+      if (el && document.activeElement !== el) el.value = val;
+      const dot = document.getElementById('dot-' + id);
+      if (dot) dot.className = 'sync-dot synced';
+    });
+  }
+});
+
+window.noteChanged = function(id, val) {
+  const dot = document.getElementById('dot-' + id);
+  if (dot) dot.className = 'sync-dot syncing';
+  clearTimeout(noteTimers[id]);
+  noteTimers[id] = setTimeout(async () => {
+    setSyncState('syncing', 'Saving…');
+    try {
+      await setDoc(notesDoc, { [id]: val }, { merge: true });
+      setSyncState('online', 'Synced');
+      if (dot) dot.className = 'sync-dot synced';
+    } catch(e) { setSyncState('', 'Offline'); }
+  }, 1200);
+};
+
+// ── PACKING SYNC (local only — private) ──
+window.savePack = function(id, val) {
+  const data = JSON.parse(localStorage.getItem('india_pack') || '{}');
+  data[id] = val;
+  localStorage.setItem('india_pack', JSON.stringify(data));
+};
+window.loadPack = function() {
+  return JSON.parse(localStorage.getItem('india_pack') || '{}');
+};
+
+setSyncState('online', 'Connected');
+</script>
+
+<script>
+// ── PIN CHECK (Tim's combined private section) ──
+const PIN_HASH = '1aa3e4f8f4a38d99994d6af04b69455db781c6932257873a272c928820d77484';
+async function sha256(str) {
+  const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(str));
+  return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2,'0')).join('');
+}
+async function checkTimPin() {
+  const pin = ['t1','t2','t3','t4'].map(id => document.getElementById(id).value).join('');
+  const hash = await sha256(pin);
+  if (hash === PIN_HASH) {
+    document.getElementById('tim-gate').style.display = 'none';
+    document.getElementById('tim-content').style.display = 'block';
+    sessionStorage.setItem('tim_unlocked', '1');
+    renderPackingList();
+    renderShoppingTable();
+  } else {
+    document.getElementById('tim-pin-error').textContent = 'Incorrect PIN — try again';
+    ['t1','t2','t3','t4'].forEach(id => document.getElementById(id).value = '');
+    document.getElementById('t1').focus();
+  }
+}
+function lockTim() {
+  sessionStorage.removeItem('tim_unlocked');
+  document.getElementById('tim-gate').style.display = 'block';
+  document.getElementById('tim-content').style.display = 'none';
+  ['t1','t2','t3','t4'].forEach(id => document.getElementById(id).value = '');
+}
+// PIN digit auto-advance
+['t1','t2','t3','t4'].forEach((id, i, arr) => {
+  const el = document.getElementById(id);
+  el.addEventListener('input', () => {
+    if (el.value && i < arr.length - 1) document.getElementById(arr[i+1]).focus();
+    if (i === arr.length - 1 && el.value) checkTimPin();
+  });
+  el.addEventListener('keydown', e => {
+    if (e.key === 'Enter') checkTimPin();
+    if (e.key === 'Backspace' && !el.value && i > 0) document.getElementById(arr[i-1]).focus();
+  });
+});
+
+// ── NAV ──
+function show(name) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+  const sec = document.getElementById('sec-' + name);
+  if (sec) sec.classList.add('active');
+  event.target.classList.add('active');
+  if (name === 'maps') setTimeout(initMaps, 100);
+  if (name === 'tim') {
+    if (sessionStorage.getItem('tim_unlocked')) {
+      document.getElementById('tim-gate').style.display = 'none';
+      document.getElementById('tim-content').style.display = 'block';
+      renderPackingList();
+      renderShoppingTable();
+    }
+  }
+}
+
+// ── COUNTDOWN ──
+function updateCountdown() {
+  const dep = new Date('2026-10-17T07:40:00');
+  const now = new Date();
+  const diff = dep - now;
+  if (diff <= 0) { document.getElementById('countdown').innerHTML = '<div class="cd-box"><span class="cd-num">🛫</span><span class="cd-label">Departed!</span></div>'; return; }
+  const d = Math.floor(diff / 86400000);
+  const h = Math.floor((diff % 86400000) / 3600000);
+  const m = Math.floor((diff % 3600000) / 60000);
+  document.getElementById('countdown').innerHTML =
+    `<div class="cd-box"><span class="cd-num">${d}</span><span class="cd-label">Days</span></div>
+     <div class="cd-box"><span class="cd-num">${h}</span><span class="cd-label">Hours</span></div>
+     <div class="cd-box"><span class="cd-num">${m}</span><span class="cd-label">Minutes</span></div>`;
+}
+updateCountdown();
+setInterval(updateCountdown, 60000);
+
+// ── OVERVIEW TABLE ──
+const overviewRows = [
+  ['Sat 17 Oct','Travel','Edinburgh → London → Delhi','BA1465 07:40 + BA143 10:20 · Business class','travel'],
+  ['Sun 18 Oct','Arrival','Gurugram','Transfer & settle · Hotel by work','travel'],
+  ['Mon 19 Oct','Office','NatWest Gurugram','+ Dussehra celebrations evening 🎉','work'],
+  ['Tue 20 Oct','Office','NatWest Gurugram','Dussehra public holiday for colleagues','work'],
+  ['Wed 21 Oct','Office','NatWest Gurugram','','work'],
+  ['Thu 22 Oct','Office','NatWest Gurugram','','work'],
+  ['Fri 23 Oct','Office → Travel','NatWest Gurugram → Jaipur','Check out after work','work'],
+  ['Sat 24 Oct','Personal','Jaipur','Umaid Mahal · Chokhi Dhani evening','personal'],
+  ['Sun 25 Oct','Personal','Jaipur sightseeing','Amber Fort · Hawa Mahal · City Palace','personal'],
+  ['Mon 26 Oct','Personal','Jaipur → Udaipur','~1hr flight · Lake Pichola boat ride','personal'],
+  ['Tue 27 Oct','Personal','Udaipur','City Palace · Fateh Sagar · Sajjangarh','personal'],
+  ['Wed 28 Oct','Personal','Udaipur → Delhi Aerocity','Fly UDR→DEL · ibis Aerocity','personal'],
+  ['Thu 29 Oct','Return','Delhi → London → Edinburgh','BA256 10:50 · BA1456 17:05 · Home 18:35','travel'],
+];
+const colours = { work:'rgba(74,191,191,0.1)', travel:'rgba(196,132,106,0.1)', personal:'rgba(92,184,138,0.1)' };
+const tBody = document.getElementById('overview-table');
+overviewRows.forEach(([date,type,loc,notes,cls]) => {
+  tBody.innerHTML += `<tr style="background:${colours[cls]};border-bottom:1px solid rgba(255,255,255,0.06)">
+    <td style="padding:9px 12px;color:var(--text);font-weight:600;white-space:nowrap">${date}</td>
+    <td style="padding:9px 12px;color:var(--text-dim)">${loc}</td>
+    <td style="padding:9px 12px;color:var(--text-mute);font-size:12px">${notes}</td>
+  </tr>`;
+});
+
+// ── ITINERARY ──
+const itinerary = [
+  { date:'Sat 17 Oct', type:'travel', title:'Travel Day', location:'Edinburgh → Delhi', activities:[
+    ['07:40','BA1465 departs Edinburgh. Seat 4A, Business.'],
+    ['09:15','Arrive Heathrow T5. Connect to BA143.'],
+    ['10:20','BA143 departs LHR. Seat 11A, Business. ~8.5hr flight.'],
+    ['~23:35','Arrive Delhi IGI T3. Transfer to Gurugram hotel.'],
+  ]},
+  { date:'Sun 18 Oct', type:'travel', title:'Arrival Day', location:'Gurugram', activities:[
+    ['Morning','Transfer to work hotel. Check in, rest.'],
+    ['Afternoon','Explore Gurugram locally. Cyber Hub nearby for food.'],
+  ]},
+  { date:'Mon 19 Oct', type:'work', title:'Office Day 1 + Dussehra 🎉', location:'NatWest Candor TechSpace', activities:[
+    ['09:00','Office — Candor TechSpace, Sector 21, Gurugram.'],
+    ['After 5pm','Dussehra Dahan (effigy burning) · Dussehra Mela · Dandiya Night — with Swati & Rahul.'],
+  ]},
+  { date:'Tue 20 Oct', type:'work', title:'Office Day 2', location:'NatWest Candor TechSpace', activities:[
+    ['All day','Office. Note: Dussehra public holiday for Rahul and Swati.'],
+    ['Evening','Cyber Hub for dinner — excellent vegetarian options.'],
+  ]},
+  { date:'Wed 21 Oct', type:'work', title:'Office Day 3', location:'NatWest Candor TechSpace', activities:[
+    ['All day','Office.'],['Evening','Local Gurugram plans.'],
+  ]},
+  { date:'Thu 22 Oct', type:'work', title:'Office Day 4', location:'NatWest Candor TechSpace', activities:[
+    ['All day','Office.'],['Evening','Local Gurugram plans.'],
+  ]},
+  { date:'Fri 23 Oct', type:'work', title:'Office Day 5 → Jaipur', location:'NatWest → Jaipur', activities:[
+    ['All day','Office.'],
+    ['After 5pm','Check out of work hotel. Transfer to Jaipur (~5hrs road or fly via DEL).'],
+  ]},
+  { date:'Sat 24 Oct', type:'personal', title:'Jaipur — Arrival', location:'Jaipur · Umaid Mahal', activities:[
+    ['Afternoon','Check in to Umaid Mahal Heritage Boutique Hotel, Bani Park.'],
+    ['Evening','Chokhi Dhani cultural village or wander Johari Bazaar. Dinner in old city.'],
+  ]},
+  { date:'Sun 25 Oct', type:'personal', title:'Jaipur — Sightseeing', location:'Jaipur', activities:[
+    ['Sunrise','Nahargarh Fort — spectacular dawn views over the Pink City.'],
+    ['Morning','Amber Fort — arrive early to beat the heat (~£5 ticket).'],
+    ['Afternoon','City Palace and Jantar Mantar (astronomical observatory).'],
+    ['Late afternoon','Hawa Mahal — best photographed in afternoon light.'],
+    ['Evening','Bapu Bazaar textiles · Johari Bazaar jewellery · Dinner out.'],
+  ]},
+  { date:'Mon 26 Oct', type:'personal', title:'Jaipur → Udaipur ✈', location:'Udaipur · Kotra Haveli', activities:[
+    ['Morning','Check out of Umaid Mahal.'],
+    ['Midday','~1hr flight JAI → UDR (~£27).'],
+    ['Afternoon','Check in to Kotra Haveli by Lake Pichola. 2-min walk to the lake.'],
+    ['Afternoon','Lake Pichola boat ride.'],
+    ['Evening','Gangaur Ghat · Bagore-ki-Haveli Museum · Rooftop dinner at Kotra Haveli.'],
+  ]},
+  { date:'Tue 27 Oct', type:'personal', title:'Udaipur — Sightseeing', location:'Udaipur', activities:[
+    ['Morning','City Palace — magnificent palace complex overlooking Lake Pichola.'],
+    ['Afternoon','Fateh Sagar Lake · Saheliyon Ki Bari (Garden of Maidens).'],
+    ['Late afternoon','Sajjangarh (Monsoon Palace) — hilltop panoramic views.'],
+    ['Evening','Final evening in Udaipur. Dinner by the lake.'],
+  ]},
+  { date:'Wed 28 Oct', type:'personal', title:'Udaipur → Delhi Aerocity ✈', location:'Delhi Aerocity · ibis', activities:[
+    ['Morning','Final wander around Udaipur old city. Checkout.'],
+    ['Afternoon','Fly UDR → DEL (~1hr 25m). Taxi to ibis New Delhi Aerocity.'],
+    ['Evening','Relax · pack · early night. BA256 departs 10:50 tomorrow.'],
+  ]},
+  { date:'Thu 29 Oct', type:'travel', title:'Return Home ✈', location:'Delhi → London → Edinburgh', activities:[
+    ['Early','Short taxi from ibis Aerocity to IGI T3 (~5 mins).'],
+    ['10:50','BA256 departs DEL. Seat 7A, Business Class.'],
+    ['15:15','Arrive LHR T5. Galleries Club lounge (open until 22:30).'],
+    ['17:05','BA1456 departs LHR. Seat 4A.'],
+    ['18:35','Arrive Edinburgh. Home! 🏡'],
+  ]},
+];
+
+const timeline = document.getElementById('timeline');
+itinerary.forEach((day, i) => {
+  const dot = `tl-dot ${day.type}`;
+  const badge = `tl-badge badge-${day.type}`;
+  const bLabel = {work:'Work',travel:'Travel',personal:'Personal'}[day.type];
+  const acts = day.activities.map(([t,d]) =>
+    `<div class="tl-act"><div class="tl-act-time">${t}</div><div class="tl-act-desc">${d}</div></div>`
+  ).join('');
+  timeline.innerHTML += `
+    <div class="tl-item">
+      <div class="${dot}"></div>
+      <div class="tl-date">${day.date}</div>
+      <div class="tl-card" id="tl-${i}">
+        <div class="tl-header" onclick="toggleDay(${i})">
+          <div>
+            <div class="tl-title">${day.title}</div>
+            <div class="tl-location">${day.location}</div>
+          </div>
+          <div class="${badge}">${bLabel}</div>
+          <div class="tl-chevron">▼</div>
+        </div>
+        <div class="tl-body">
+          <div class="tl-activities">${acts}</div>
+          <div class="note-area">
+            <div class="note-label">
+              <div class="sync-dot" id="dot-day${i}"></div>
+              Group Notes
+            </div>
+            <textarea class="note-input" id="note-day${i}" placeholder="Add notes, updates, bookings…" rows="3"
+              oninput="window.noteChanged('day${i}', this.value)"></textarea>
+          </div>
+        </div>
+      </div>
+    </div>`;
+});
+function toggleDay(i) {
+  document.getElementById('tl-' + i).classList.toggle('open');
+}
+window.toggleDay = toggleDay;
+
+// ── HOTELS ──
+const hotels = [
+  { dates:'Sun 18 – Fri 23 Oct', name:'Work Hotel (TBC)', location:'Gurugram, ~30 mins SW of office', price:'Covered', highlights:'Heritage Village Resort or Westin Sohna — confirm with NatWest team', link:null, work:true },
+  { dates:'Sat 24 & Sun 25 Oct', name:'Umaid Mahal Heritage Boutique', location:'Jaipur, Bani Park', price:'~£50', highlights:'4-star heritage hotel · Indoor pool · Breakfast incl. · Rooftop terrace · Near Hawa Mahal', link:'https://www.expedia.co.uk/Jaipur-District-Hotels-Umaid-Mahal-A-Heritage-Style-Boutique-Hotel.h1495557.Hotel-Information', work:false },
+  { dates:'Mon 26 & Tue 27 Oct', name:'Kotra Haveli by Lake Pichola', location:'Udaipur city centre', price:'~£35', highlights:'Heritage haveli 1770 · Opposite Jagdish Temple · 2-min walk to lake · Rooftop restaurant · Ayurvedic spa', link:'https://www.booking.com/hotel/in/kotra-haveli-a-boutique-by-lake-pichola.en-gb.html', work:false },
+  { dates:'Wed 28 Oct', name:'ibis New Delhi Aerocity', location:'Delhi Aerocity', price:'~£47', highlights:'5 mins from IGI T3 · Outdoor pool · 24hr gym · Perfect transit hotel', link:'https://www.expedia.co.uk/Delhi-Hotels-Ibis-New-Delhi-Aerocity-Hotel.h4804148.Hotel-Information', work:false },
+];
+const hotelGrid = document.getElementById('hotel-grid');
+hotels.forEach(h => {
+  hotelGrid.innerHTML += `
+    <div class="hotel-card ${h.work ? 'hotel-work' : ''}">
+      <div class="hotel-date">${h.dates}</div>
+      <div class="hotel-name">${h.name}</div>
+      <div class="hotel-location">📍 ${h.location}</div>
+      <div class="hotel-highlights">${h.highlights}</div>
+      <div class="hotel-price">${h.price} <span>/ night</span></div>
+      ${h.link ? `<a class="hotel-book" href="${h.link}" target="_blank" rel="noopener">Book now ↗</a>` : ''}
+    </div>`;
+});
+
+// ── CHECKLIST ──
+const checklistData = [
+  { group:'Essential — Do Now', items:[
+    { id:'evisa', text:'Apply for Indian e-Visa (1-year recommended ~£40)', link:'https://indianvisaonline.gov.in/evisa', linkText:'Apply at indianvisaonline.gov.in' },
+    { id:'earrival', text:'Complete e-Arrival Card within 72hrs of arrival (mandatory since April 2026, free)', link:'https://indianvisaonline.gov.in/earrival', linkText:'Complete at indianvisaonline.gov.in' },
+    { id:'printeta', text:'Print ETA and carry physical copy — airline staff will ask at check-in' },
+    { id:'flights', text:'Flights confirmed ✓ — BCD Travel ref 79QPUU, locator X3YL6I. Check in at ba.com closer to departure' },
+    { id:'hotel-jaipur', text:'Book Umaid Mahal Heritage Boutique Hotel, Jaipur — 2 nights (Sat 24 & Sun 25 Oct)', link:'https://www.expedia.co.uk/Jaipur-District-Hotels-Umaid-Mahal-A-Heritage-Style-Boutique-Hotel.h1495557.Hotel-Information', linkText:'Book on Expedia' },
+    { id:'hotel-udaipur', text:'Book Kotra Haveli by Lake Pichola, Udaipur — 2 nights (Mon 26 & Tue 27 Oct)', link:'https://www.booking.com/hotel/in/kotra-haveli-a-boutique-by-lake-pichola.en-gb.html', linkText:'Book on Booking.com' },
+    { id:'hotel-aerocity', text:'Book ibis New Delhi Aerocity — 1 night (Wed 28 Oct)', link:'https://www.expedia.co.uk/Delhi-Hotels-Ibis-New-Delhi-Aerocity-Hotel.h4804148.Hotel-Information', linkText:'Book on Expedia' },
+    { id:'flight-jai-udr', text:'Book domestic flight JAI → UDR (Mon 26 Oct, ~£27)' },
+    { id:'flight-udr-del', text:'Book domestic flight UDR → DEL (Wed 28 Oct, ~£25)' },
+  ]},
+  { group:'Health & Documents', items:[
+    { id:'vaccines', text:'Visit GP or travel clinic: Hepatitis A, Typhoid, Td/IPV booster, travellers\' diarrhoea prescription' },
+    { id:'travel-ins', text:'Purchase comprehensive travel insurance' },
+    { id:'passport', text:'Check passport valid 6+ months beyond 29 Oct 2026, with 2 blank pages' },
+    { id:'bank', text:'Notify bank of travel dates to avoid card blocks' },
+    { id:'health-pack', text:'Pack Imodium, Dioralyte, DEET repellent, N95/FFP2 mask (Delhi air quality Oct–Feb)' },
+  ]},
+  { group:'Before Leaving Gurugram (Fri 23 Oct)', items:[
+    { id:'jaipur-taxi', text:'Book Jaipur → Udaipur flight if not already done (Mon 26 Oct)' },
+    { id:'udr-del', text:'Book Udaipur → Delhi flight if not already done (Wed 28 Oct)' },
+    { id:'aerocity-taxi', text:'Confirm ibis Aerocity can arrange early morning taxi to IGI T3 for Thu 29 Oct' },
+    { id:'hotel-car', text:'Confirm Umaid Mahal can arrange onward travel from Jaipur to airport on 26 Oct' },
+  ]},
+];
+
+const checkContent = document.getElementById('checklist-content');
+checklistData.forEach(group => {
+  const total = group.items.length;
+  const groupHtml = group.items.map(item => `
+    <div class="check-item" id="ci-${item.id}">
+      <input type="checkbox" class="check-cb" id="chk-${item.id}"
+        onchange="handleCheck('${item.id}', this.checked)">
+      <div style="flex:1">
+        <div class="check-text">${item.text}</div>
+      </div>
+      ${item.link ? `<a class="check-link" href="${item.link}" target="_blank" rel="noopener">${item.linkText} ↗</a>` : ''}
+    </div>`).join('');
+
+  checkContent.innerHTML += `
+    <div class="checklist-group">
+      <div class="checklist-group-title">
+        ${group.group}
+        <span class="progress-pill" id="prog-${group.group.replace(/\W/g,'_')}">0/${total}</span>
+      </div>
+      <div class="card" style="padding:4px 16px">${groupHtml}</div>
+    </div>`;
+});
+
+function handleCheck(id, val) {
+  const item = document.getElementById('ci-' + id);
+  if (item) item.classList.toggle('done', val);
+  updateProgress();
+  if (window.saveCheck) window.saveCheck(id, val);
+}
+window.handleCheck = handleCheck;
+
+function updateProgress() {
+  checklistData.forEach(group => {
+    const done = group.items.filter(i => {
+      const el = document.getElementById('chk-' + i.id);
+      return el && el.checked;
+    }).length;
+    const key = group.group.replace(/\W/g,'_');
+    const pill = document.getElementById('prog-' + key);
+    if (pill) pill.textContent = `${done}/${group.items.length}`;
+  });
+}
+
+// ── PACKING LIST ──
+const packingData = [
+  { cat:'Office Wear', items:[
+    { id:'linen-navy', text:'Linen shirt — navy', note:'Office Wed 21 Oct' },
+    { id:'linen-sage', text:'Linen shirt — sage green', note:'Office Thu 22 Oct & Taj Mahal' },
+    { id:'linen-terra', text:'Linen shirt — terracotta', note:'Office + Jaipur sightseeing' },
+    { id:'poplin-white', text:'Poplin shirt — white', note:'Mon 19 Oct office (smart)' },
+    { id:'poplin-blue', text:'Poplin shirt — pale blue', note:'Tue 20 Oct office (smart)' },
+    { id:'merino', text:'Merino/fine-knit layer × 1', note:'Essential for office AC and flights' },
+  ]},
+  { cat:'Casual Wear', items:[
+    { id:'tshirt-white', text:'Casual t-shirt — white × 1', note:'Travel days, evenings' },
+    { id:'tshirt-grey', text:'Casual t-shirt — grey × 1', note:'Old Delhi day, hotel' },
+    { id:'rain-jacket', text:'Packable rain jacket', note:'Decathlon Quechua ~£25' },
+    { id:'overshirt', text:'Overshirt (khaki)', note:'Rapanui — considering' },
+  ]},
+  { cat:'Trousers & Shorts', items:[
+    { id:'chino-stone', text:'Stone/sand chinos', note:'Owned — may crease', status:'owned' },
+    { id:'chino-navy', text:'Navy chinos', note:'Owned — may crease', status:'owned' },
+    { id:'walk-trousers', text:'Lightweight walking trousers', note:'Owned', status:'owned' },
+    { id:'shorts', text:'Shorts × 1', note:'Hotel evenings only', status:'owned' },
+  ]},
+  { cat:'Footwear', items:[
+    { id:'vans', text:'Custom white leather Vans slip-ons', note:'Office + sightseeing — considering', status:'considering' },
+    { id:'loafers', text:'Tan suede loafers', note:'Sightseeing + temples — to buy' },
+  ]},
+  { cat:'Socks & Underwear', items:[
+    { id:'noshow', text:'No-show socks × 4 — white', note:'Stance Icon 3-pack — considering', status:'considering' },
+    { id:'sock-grey', text:'Ankle socks × 3 — white/grey', note:'Office with trainers' },
+    { id:'sock-navy', text:'Ankle socks × 2 — navy', note:'M&S merino — considering', status:'considering' },
+    { id:'sock-stone', text:'Ankle socks × 2 — stone/tan', note:'Earthy palette days' },
+    { id:'underwear', text:'Underwear × 8 (quick-dry)', note:'Enough for one hotel laundry' },
+  ]},
+  { cat:'Hats & Accessories', items:[
+    { id:'cap-navy', text:'Navy baseball cap (no logo)', note:'Carhartt WIP / New Era — to buy' },
+    { id:'bucket-hat', text:'Stone bucket hat', note:'Carhartt / Patagonia — to buy' },
+    { id:'belt', text:'Tan leather belt, brass buckle (35mm)', note:'Ashford Ridge — considering', status:'considering' },
+    { id:'sunglasses', text:'Sunglasses', note:'Essential' },
+  ]},
+  { cat:'Bags & Luggage', items:[
+    { id:'ecodiver', text:'Samsonite Ecodiver 55cm Wheeled Backpack', note:'51L · hold luggage' },
+    { id:'daybag', text:'Day bag (Osprey Transporter or Peak Design 20L)', note:'Office + sightseeing' },
+    { id:'cubes', text:'Packing cubes', note:'Essential for multi-hotel trip' },
+  ]},
+  { cat:'Health & Documents', items:[
+    { id:'passport-pack', text:'Passport + printed ETA + e-Visa confirmation' },
+    { id:'travel-ins-pack', text:'Travel insurance documents' },
+    { id:'hotel-confirms', text:'Hotel confirmations (all 3 personal hotels)' },
+    { id:'imodium', text:'Imodium + Dioralyte + DEET repellent' },
+    { id:'sunscreen', text:'Sunscreen SPF50 + lip balm' },
+    { id:'mask', text:'N95/FFP2 mask (Delhi air quality)' },
+    { id:'adapter', text:'Universal travel adapter (India Type C/D/M)' },
+    { id:'powerbank', text:'Portable power bank' },
+    { id:'water-bottle', text:'Reusable water bottle' },
+    { id:'prescriptions', text:'Any prescription medications in original packaging' },
+  ]},
+];
+
+function renderPackingList() {
+  const saved = window.loadPack ? window.loadPack() : {};
+  const container = document.getElementById('packing-list');
+  if (!container) return;
+  container.innerHTML = '';
+  packingData.forEach(cat => {
+    const items = cat.items.map(item => {
+      const checked = saved[item.id] || false;
+      const statusBadge = item.status === 'owned'
+        ? '<span class="pack-status owned">Owned</span>'
+        : item.status === 'considering'
+        ? '<span class="pack-status considering">Considering</span>'
+        : '';
+      return `<div class="pack-item ${checked ? 'packed' : ''}" id="pi-${item.id}">
+        <input type="checkbox" class="pack-cb" id="pcb-${item.id}" ${checked ? 'checked' : ''}
+          onchange="handlePack('${item.id}', this.checked)">
+        <div style="flex:1">
+          <div class="pack-text">${item.text}</div>
+          ${item.note ? `<div class="pack-note">${item.note}</div>` : ''}
+        </div>
+        ${statusBadge}
+      </div>`;
+    }).join('');
+    container.innerHTML += `
+      <div class="packing-category">
+        <div class="packing-cat-title">${cat.cat}</div>
+        ${items}
+      </div>`;
+  });
+}
+function handlePack(id, val) {
+  const item = document.getElementById('pi-' + id);
+  if (item) item.classList.toggle('packed', val);
+  if (window.savePack) window.savePack(id, val);
+}
+window.handlePack = handlePack;
+
+// ── SHOPPING TABLE ──
+const shoppingItems = [
+  { cat:'Shirts', item:'Linen shirt — navy', retailer:'Uniqlo / M&S', est:'£20–30', status:'considering', link:'' },
+  { cat:'Shirts', item:'Linen shirt — sage green', retailer:'Uniqlo / M&S', est:'£20–30', status:'considering', link:'' },
+  { cat:'Shirts', item:'Linen shirt — terracotta', retailer:'Uniqlo / M&S', est:'£20–30', status:'considering', link:'' },
+  { cat:'Shirts', item:'Poplin shirt — white', retailer:'Charles Tyrwhitt / M&S', est:'£25–40', status:'considering', link:'' },
+  { cat:'Shirts', item:'Poplin shirt — pale blue', retailer:'Charles Tyrwhitt / M&S', est:'£25–40', status:'considering', link:'' },
+  { cat:'T-shirts', item:'Casual t-shirt — white', retailer:'Uniqlo / ASOS', est:'£10–15', status:'considering', link:'' },
+  { cat:'T-shirts', item:'Casual t-shirt — grey', retailer:'Uniqlo / ASOS', est:'£10–15', status:'considering', link:'' },
+  { cat:'Layers', item:'Merino/fine-knit layer × 1', retailer:'Uniqlo', est:'~£30', status:'considering', link:'' },
+  { cat:'Layers', item:'Packable rain jacket × 1', retailer:'Decathlon (Quechua)', est:'~£25', status:'considering', link:'' },
+  { cat:'Trousers', item:'Slim chinos — stone/sand', retailer:'ASOS / Uniqlo / Gap', est:'£30–50', status:'considering', link:'' },
+  { cat:'Trousers', item:'Slim chinos — navy', retailer:'ASOS / Uniqlo / Gap', est:'£30–50', status:'owned', link:'' },
+  { cat:'Trousers', item:'Lightweight walking trousers', retailer:'Owned', est:'—', status:'owned', link:'' },
+  { cat:'Trousers', item:'Shorts × 1', retailer:'Owned', est:'—', status:'owned', link:'' },
+  { cat:'Underwear', item:'Underwear × 8 (quick-dry)', retailer:'Uniqlo / M&S', est:'£24–40', status:'considering', link:'' },
+  { cat:'Socks', item:'No-show socks × 4 — white', retailer:'Stance / Smartwool', est:'~£27', status:'considering', link:'https://uk.stance.com/products/icon-no-show-sock-3-pack-white' },
+  { cat:'Socks', item:'Ankle socks × 3 — white/grey', retailer:'Smartwool / any', est:'~£12', status:'considering', link:'' },
+  { cat:'Socks', item:'Ankle socks × 2 — navy (merino)', retailer:'M&S', est:'~£20', status:'considering', link:'https://www.marksandspencer.com/3pk-merino-wool-rich-ribbed-socks/p/clp23053677?color=NAVY' },
+  { cat:'Socks', item:'Ankle socks × 2 — stone/tan', retailer:'Smartwool / any', est:'~£8', status:'considering', link:'' },
+  { cat:'Footwear', item:'White leather slip-on trainers (Custom Vans)', retailer:'vans.com (custom)', est:'£95', status:'considering', link:'https://www.vans.com/en-gb/customize/slip-on' },
+  { cat:'Footwear', item:'Tan suede loafers', retailer:'Clarks / Mulo', est:'£75–130', status:'considering', link:'' },
+  { cat:'Hats', item:'Navy baseball cap (no logo)', retailer:'Carhartt WIP / New Era', est:'£28–30', status:'considering', link:'' },
+  { cat:'Hats', item:'Stone bucket hat', retailer:'Carhartt WIP / Patagonia', est:'£30–35', status:'considering', link:'' },
+  { cat:'Hats', item:'Panama hat (optional)', retailer:"Christys' / John Lewis", est:'£60–80', status:'considering', link:'' },
+  { cat:'Outerwear', item:'Overshirt — khaki (Rapanui organic cotton)', retailer:'rapanuiclothing.com', est:'£60', status:'considering', link:'https://rapanuiclothing.com/product/mens-overshirt' },
+  { cat:'Accessories', item:'Belt — Ashford Ridge Italian 35mm tan, brass buckle', retailer:'ashfordridge.co.uk', est:'~£36', status:'considering', link:'https://www.ashfordridge.co.uk/italian-35mm-real-leather-belt-with-brass-colour-buckle---tan-15603-p' },
+  { cat:'Luggage', item:'Samsonite Ecodiver 55cm Wheeled Backpack', retailer:'samsonite.co.uk', est:'£185', status:'considering', link:'https://www.samsonite.co.uk/ecodiver' },
+  { cat:'Luggage', item:'Day bag (Osprey Transporter Boarding Bag)', retailer:'osprey.com', est:'£85–100', status:'considering', link:'' },
+  { cat:'Luggage', item:'Packing cubes', retailer:'Amazon / Eagle Creek', est:'£15–25', status:'considering', link:'' },
+];
+
+function renderShoppingTable() {
+  const shopTable = document.getElementById('shopping-table');
+  if (!shopTable || shopTable.innerHTML.trim()) return; // already rendered
+  shoppingItems.forEach(item => {
+  const badge = item.status === 'owned'
+    ? '<span class="shop-status-badge s-owned">Owned</span>'
+    : item.status === 'bought'
+    ? '<span class="shop-status-badge s-bought">Bought</span>'
+    : '<span class="shop-status-badge s-considering">Considering</span>';
+  const link = item.link ? `<a href="${item.link}" target="_blank" rel="noopener" style="color:var(--saffron);font-size:12px;text-decoration:none">View ↗</a>` : '';
+  shopTable.innerHTML += `<tr>
+    <td style="color:var(--text-mute)">${item.cat}</td>
+    <td style="color:var(--text)">${item.item}</td>
+    <td>${item.est}</td>
+    <td>${badge}</td>
+    <td>${link}</td>
+  </tr>`;
+  });
+  // Render spend summary
+  const spendEl = document.getElementById('spend-summary');
+  if (spendEl && !spendEl.innerHTML.trim()) {
+    spendEl.innerHTML = `<div style="font-size:13px;font-weight:700;color:var(--text);margin-bottom:12px">Spend Summary</div>
+  <div class="spend-row"><span>Shirts (5)</span><span>~£110–175</span></div>
+  <div class="spend-row"><span>T-shirts (2)</span><span>~£20–30</span></div>
+  <div class="spend-row"><span>Layers</span><span>~£55</span></div>
+  <div class="spend-row"><span>Trousers (1 needed — 3 owned)</span><span>~£30–50</span></div>
+  <div class="spend-row"><span>Underwear & socks</span><span>~£60–75</span></div>
+  <div class="spend-row"><span>Footwear (2 pairs)</span><span>~£170–225</span></div>
+  <div class="spend-row"><span>Hats (2 + optional Panama)</span><span>~£58–145</span></div>
+  <div class="spend-row"><span>Outerwear (overshirt)</span><span>~£60</span></div>
+  <div class="spend-row"><span>Accessories (belt)</span><span>~£36</span></div>
+  <div class="spend-row"><span>Luggage (3 items)</span><span>~£285–310</span></div>
+  <div class="spend-row total"><span>Total (excl. Panama)</span><span>~£884–1,131</span></div>
+  <div style="font-size:11px;color:var(--text-mute);margin-top:10px">Spent so far: £0 · Everything is considering or owned</div>
+`;
+  }
+}
+
+// ── MAPS ──
+let mapsInitialised = false;
+function initMaps() {
+  if (mapsInitialised) return;
+  mapsInitialised = true;
+
+  // World map
+  const wmap = L.map('world-map', { zoomControl: true, scrollWheelZoom: false });
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '© <a href="https://www.openstreetmap.org/">OpenStreetMap</a>',
+    maxZoom: 10
+  }).addTo(wmap);
+
+  const wpts = [
+    { ll:[55.9533, -3.1883], label:'Edinburgh', color:'#E8973A' },
+    { ll:[51.4700, -0.4543], label:'London Heathrow', color:'#C4846A' },
+    { ll:[28.5562, 77.1000], label:'Delhi', color:'#4ABFBF' },
+  ];
+  wpts.forEach(pt => {
+    L.circleMarker(pt.ll, { radius:8, color:pt.color, fillColor:pt.color, fillOpacity:0.9, weight:2 })
+      .addTo(wmap).bindPopup(pt.label);
+    L.marker(pt.ll, { icon: L.divIcon({ className:'', html:`<div style="background:${pt.color};color:white;padding:2px 7px;border-radius:4px;font-size:11px;font-weight:700;white-space:nowrap;font-family:Inter,sans-serif">${pt.label}</div>`, iconAnchor:[0,-10] }) }).addTo(wmap);
+  });
+  L.polyline([[55.9533,-3.1883],[51.4700,-0.4543],[28.5562,77.1000]], { color:'#E8973A', weight:2, dashArray:'6,4', opacity:0.7 }).addTo(wmap);
+  wmap.fitBounds([[28.5562,77.1000],[55.9533,-3.1883]], { padding:[30,30] });
+
+  // India map
+  const imap = L.map('india-map', { zoomControl: true, scrollWheelZoom: false });
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '© <a href="https://www.openstreetmap.org/">OpenStreetMap</a>',
+    maxZoom: 12
+  }).addTo(imap);
+
+  const ipts = [
+    { ll:[28.4595, 77.0266], label:'Gurugram (Office)', color:'#4ABFBF', note:'NatWest Candor TechSpace' },
+    { ll:[28.6139, 77.2090], label:'Delhi', color:'#4ABFBF', note:'IGI Airport & Old Delhi' },
+    { ll:[26.9124, 75.7873], label:'Jaipur', color:'#E8973A', note:'Umaid Mahal · 24–25 Oct' },
+    { ll:[24.5854, 73.7125], label:'Udaipur', color:'#5CB88A', note:'Kotra Haveli · 26–27 Oct' },
+    { ll:[28.5517, 77.1200], label:'Delhi Aerocity', color:'#C4846A', note:'ibis · 28 Oct' },
+  ];
+  ipts.forEach(pt => {
+    L.circleMarker(pt.ll, { radius:9, color:pt.color, fillColor:pt.color, fillOpacity:0.9, weight:2 })
+      .addTo(imap).bindPopup(`<strong>${pt.label}</strong><br>${pt.note}`);
+    L.marker(pt.ll, { icon: L.divIcon({ className:'', html:`<div style="background:${pt.color};color:white;padding:2px 7px;border-radius:4px;font-size:11px;font-weight:700;white-space:nowrap;font-family:Inter,sans-serif">${pt.label}</div>`, iconAnchor:[0,-12] }) }).addTo(imap);
+  });
+
+  // Route lines — road/rail (dashed) and air (dotted)
+  L.polyline([[28.4595,77.0266],[26.9124,75.7873]], { color:'#E8973A', weight:2, dashArray:'8,4', opacity:0.6 }).addTo(imap); // Gurugram→Jaipur road
+  L.polyline([[26.9124,75.7873],[24.5854,73.7125]], { color:'#5CB88A', weight:2, dashArray:'3,5', opacity:0.7 }).addTo(imap); // Jaipur→Udaipur flight
+  L.polyline([[24.5854,73.7125],[28.5517,77.1200]], { color:'#C4846A', weight:2, dashArray:'3,5', opacity:0.7 }).addTo(imap); // Udaipur→Aerocity flight
+  imap.fitBounds([[24.5854,73.7125],[28.6139,77.2090]], { padding:[40,40] });
+}
+</script>
+</body>
+</html>
