@@ -162,7 +162,7 @@ a{color:var(--teal)}
   <div class="top">
     <div class="top-inner">
       <div class="top-row">
-        <h1>Dad in India 🇮🇳</h1>
+        <div><a id="back-link" href="#" style="display:none;font-size:13px;font-weight:600;color:var(--teal);text-decoration:none">← Dad’s trip page</a><h1>Dad in India 🇮🇳</h1></div>
         <button class="me" id="me-btn" title="Change who you are"></button>
       </div>
       <div class="clocks">
@@ -563,6 +563,7 @@ function showApp(){
     addEventListener('pagehide', mark); document.addEventListener('visibilitychange', ()=>{ if(document.hidden) mark(); });
   } else render();
 }
+try { const r = document.referrer && new URL(document.referrer); if (r && r.origin === location.origin && !/journal\.html/.test(r.pathname)) { const a=$('back-link'); a.href = r.pathname; a.style.display='inline-block'; store.set('dij_back', r.pathname); } else if (store.get('dij_back')) { const a=$('back-link'); a.href = store.get('dij_back'); a.style.display='inline-block'; } } catch(e) {}
 (async () => { if (await tryStored()) afterUnlock(); else $('pass').focus(); })();
 </script>
 </body>
