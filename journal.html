@@ -126,6 +126,10 @@ a{color:var(--teal)}
 #lb img{max-width:100%;max-height:100%;border-radius:8px}
 #lb button{position:fixed;top:14px;right:14px;background:#fff;border:none;border-radius:50%;width:40px;height:40px;font-size:18px;cursor:pointer}
 
+body.guest .compose-btn, body.guest .reply-f, body.guest .post-x, body.guest .composer{display:none!important}
+body.guest .rx{pointer-events:none}
+body.guest .rx.zero{display:none}
+.guest-note{display:none;background:#fff;border-radius:14px;padding:10px 14px;margin-top:10px;font-size:14px;color:var(--ink2);text-align:center;box-shadow:var(--shadow)}
 .foot{text-align:center;color:var(--mute);font-size:13px;margin-top:24px;line-height:1.6}
 .foot button{background:none;border:none;color:var(--teal);cursor:pointer;font-size:13px;text-decoration:underline}
 .sync{position:fixed;bottom:12px;left:50%;transform:translateX(-50%);background:var(--ink);color:#fff;font-size:12px;border-radius:20px;padding:6px 12px;opacity:0;transition:opacity .3s;pointer-events:none}
@@ -171,6 +175,7 @@ a{color:var(--teal)}
       </div>
       <div class="now"><div class="e" id="now-e">📍</div><div><div class="k">Dad is probably…</div><div class="h" id="now-h"></div></div></div>
       <div class="sleeps" id="sleeps"></div>
+      <div class="guest-note" id="guest-note">👀 You’re visiting as a guest — you can read everything and see the photos, but only Dad and the boys can post.</div>
     </div>
   </div>
   <div class="wrap">
@@ -272,15 +277,18 @@ const LEAVE = new Date('2026-10-17T07:40:00+01:00');
 
 // ── CRYPTO (AES-GCM, key from secret words via PBKDF2) ──
 const SALT = 'dad-in-india-2026-journal-v1';
+const GSALT = 'dad-in-india-2026-guest-v1';
+const GUEST_WRAP = { iv:'3gKSZku07cVBX3PV', ct:'61Q8dNmIqc75+PTiEJ0fJZiBTnNcU4OkqC+yys49znkMml5MeaHr/o7FpkXyBLz//J9wqNBJd4eOgKw73KQ=' };
+let GUEST = false;
 const VERIFY = { iv:'VNo8Fodj5pMr5bta', ct:'q7+tZRqgGVkgNXRVAoTSlILlZkg=' };
 const te = new TextEncoder(), td = new TextDecoder();
 const b64e = buf => { const u = new Uint8Array(buf); let s=''; for (let i=0;i<u.length;i+=0x8000) s+=String.fromCharCode(...u.subarray(i,i+0x8000)); return btoa(s); };
 const b64d = s => Uint8Array.from(atob(s), c=>c.charCodeAt(0));
 const norm = p => p.toLowerCase().replace(/[^a-z]/g,'');
 let KEY = null;
-async function deriveKey(pass){
+async function deriveKey(pass, salt=SALT){
   const base = await crypto.subtle.importKey('raw', te.encode(norm(pass)), 'PBKDF2', false, ['deriveKey']);
-  return crypto.subtle.deriveKey({name:'PBKDF2', salt:te.encode(SALT), iterations:600000, hash:'SHA-256'}, base, {name:'AES-GCM', length:256}, true, ['encrypt','decrypt']);
+  return crypto.subtle.deriveKey({name:'PBKDF2', salt:te.encode(salt), iterations:600000, hash:'SHA-256'}, base, {name:'AES-GCM', length:256}, true, ['encrypt','decrypt']);
 }
 async function enc(obj){
   const iv = crypto.getRandomValues(new Uint8Array(12));
@@ -301,10 +309,18 @@ $('gate-form').addEventListener('submit', async ev => {
   ev.preventDefault();
   const btn = $('gate-btn'); btn.disabled = true; btn.textContent = 'Checking…'; $('gate-err').textContent = '';
   try {
-    const k = await deriveKey($('pass').value);
-    await useKey(k);
+    const pass = $('pass').value;
+    const [kf, kg] = await Promise.all([deriveKey(pass), deriveKey(pass, GSALT)]);
+    let k = kf, mode = 'family';
+    try { await useKey(kf); }
+    catch(e) {
+      const raw0 = await dec(GUEST_WRAP, kg);
+      k = await crypto.subtle.importKey('raw', b64d(raw0), 'AES-GCM', true, ['encrypt','decrypt']);
+      await useKey(k); mode = 'guest';
+    }
+    GUEST = mode === 'guest';
     const raw = b64e(await crypto.subtle.exportKey('raw', k));
-    if ($('remember').checked) store.set('dij_key', raw); else sess.set('dij_key', raw);
+    if ($('remember').checked) { store.set('dij_key', raw); store.set('dij_mode', mode); } else { sess.set('dij_key', raw); sess.set('dij_mode', mode); }
     $('pass').value = '';
     afterUnlock();
   } catch(e) { $('gate-err').textContent = 'Hmm, those aren’t the secret words. Try again!'; }
@@ -313,10 +329,10 @@ $('gate-form').addEventListener('submit', async ev => {
 async function tryStored(){
   const raw = store.get('dij_key') || sess.get('dij_key');
   if (!raw) return false;
-  try { await useKey(await crypto.subtle.importKey('raw', b64d(raw), 'AES-GCM', true, ['encrypt','decrypt'])); return true; }
+  try { await useKey(await crypto.subtle.importKey('raw', b64d(raw), 'AES-GCM', true, ['encrypt','decrypt'])); GUEST = (store.get('dij_mode') || sess.get('dij_mode')) === 'guest'; return true; }
   catch(e) { store.del('dij_key'); return false; }
 }
-window.forgetDevice = () => { store.del('dij_key'); store.del('dij_me'); try{sessionStorage.clear()}catch(e){} location.reload(); };
+window.forgetDevice = () => { store.del('dij_key'); store.del('dij_me'); store.del('dij_mode'); try{sessionStorage.clear()}catch(e){} location.reload(); };
 
 // ── WHO ──
 let ME = store.get('dij_me');
@@ -325,8 +341,8 @@ function showWho(){
   $('who-grid').innerHTML = Object.entries(PEOPLE).map(([n,p])=>`<button class="who-btn" data-n="${n}" style="background:${p.bg}"><span class="e">${p.e}</span><span class="n">${n}</span></button>`).join('');
   $('who-grid').querySelectorAll('button').forEach(b=>b.onclick=()=>{ ME=b.dataset.n; store.set('dij_me',ME); showApp(); });
 }
-function afterUnlock(){ if (!ME || !PEOPLE[ME]) showWho(); else showApp(); }
-$('me-btn').onclick = showWho;
+function afterUnlock(){ if (GUEST) { ME = 'Guest'; document.body.classList.add('guest'); showApp(); } else if (!ME || !PEOPLE[ME]) showWho(); else showApp(); }
+$('me-btn').onclick = () => { if (!GUEST) showWho(); };
 
 // ── HELPERS ──
 const esc = s => String(s??'').replace(/[&<>"']/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
@@ -422,7 +438,7 @@ function postHTML(p){
   const rs = replies.filter(r=>r.post===p.id && !hidden.has(r.id));
   const texts = rs.filter(r=>r.text);
   const rx = REACTS.map(e=>{ const who = rs.filter(r=>r.react===e).map(r=>r.author); const uniq=[...new Set(who)];
-    return `<button class="rx ${uniq.includes(ME)?'on':''}" onclick="react('${p.id}','${e}')" title="${esc(uniq.join(', '))}">${e}${uniq.length?' '+uniq.length:''}</button>`; }).join('');
+    return `<button class="rx ${uniq.includes(ME)?'on':''} ${uniq.length?'':'zero'}" onclick="react('${p.id}','${e}')" title="${esc(uniq.join(', '))}">${e}${uniq.length?' '+uniq.length:''}</button>`; }).join('');
   const photos = (p.photos||[]);
   return `<div class="post">
     <div class="post-h">${av(p.author)}<div><div class="post-n" style="color:${(PEOPLE[p.author]||{}).c||'inherit'}">${esc(p.author)}</div>
@@ -457,18 +473,18 @@ window.closeLb = () => { $('lb').style.display='none'; $('lb-img').src=''; };
 $('lb').addEventListener('click', e=>{ if(e.target.id==='lb') closeLb(); });
 
 // ── ACTIONS ──
-window.react = async (postId, e) => {
+window.react = async (postId, e) => { if (GUEST) return;
   const mine = replies.some(r=>r.post===postId && r.react===e && r.author===ME && !hidden.has(r.id));
   if (mine) { const r = replies.find(r=>r.post===postId && r.react===e && r.author===ME && !hidden.has(r.id)); return hideItem(r.id,'react',true); }
   await addDoc(collection(db,'journal_replies'), { ts:serverTimestamp(), enc: await enc({ post:postId, author:ME, react:e }) });
 };
-window.sendReply = async (postId, form) => {
+window.sendReply = async (postId, form) => { if (GUEST) return;
   const input = form.querySelector('input'); const text = input.value.trim(); if (!text) return;
   input.value = '';
   try { await addDoc(collection(db,'journal_replies'), { ts:serverTimestamp(), enc: await enc({ post:postId, author:ME, text }) }); }
   catch(e) { input.value = text; toast('Couldn’t send — try again'); }
 };
-window.hideItem = async (id, kind, quiet) => {
+window.hideItem = async (id, kind, quiet) => { if (GUEST) return;
   if (!quiet && !confirm(kind==='post' ? 'Remove this post for everyone?' : 'Remove this reply?')) return;
   hidden.add(id); render();
   await addDoc(collection(db,'journal_hidden'), { ts:serverTimestamp(), enc: await enc({ target:id, by:ME }) });
@@ -476,7 +492,7 @@ window.hideItem = async (id, kind, quiet) => {
 
 // ── COMPOSER ──
 const composer = { day:null, files:[] };
-window.openComposer = k => { composer.day = k; composer.files = []; mountComposer(); };
+window.openComposer = k => { if (GUEST) return; composer.day = k; composer.files = []; mountComposer(); };
 function mountComposer(){
   document.querySelectorAll('[id^="cmp-"]').forEach(el=>el.innerHTML='');
   document.querySelectorAll('.compose-btn').forEach(b=>b.style.display='');
@@ -525,7 +541,7 @@ async function shrink(file){
     throw new Error('too big');
   } finally { URL.revokeObjectURL(url); }
 }
-window.submitPost = async () => {
+window.submitPost = async () => { if (GUEST) return;
   const text = ($('c-text').value||'').trim();
   let video = ($('c-vid').value||'').trim();
   if (video && !/^https?:\/\//i.test(video)) video = 'https://' + video;
@@ -551,7 +567,8 @@ window.submitPost = async () => {
 // ── START ──
 function showApp(){
   $('gate').style.display='none'; $('who').style.display='none'; $('app').style.display='block';
-  $('me-btn').innerHTML = `<span class="e">${PEOPLE[ME].e}</span>${ME}`;
+  $('me-btn').innerHTML = GUEST ? '<span class="e">👀</span>Guest' : `<span class="e">${PEOPLE[ME].e}</span>${ME}`;
+  if (GUEST) { $('me-btn').title = 'Guest view — read only'; $('guest-note').style.display = 'block'; }
   if (!showApp.started) {
     showApp.started = true;
     lastSeen = +(store.get('dij_seen_'+ME) || 0);
