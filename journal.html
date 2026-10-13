@@ -60,6 +60,17 @@ a{color:var(--teal)}
 .now .e{font-size:34px}
 .now .k{font-size:12px;font-weight:700;color:var(--teal);text-transform:uppercase;letter-spacing:.06em}
 .now .h{font-family:Fredoka,Inter,sans-serif;font-size:20px;font-weight:600}
+.wxj{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px}
+.wxj-c{background:rgba(255,255,255,.75);border-radius:18px;padding:10px 12px;min-width:0}
+.wxj-c .l{font-size:12px;font-weight:700;color:var(--ink2);text-transform:uppercase;letter-spacing:.06em}
+.wxj-now{display:flex;align-items:center;gap:8px;margin-top:4px}
+.wxj-now .i{font-size:30px}
+.wxj-now .t{font-family:Fredoka,Inter,sans-serif;font-size:26px;font-weight:600}
+.wxj-now .d{font-size:12px;color:var(--ink2)}
+.wxj-days{display:grid;grid-template-columns:repeat(5,1fr);gap:2px;margin-top:6px;text-align:center;font-size:11px;color:var(--ink2)}
+.wxj-days b{display:block;font-size:12px;color:var(--ink)}
+.wxj-days span{font-size:16px;display:block}
+@media(max-width:420px){.wxj-now .t{font-size:22px}.wxj-days{font-size:10px}}
 .sleeps{margin-top:10px;text-align:center;font-family:Fredoka,Inter,sans-serif;font-size:18px;color:var(--saffron);font-weight:600}
 
 /* days */
@@ -173,6 +184,10 @@ body.guest .rx.zero{display:none}
         <div class="clock"><div class="l">🏴󠁧󠁢󠁳󠁣󠁴󠁿 Time at home</div><div class="t" id="t-uk">--:--</div><div class="s" id="s-uk"></div></div>
         <div class="clock"><div class="l">🇮🇳 Time for Dad</div><div class="t" id="t-in">--:--</div><div class="s" id="s-in"></div></div>
       </div>
+      <div class="wxj">
+        <div class="wxj-c"><div class="l">🏴󠁧󠁢󠁳󠁣󠁴󠁿 Weather at home</div><div id="wxj-home" class="wxj-b">…</div></div>
+        <div class="wxj-c"><div class="l" id="wxj-dad-l">🇮🇳 Weather for Dad</div><div id="wxj-dad" class="wxj-b">…</div></div>
+      </div>
       <div class="now"><div class="e" id="now-e">📍</div><div><div class="k">Dad is probably…</div><div class="h" id="now-h"></div></div></div>
       <div class="sleeps" id="sleeps"></div>
       <div class="guest-note" id="guest-note">👀 You’re visiting as a guest — you can read everything and see the photos, but only Dad and the boys can post.</div>
@@ -215,7 +230,7 @@ const PEOPLE = {
 const DAYS = [
   { k:'pre', d:'Before the trip', e:'🎒', t:'Getting ready', plan:'Dad is packing his bag for India! Ask him anything you want to know before he goes.', fact:'India is about 7,500 km from Scotland — that’s like driving from Edinburgh to London 12 times!' },
   { k:'2026-10-17', d:'Sat 17 Oct', e:'✈️', t:'Flying to India', plan:'A little plane from Edinburgh to London, then a big plane all the way to Delhi. Dad lands just before midnight India time.', fact:'The flight to Delhi takes about <b>8½ hours</b> — about as long as a whole school day plus tea time!' },
-  { k:'2026-10-18', d:'Sun 18 Oct', e:'🏨', t:'Settling in', plan:'Dad wakes up in Gurugram, a big city next to Delhi, and has a rest after the long journey.', fact:'India is <b>4½ hours ahead</b> of Scotland right now, so Dad’s lunch is your breakfast!' },
+  { k:'2026-10-18', d:'Sun 18 Oct', e:'🏨', t:'Settling in', plan:'Dad wakes up in Gurugram, a big city next to Delhi, and has a rest after the long journey. Maybe: if Dad isn’t too sleepy, he’ll try to find somewhere to watch Leeds play Man United at 6:30pm India time (2pm at home)! ⚽', fact:'India is <b>4½ hours ahead</b> of Scotland right now, so Dad’s lunch is your breakfast!' },
   { k:'2026-10-19', d:'Mon 19 Oct', e:'🎆', t:'Office + Dussehra festival', plan:'Dad’s first day at the NatWest office in India. In the evening it’s Dussehra — a festival where giant statues of a demon king are set on fire with fireworks!', fact:'Dussehra celebrates <b>good winning over bad</b>. Some of the statues are taller than a house!' },
   { k:'2026-10-20', d:'Tue 20 Oct', e:'💼', t:'Office day', plan:'Working with Dad’s team in India.', fact:'Lots of people in India eat with their <b>right hand</b> — no knife and fork needed!' },
   { k:'2026-10-21', d:'Wed 21 Oct', e:'💼', t:'Office day', plan:'Another day at the office in Gurugram.', fact:'India has more than <b>1.4 billion</b> people — the most of any country in the world.' },
@@ -356,6 +371,28 @@ function todayKey(){
   if (now > new Date('2026-10-30T00:00:00+00:00')) return 'post';
   const ist = fmt(now,'Asia/Kolkata',{year:'numeric',month:'2-digit',day:'2-digit'}).split('/').reverse().join('-');
   return DAYS.some(d=>d.k===ist) ? ist : 'post';
+}
+
+
+// ── WEATHER ──
+const WX_CITIES = { home:['Edinburgh',55.9533,-3.1883], gurugram:['Gurugram',28.4595,77.0266], jaipur:['Jaipur',26.9124,75.7873], udaipur:['Udaipur',24.5854,73.7125], delhi:['Delhi',28.5562,77.1000] };
+const wxKid = c => c===0?['☀️','Sunny']:c<=2?['🌤️','A bit cloudy']:c===3?['☁️','Cloudy']:c<=48?['🌫️','Foggy']:c<=57?['🌦️','Drizzly']:c<=67?['🌧️','Rainy']:c<=77?['❄️','Snowy']:c<=82?['🌧️','Showers']:c<=86?['🌨️','Snow showers']:['⛈️','Thunder!'];
+function dadCity(){ const d = new Intl.DateTimeFormat('en-CA',{timeZone:'Asia/Kolkata'}).format(new Date()); return d<'2026-10-23'?'gurugram':d<'2026-10-25'?'jaipur':d<'2026-10-28'?'udaipur':'delhi'; }
+async function wxGet(key){
+  const ck='wxj_'+key; try{ const c=JSON.parse(localStorage.getItem(ck)||'null'); if(c&&Date.now()-c.t<1800000) return c.d; }catch(e){}
+  const [,lat,lon]=WX_CITIES[key];
+  const r=await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m,weather_code&daily=weather_code,temperature_2m_max,temperature_2m_min&timezone=auto&forecast_days=5`);
+  const d=await r.json(); try{localStorage.setItem(ck,JSON.stringify({t:Date.now(),d}))}catch(e){} return d;
+}
+async function wxRender(){
+  for (const [el,key] of [['wxj-home','home'],['wxj-dad',dadCity()]]) {
+    try {
+      const w = await wxGet(key), [i,l] = wxKid(w.current.weather_code);
+      const days = w.daily.time.map((t,n)=>`<div><b>${n===0?'Today':new Date(t+'T12:00:00Z').toLocaleDateString('en-GB',{weekday:'short',timeZone:'UTC'})}</b><span>${wxKid(w.daily.weather_code[n])[0]}</span>${Math.round(w.daily.temperature_2m_max[n])}°</div>`).join('');
+      $(el).innerHTML = `<div class="wxj-now"><div class="i">${i}</div><div><div class="t">${Math.round(w.current.temperature_2m)}°C</div><div class="d">${l}</div></div></div><div class="wxj-days">${days}</div>`;
+      if (el==='wxj-dad') $('wxj-dad-l').textContent = '🇮🇳 Weather in ' + WX_CITIES[key][0];
+    } catch(e) { $(el).innerHTML = '<div class="d" style="font-size:12px;color:var(--ink2)">Can’t get the weather right now</div>'; }
+  }
 }
 
 // ── HEADER ──
@@ -574,6 +611,7 @@ function showApp(){
     lastSeen = +(store.get('dij_seen_'+ME) || 0);
     const tk = todayKey(); openDays.add(tk);
     tick(); setInterval(tick, 30000);
+    wxRender(); setInterval(wxRender, 1800000);
     listen();
     setTimeout(()=>document.getElementById('day-'+tk)?.scrollIntoView({behavior:'smooth',block:'start'}), 900);
     const mark = () => store.set('dij_seen_'+ME, String(Date.now()));
