@@ -229,7 +229,7 @@ const PEOPLE = {
 // ── DAYS (kid-friendly itinerary) ──
 const DAYS = [
   { k:'pre', d:'Before the trip', e:'🎒', t:'Getting ready', plan:'Dad is packing his bag for India! Ask him anything you want to know before he goes.', fact:'India is about 7,500 km from Scotland — that’s like driving from Edinburgh to London 12 times!' },
-  { k:'2026-10-17', d:'Sat 17 Oct', e:'✈️', t:'Flying to India', plan:'A little plane from Edinburgh to London, then a big plane all the way to Delhi. Dad lands just before midnight India time.', fact:'The flight to Delhi takes about <b>8½ hours</b> — about as long as a whole school day plus tea time!' },
+  { k:'2026-10-17', d:'Sat 17 Oct', e:'✈️', t:'Flying to India', plan:'An early bus to the airport at 5:29am, then a little plane from Edinburgh to London, then a big plane all the way to Delhi. Dad lands just before midnight India time.', fact:'The flight to Delhi takes about <b>8½ hours</b> — about as long as a whole school day plus tea time!' },
   { k:'2026-10-18', d:'Sun 18 Oct', e:'🏨', t:'Settling in', plan:'Dad wakes up in Gurugram, a big city next to Delhi, and has a rest after the long journey. Maybe: if Dad isn’t too sleepy, he’ll try to find somewhere to watch Leeds play Man United at 6:30pm India time (2pm at home)! ⚽', fact:'India is <b>4½ hours ahead</b> of Scotland right now, so Dad’s lunch is your breakfast!' },
   { k:'2026-10-19', d:'Mon 19 Oct', e:'🎆', t:'Office + Dussehra festival', plan:'Dad’s first day at the NatWest office in India. In the evening it’s Dussehra — a festival where giant statues of a demon king are set on fire with fireworks!', fact:'Dussehra celebrates <b>good winning over bad</b>. Some of the statues are taller than a house!' },
   { k:'2026-10-20', d:'Tue 20 Oct', e:'💼', t:'Office day', plan:'Working with Dad’s team in India.', fact:'Lots of people in India eat with their <b>right hand</b> — no knife and fork needed!' },
@@ -241,14 +241,15 @@ const DAYS = [
   { k:'2026-10-26', d:'Mon 26 Oct', e:'⛵', t:'Palace and a boat trip', plan:'Visiting the huge City Palace and taking a boat across Lake Pichola.', fact:'There’s a palace sitting right in the <b>middle of Lake Pichola</b> — it was in a James Bond film!' },
   { k:'2026-10-27', d:'Tue 27 Oct', e:'🌅', t:'Monsoon Palace', plan:'Fateh Sagar Lake and the Monsoon Palace on top of a mountain, just in time for sunset.', fact:'The Monsoon Palace was built so the king could watch the <b>rain clouds</b> roll in.' },
   { k:'2026-10-28', d:'Wed 28 Oct', e:'🛬', t:'Back to Delhi', plan:'A morning flight back to Delhi. Dad’s last night is in a hotel right next to the airport.', fact:'Delhi has one of the biggest underground railways in the world — over <b>390 km</b> of track!' },
-  { k:'2026-10-29', d:'Thu 29 Oct', e:'🏡', t:'Coming home!', plan:'Big plane to London, little plane to Edinburgh. Dad lands at 6:35pm — hugs incoming!', fact:'Flying home takes a bit longer because the plane flies into the wind.' },
+  { k:'2026-10-29', d:'Thu 29 Oct', e:'🏡', t:'Coming home!', plan:'Big plane to London, little plane to Edinburgh. Dad lands at 6:35pm and gets the bus home, back by about 8pm — hugs incoming!', fact:'Flying home takes a bit longer because the plane flies into the wind.' },
   { k:'post', d:'After the trip', e:'💬', t:'Back home', plan:'Anything else to share or remember from the trip.', fact:'' },
 ];
 
 // ── WHERE IS DAD (UTC instants) ──
 const WHERE = [
   ['2000-01-01T00:00:00Z','🏡','At home in Scotland'],
-  ['2026-10-17T05:30:00+01:00','🚗','Going to the airport'],
+  ['2026-10-17T05:29:00+01:00','🚌','On the bus to the airport'],
+  ['2026-10-17T05:53:00+01:00','🛫','At Edinburgh Airport'],
   ['2026-10-17T07:40:00+01:00','✈️','Flying to London'],
   ['2026-10-17T09:15:00+01:00','🛫','At London Heathrow'],
   ['2026-10-17T10:20:00+01:00','✈️','Flying to India!'],
@@ -285,10 +286,12 @@ const WHERE = [
   ['2026-10-29T10:50:00+05:30','✈️','Flying home to London'],
   ['2026-10-29T15:15:00+00:00','🛫','At London Heathrow'],
   ['2026-10-29T17:05:00+00:00','✈️','Flying to Edinburgh'],
-  ['2026-10-29T18:35:00+00:00','🤗','Home! Big hugs!'],
+  ['2026-10-29T18:35:00+00:00','🛬','Landed in Edinburgh!'],
+  ['2026-10-29T19:37:00+00:00','🚌','On the bus home'],
+  ['2026-10-29T20:05:00+00:00','🤗','Home! Big hugs!'],
 ].map(([a,e,t])=>({at:new Date(a),e,t}));
-const HOME = new Date('2026-10-29T18:35:00+00:00');
-const LEAVE = new Date('2026-10-17T07:40:00+01:00');
+const HOME = new Date('2026-10-29T20:05:00+00:00');
+const LEAVE = new Date('2026-10-17T05:29:00+01:00');
 
 // ── CRYPTO (AES-GCM, key from secret words via PBKDF2) ──
 const SALT = 'dad-in-india-2026-journal-v1';
