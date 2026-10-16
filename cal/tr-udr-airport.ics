@@ -1,0 +1,19 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//India 2026//Trip//EN
+CALSCALE:GREGORIAN
+BEGIN:VEVENT
+UID:tr-udr-airport@india2026-tim
+DTSTAMP:20261016T170000Z
+DTSTART:20261028T024500Z
+DTEND:20261028T033000Z
+SUMMARY:🚗 Leave Barliyas Heritage for Udaipur airport
+LOCATION:Barliyas Heritage Boutique Hotel\, Haridas ji Ki Magri\, Udaipur 313001
+DESCRIPTION:~45 mins to Maharana Pratap Airport. AI9696 departs 10:10; Air India Express counter closes 09:10.
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Reminder
+TRIGGER:-PT30M
+END:VALARM
+END:VEVENT
+END:VCALENDAR

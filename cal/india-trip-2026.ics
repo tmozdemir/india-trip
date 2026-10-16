@@ -1,0 +1,209 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//India 2026//Trip//EN
+CALSCALE:GREGORIAN
+BEGIN:VEVENT
+UID:ember-out@india2026-tim
+DTSTAMP:20261016T170000Z
+DTSTART:20261017T042900Z
+DTEND:20261017T045300Z
+SUMMARY:🚌 Ember E19 to Edinburgh Airport
+LOCATION:East Calder\, Calderwood (Eastbound stop)
+DESCRIPTION:Booked. Show the ticket on your phone. Arrives Edinburgh Airport Stop E (outside terminal) 05:53. Track the bus at ember.to.
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Reminder
+TRIGGER:-PT45M
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:ember-back@india2026-tim
+DTSTAMP:20261016T170000Z
+DTSTART:20261029T193700Z
+DTEND:20261029T200200Z
+SUMMARY:🚌 Ember E19 home from Edinburgh Airport
+LOCATION:Edinburgh Airport\, Stop E (outside terminal)
+DESCRIPTION:Booked. Show the ticket on your phone. Arrives East Calder\, Calderwood (Westbound) 20:02. If BA1456 is late\, change the time at ember.to.
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Reminder
+TRIGGER:-PT30M
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:ba1465@india2026-tim
+DTSTAMP:20261016T170000Z
+DTSTART:20261017T064000Z
+DTEND:20261017T081500Z
+SUMMARY:✈ BA1465 Edinburgh → London Heathrow
+LOCATION:Edinburgh Airport (EDI)
+DESCRIPTION:Seat 4A. BCD ref 79QPUU · locator X3YL6I. Connect at T5 to BA143.
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Reminder
+TRIGGER:-PT60M
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:ba143@india2026-tim
+DTSTAMP:20261016T170000Z
+DTSTART:20261017T092000Z
+DTEND:20261017T180500Z
+SUMMARY:✈ BA143 London Heathrow → Delhi
+LOCATION:London Heathrow T5
+DESCRIPTION:Seat 11A\, Business. Arrives Delhi IGI T3 ~23:35 IST. BCD ref 79QPUU · locator X3YL6I.
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Reminder
+TRIGGER:-PT120M
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:ba256@india2026-tim
+DTSTAMP:20261016T170000Z
+DTSTART:20261029T052000Z
+DTEND:20261029T151500Z
+SUMMARY:✈ BA256 Delhi → London Heathrow
+LOCATION:Delhi Indira Gandhi Airport T3
+DESCRIPTION:Seat 7A\, Business. Arrives LHR T5 15:15. Galleries Club lounge before BA1456. Locator X3YL6I.
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Reminder
+TRIGGER:-PT120M
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:ba1456@india2026-tim
+DTSTAMP:20261016T170000Z
+DTSTART:20261029T170500Z
+DTEND:20261029T183500Z
+SUMMARY:✈ BA1456 London Heathrow → Edinburgh
+LOCATION:London Heathrow T5
+DESCRIPTION:Seat 4A. Arrives Edinburgh 18:35. Locator X3YL6I.
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Reminder
+TRIGGER:-PT120M
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:6e7181@india2026-tim
+DTSTAMP:20261016T170000Z
+DTSTART:20261025T112500Z
+DTEND:20261025T122000Z
+SUMMARY:✈ IndiGo 6E 7181 Jaipur → Udaipur
+LOCATION:Jaipur International Airport\, Terminal 2
+DESCRIPTION:With Rahul. Bag drop closes 15:55. Cabin 7kg · checked 15kg. Booking ref in Tim section.
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Reminder
+TRIGGER:-PT120M
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:ai9696@india2026-tim
+DTSTAMP:20261016T170000Z
+DTSTART:20261028T044000Z
+DTEND:20261028T061000Z
+SUMMARY:✈ Air India AI9696 Udaipur → Delhi
+LOCATION:Maharana Pratap Airport\, Udaipur (UDR)
+DESCRIPTION:Operated by Air India Express. No web check-in — use the Air India Express counter (closes 09:10). Arrives Delhi T1. 15kg checked. Booking ref in Tim section.
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Reminder
+TRIGGER:-PT120M
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:leeds@india2026-tim
+DTSTAMP:20261016T170000Z
+DTSTART:20261018T130000Z
+DTEND:20261018T150000Z
+SUMMARY:⚽ (Optional) Leeds United v Man Utd
+LOCATION:Manhattan Bar Exchange & Brewery\, Ambience Mall\, Gurugram
+DESCRIPTION:Premier League at Elland Road (14:00 UK). On Star Sports / JioHotstar in India. Alternatives: Cyber Hub — Gurgaon Pub Exchange\, Soi 7\, Sutra Gastropub. Call ahead for the Leeds game with sound. Marching On Together!
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Reminder
+TRIGGER:-PT60M
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:tr-jai-airport@india2026-tim
+DTSTAMP:20261016T170000Z
+DTSTART:20261025T091500Z
+DTEND:20261025T101500Z
+SUMMARY:🚗 Leave Umaid Haveli for Jaipur airport
+LOCATION:Umaid Haveli\, RIICO Kukas\, NH8 Delhi–Jaipur Highway\, Amber\, Jaipur 302028
+DESCRIPTION:~1 hr to Terminal 2. IndiGo 6E 7181 departs 16:55; bag drop closes 15:55.
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Reminder
+TRIGGER:-PT30M
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:tr-udr-airport@india2026-tim
+DTSTAMP:20261016T170000Z
+DTSTART:20261028T024500Z
+DTEND:20261028T033000Z
+SUMMARY:🚗 Leave Barliyas Heritage for Udaipur airport
+LOCATION:Barliyas Heritage Boutique Hotel\, Haridas ji Ki Magri\, Udaipur 313001
+DESCRIPTION:~45 mins to Maharana Pratap Airport. AI9696 departs 10:10; Air India Express counter closes 09:10.
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Reminder
+TRIGGER:-PT30M
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:tr-premier-t3@india2026-tim
+DTSTAMP:20261016T170000Z
+DTSTART:20261029T020000Z
+DTEND:20261029T021500Z
+SUMMARY:🚗 Premier Inn free airport drop → Delhi T3
+LOCATION:Airport Premier Inn\, Plot 18\, NH-48\, Mahipalpur\, New Delhi 110031
+DESCRIPTION:Book the free drop at reception the night before. BA256 departs 10:50.
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Reminder
+TRIGGER:-PT30M
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:ht-leela@india2026-tim
+DTSTAMP:20261016T170000Z
+DTSTART;VALUE=DATE:20261017
+DTEND;VALUE=DATE:20261024
+SUMMARY:🏨 The Leela Ambience Gurugram
+LOCATION:Ambience Island\, NH48\, Gurugram\, Haryana
+DESCRIPTION:Work hotel (covered by NatWest). Late arrival Sat 17 Oct after BA143. Check out Fri 23 Oct morning.
+END:VEVENT
+BEGIN:VEVENT
+UID:ht-jaipur@india2026-tim
+DTSTAMP:20261016T170000Z
+DTSTART;VALUE=DATE:20261023
+DTEND;VALUE=DATE:20261026
+SUMMARY:🏨 Umaid Haveli\, Jaipur
+LOCATION:Umaid Haveli\, RIICO Kukas\, NH8 Delhi–Jaipur Highway\, Amber\, Jaipur 302028
+DESCRIPTION:Royal Deluxe · breakfast incl. · check-in from 13:00\, check-out Sun 12:00 · +91 1426 400106 · free Rajasthani dance & music show 19:00–21:00. Booked by Rahul.
+END:VEVENT
+BEGIN:VEVENT
+UID:ht-udaipur@india2026-tim
+DTSTAMP:20261016T170000Z
+DTSTART;VALUE=DATE:20261025
+DTEND;VALUE=DATE:20261029
+SUMMARY:🏨 Barliyas Heritage Boutique Hotel\, Udaipur
+LOCATION:Barliyas Heritage Boutique Hotel\, Haridas ji Ki Magri\, Shavri Colony\, Udaipur 313001
+DESCRIPTION:Near Lake Pichola. 3 nights. Booked by Rahul.
+END:VEVENT
+BEGIN:VEVENT
+UID:ht-delhi@india2026-tim
+DTSTAMP:20261016T170000Z
+DTSTART;VALUE=DATE:20261028
+DTEND;VALUE=DATE:20261030
+SUMMARY:🏨 Airport Premier Inn\, Delhi
+LOCATION:Hotel Premier Inn\, Plot 18\, National Highway\, Mahipalpur\, New Delhi 110031
+DESCRIPTION:Deluxe Double\, king bed · check-in 12:00\, check-out 11:00 · +91 92178 03222 · free airport drop.
+END:VEVENT
+END:VCALENDAR

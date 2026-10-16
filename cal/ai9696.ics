@@ -1,0 +1,19 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//India 2026//Trip//EN
+CALSCALE:GREGORIAN
+BEGIN:VEVENT
+UID:ai9696@india2026-tim
+DTSTAMP:20261016T170000Z
+DTSTART:20261028T044000Z
+DTEND:20261028T061000Z
+SUMMARY:✈ Air India AI9696 Udaipur → Delhi
+LOCATION:Maharana Pratap Airport\, Udaipur (UDR)
+DESCRIPTION:Operated by Air India Express. No web check-in — use the Air India Express counter (closes 09:10). Arrives Delhi T1. 15kg checked. Booking ref in Tim section.
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Reminder
+TRIGGER:-PT120M
+END:VALARM
+END:VEVENT
+END:VCALENDAR

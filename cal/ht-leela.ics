@@ -1,0 +1,14 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//India 2026//Trip//EN
+CALSCALE:GREGORIAN
+BEGIN:VEVENT
+UID:ht-leela@india2026-tim
+DTSTAMP:20261016T170000Z
+DTSTART;VALUE=DATE:20261017
+DTEND;VALUE=DATE:20261024
+SUMMARY:🏨 The Leela Ambience Gurugram
+LOCATION:Ambience Island\, NH48\, Gurugram\, Haryana
+DESCRIPTION:Work hotel (covered by NatWest). Late arrival Sat 17 Oct after BA143. Check out Fri 23 Oct morning.
+END:VEVENT
+END:VCALENDAR

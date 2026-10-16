@@ -1,0 +1,19 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//India 2026//Trip//EN
+CALSCALE:GREGORIAN
+BEGIN:VEVENT
+UID:ember-back@india2026-tim
+DTSTAMP:20261016T170000Z
+DTSTART:20261029T193700Z
+DTEND:20261029T200200Z
+SUMMARY:🚌 Ember E19 home from Edinburgh Airport
+LOCATION:Edinburgh Airport\, Stop E (outside terminal)
+DESCRIPTION:Booked. Show the ticket on your phone. Arrives East Calder\, Calderwood (Westbound) 20:02. If BA1456 is late\, change the time at ember.to.
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Reminder
+TRIGGER:-PT30M
+END:VALARM
+END:VEVENT
+END:VCALENDAR

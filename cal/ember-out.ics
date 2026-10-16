@@ -1,0 +1,19 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//India 2026//Trip//EN
+CALSCALE:GREGORIAN
+BEGIN:VEVENT
+UID:ember-out@india2026-tim
+DTSTAMP:20261016T170000Z
+DTSTART:20261017T042900Z
+DTEND:20261017T045300Z
+SUMMARY:🚌 Ember E19 to Edinburgh Airport
+LOCATION:East Calder\, Calderwood (Eastbound stop)
+DESCRIPTION:Booked. Show the ticket on your phone. Arrives Edinburgh Airport Stop E (outside terminal) 05:53. Track the bus at ember.to.
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Reminder
+TRIGGER:-PT45M
+END:VALARM
+END:VEVENT
+END:VCALENDAR

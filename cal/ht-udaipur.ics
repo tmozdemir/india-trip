@@ -1,0 +1,14 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//India 2026//Trip//EN
+CALSCALE:GREGORIAN
+BEGIN:VEVENT
+UID:ht-udaipur@india2026-tim
+DTSTAMP:20261016T170000Z
+DTSTART;VALUE=DATE:20261025
+DTEND;VALUE=DATE:20261029
+SUMMARY:🏨 Barliyas Heritage Boutique Hotel\, Udaipur
+LOCATION:Barliyas Heritage Boutique Hotel\, Haridas ji Ki Magri\, Shavri Colony\, Udaipur 313001
+DESCRIPTION:Near Lake Pichola. 3 nights. Booked by Rahul.
+END:VEVENT
+END:VCALENDAR

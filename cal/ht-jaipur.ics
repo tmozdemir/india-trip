@@ -1,0 +1,14 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//India 2026//Trip//EN
+CALSCALE:GREGORIAN
+BEGIN:VEVENT
+UID:ht-jaipur@india2026-tim
+DTSTAMP:20261016T170000Z
+DTSTART;VALUE=DATE:20261023
+DTEND;VALUE=DATE:20261026
+SUMMARY:🏨 Umaid Haveli\, Jaipur
+LOCATION:Umaid Haveli\, RIICO Kukas\, NH8 Delhi–Jaipur Highway\, Amber\, Jaipur 302028
+DESCRIPTION:Royal Deluxe · breakfast incl. · check-in from 13:00\, check-out Sun 12:00 · +91 1426 400106 · free Rajasthani dance & music show 19:00–21:00. Booked by Rahul.
+END:VEVENT
+END:VCALENDAR

@@ -1,0 +1,19 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//India 2026//Trip//EN
+CALSCALE:GREGORIAN
+BEGIN:VEVENT
+UID:leeds@india2026-tim
+DTSTAMP:20261016T170000Z
+DTSTART:20261018T130000Z
+DTEND:20261018T150000Z
+SUMMARY:⚽ (Optional) Leeds United v Man Utd
+LOCATION:Manhattan Bar Exchange & Brewery\, Ambience Mall\, Gurugram
+DESCRIPTION:Premier League at Elland Road (14:00 UK). On Star Sports / JioHotstar in India. Alternatives: Cyber Hub — Gurgaon Pub Exchange\, Soi 7\, Sutra Gastropub. Call ahead for the Leeds game with sound. Marching On Together!
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Reminder
+TRIGGER:-PT60M
+END:VALARM
+END:VEVENT
+END:VCALENDAR

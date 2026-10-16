@@ -1,0 +1,14 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//India 2026//Trip//EN
+CALSCALE:GREGORIAN
+BEGIN:VEVENT
+UID:ht-delhi@india2026-tim
+DTSTAMP:20261016T170000Z
+DTSTART;VALUE=DATE:20261028
+DTEND;VALUE=DATE:20261030
+SUMMARY:🏨 Airport Premier Inn\, Delhi
+LOCATION:Hotel Premier Inn\, Plot 18\, National Highway\, Mahipalpur\, New Delhi 110031
+DESCRIPTION:Deluxe Double\, king bed · check-in 12:00\, check-out 11:00 · +91 92178 03222 · free airport drop.
+END:VEVENT
+END:VCALENDAR
