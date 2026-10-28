@@ -16,6 +16,7 @@
   --navy:#1E3463; --navy-deep:#14264C; --sky:#29A5DC; --sky-deep:#146E9C; --aqua:#49B3C4;
   --sun:#F6C94A; --sun-pale:#FFF1BF; --mist:#DDF0F8; --mist-line:#B5DCEE;
   --ink:#3A1B22; --muted:#7C5E62; --gold:#B98A2E; --line:#E3CD97; --rose:#C2587A;
+  --wood:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='640' height='340'%3E%3Cfilter id='w' x='0' y='0' width='100%25' height='100%25'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.006 0.16' numOctaves='4' seed='7' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0.62 0 0 0 0.13  0.42 0 0 0 0.06  0.24 0 0 0 0.02  0 0 0 0 1'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23w)'/%3E%3C/svg%3E"); --leather:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='l' x='0' y='0' width='100%25' height='100%25'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.62' numOctaves='3' seed='4' stitchTiles='stitch' result='n'/%3E%3CfeDiffuseLighting in='n' surfaceScale='2.6' diffuseConstant='1.15' lighting-color='%23fff'%3E%3CfeDistantLight azimuth='225' elevation='58'/%3E%3C/feDiffuseLighting%3E%3CfeComponentTransfer%3E%3CfeFuncR type='linear' slope='1.15' intercept='-0.12'/%3E%3CfeFuncG type='linear' slope='1.15' intercept='-0.12'/%3E%3CfeFuncB type='linear' slope='1.15' intercept='-0.12'/%3E%3C/feComponentTransfer%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23l)'/%3E%3C/svg%3E"); --paperTex:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='260' height='260'%3E%3Cfilter id='p' x='0' y='0' width='100%25' height='100%25'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' seed='11' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.62  0 0 0 0 0.5  0 0 0 0 0.3  0 0 0 -1.15 0.78'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23p)' opacity='.55'/%3E%3C/svg%3E"); --stitch:rgba(246,201,74,.78);
   --display:'Cormorant Garamond',Georgia,serif; --body:'Lora',Georgia,serif;
 }
 *{box-sizing:border-box}
@@ -23,7 +24,8 @@
 html{-webkit-text-size-adjust:100%}
 body{
   margin:0; color:var(--ink); font:18px/1.65 var(--body);
-  background:var(--parch) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='48' height='48'%3E%3Cpath d='M24 0 48 24 24 48 0 24Z' fill='none' stroke='%23B98A2E' stroke-opacity='.15'/%3E%3Ccircle cx='24' cy='24' r='3.5' fill='none' stroke='%23B98A2E' stroke-opacity='.2'/%3E%3C/svg%3E");
+  background:radial-gradient(130% 70% at 50% 0%, rgba(255,214,140,.16), transparent 60%), repeating-linear-gradient(0deg, transparent 0 168px, rgba(0,0,0,.5) 168px 170px, rgba(255,210,150,.07) 170px 171px), var(--wood), #3B2214;
+  background-attachment:fixed,scroll,scroll,scroll;
   padding-bottom:calc(92px + env(safe-area-inset-bottom));
 }
 h1,h2,h3,h4{font-family:var(--display); font-weight:700; line-height:1.15; margin:0; text-wrap:balance}
@@ -33,11 +35,23 @@ a{color:var(--sky-deep)}
 .nw{white-space:nowrap}
 :focus-visible{outline:3px solid var(--sun); outline-offset:3px; border-radius:6px}
 .wrap{max-width:720px; margin:0 auto; padding:0 18px}
+/* the journal: a leather-bound book lying on the desk, with paper pages */
+main.wrap{position:relative; width:calc(100% - 16px); max-width:728px; margin:16px auto 8px; padding:6px 6px 18px; border:10px solid transparent; border-radius:18px;
+  background:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='48' height='48'%3E%3Cpath d='M24 0 48 24 24 48 0 24Z' fill='none' stroke='%23B98A2E' stroke-opacity='.13'/%3E%3Ccircle cx='24' cy='24' r='3.5' fill='none' stroke='%23B98A2E' stroke-opacity='.17'/%3E%3C/svg%3E") padding-box,
+    var(--paperTex) padding-box,
+    linear-gradient(var(--parch),var(--parch)) padding-box,
+    var(--leather) border-box;
+  background-color:#6E1F3E; background-clip:padding-box,padding-box,padding-box,border-box,border-box;
+  background-blend-mode:normal,multiply,normal,multiply;
+  box-shadow:0 18px 34px rgba(0,0,0,.55), 0 2px 0 rgba(255,220,160,.25) inset, inset 0 0 40px rgba(120,80,20,.28)}
+main.wrap::before{content:""; position:absolute; inset:-6px; border:2px dashed var(--stitch); border-radius:13px; pointer-events:none}
+main.wrap::after{content:""; position:absolute; left:0; right:0; top:0; height:22px; border-radius:8px 8px 0 0; pointer-events:none; background:linear-gradient(rgba(90,50,10,.16),transparent)}
 
 /* ---------- gate + picker ---------- */
-.gate{min-height:100vh; display:grid; place-items:center; padding:24px 18px; background:radial-gradient(circle at 50% 0%, #7A1C3A 0%, #4E1028 70%)}
+.gate{min-height:100vh; display:grid; place-items:center; padding:24px 18px; background:radial-gradient(circle at 50% 30%, rgba(255,214,140,.2), rgba(0,0,0,.55) 85%), repeating-linear-gradient(0deg, transparent 0 168px, rgba(0,0,0,.5) 168px 170px), var(--wood), #3B2214}
 .gate-card{width:100%; max-width:420px; background:var(--paper); border-radius:200px 200px 22px 22px; padding:54px 28px 30px; text-align:center;
-  box-shadow:0 0 0 6px var(--ruby-deep), 0 0 0 8px var(--gold), 0 24px 60px rgba(0,0,0,.4)}
+  box-shadow:0 0 0 7px #5A1830, 0 0 0 8px var(--gold), 0 0 0 11px #5A1830, 0 24px 60px rgba(0,0,0,.55); background:var(--paperTex), var(--paper); background-blend-mode:multiply,normal}
 .gate-card .hi{font-family:'Tiro Devanagari Hindi',serif; font-size:2.4rem; color:var(--ruby); line-height:1.2}
 .gate-card h1{font-size:2rem; margin:6px 0 4px; color:var(--navy)}
 .gate-card p{margin:.4em 0 1.1em; color:var(--muted)}
@@ -46,6 +60,8 @@ a{color:var(--sky-deep)}
 .err{color:#A3162F; min-height:1.6em; margin:.5em 0 0; font-size:.95rem}
 .btn{display:inline-flex; align-items:center; justify-content:center; gap:8px; min-height:52px; padding:0 26px; border:0; border-radius:999px;
   background:var(--ruby); color:var(--paper); font-weight:600; letter-spacing:.01em; box-shadow:0 2px 0 var(--ruby-deep); text-decoration:none}
+.btn:not(.ghost):not(.quiet):not(.sun){background:var(--leather), var(--ruby); background-blend-mode:multiply,normal; outline:1.5px dashed rgba(246,201,74,.65); outline-offset:-5px}
+.btn:not(.ghost):not(.quiet):not(.sun):focus-visible{outline:3px solid var(--sun); outline-offset:3px}
 .btn:active{transform:translateY(1px); box-shadow:none}
 .btn.wide{width:100%}
 .btn.ghost{background:transparent; color:var(--navy); border:2px solid var(--sky); box-shadow:none}
@@ -63,13 +79,21 @@ a{color:var(--sky-deep)}
 .med.sm{--s:28px}
 
 /* ---------- hero ---------- */
-.hero{position:relative; color:var(--paper); text-align:center; padding:14px 18px 46px;
-  background:radial-gradient(120% 90% at 50% 0%, #8C2447 0%, var(--ruby-deep) 62%)}
+.hero{position:relative; color:var(--paper); text-align:center; padding:20px 24px 34px;
+  background:radial-gradient(120% 90% at 50% 0%, rgba(160,50,85,.75) 0%, rgba(78,16,40,.2) 70%), var(--leather), #6A1D38;
+  background-blend-mode:normal,multiply,normal; border-bottom:6px solid #3A0B1C; box-shadow:0 8px 20px rgba(0,0,0,.5)}
 .hero::before{content:""; position:absolute; left:0; right:0; top:0; height:5px; background:linear-gradient(90deg,var(--sun) 0 33.3%,var(--sky) 33.3% 66.6%,var(--navy) 66.6%)}
-.hero::after{content:""; position:absolute; left:0; right:0; bottom:-1px; height:18px;
-  background:radial-gradient(circle at 12px 18px, var(--parch) 11px, transparent 12px) 0 0/24px 18px repeat-x}
+.hero::after{content:""; position:absolute; left:10px; right:10px; bottom:10px; top:14px; border:2px dashed var(--stitch); border-radius:12px; pointer-events:none}
 .hero-top{display:flex; align-items:center; justify-content:space-between; max-width:720px; margin:6px auto 0; gap:10px}
-.hi2{font-family:'Tiro Devanagari Hindi',serif; font-size:1.25rem; color:var(--sun)}
+.hi2,.hx{font-family:'Tiro Devanagari Hindi',serif}
+button.hx.hi2{font-size:1.4rem; color:var(--sun)}
+button.hx{background:none; border:0; border-bottom:2px dotted currentColor; padding:4px 2px; min-height:44px; color:inherit; font-family:'Tiro Devanagari Hindi',serif; line-height:1.2; cursor:help}
+.gate-card .hi{display:flex; justify-content:center}
+.gate-card .hi .hx{font-size:2.4rem; color:var(--ruby); min-height:56px}
+#hxtip{position:fixed; z-index:80; max-width:min(280px,calc(100vw - 24px)); background:var(--paper); color:var(--ink); border:2px solid var(--gold); border-radius:12px; padding:10px 14px; font:600 1rem/1.4 var(--body); box-shadow:0 10px 26px rgba(0,0,0,.45); pointer-events:none}
+#hxtip b{display:block; font-family:var(--display); font-size:1.35rem; color:var(--ruby); line-height:1.2}
+#hxtip small{display:block; font-weight:400; color:var(--muted); font-size:.88rem}
+#hxtip::before{content:""; position:absolute; top:-8px; left:var(--ax,24px); width:12px; height:12px; background:var(--paper); border-left:2px solid var(--gold); border-top:2px solid var(--gold); transform:rotate(45deg)}
 .me{display:flex; align-items:center; gap:8px; background:rgba(255,255,255,.1); border:1px solid rgba(246,201,74,.6); border-radius:999px; padding:4px 14px 4px 5px; min-height:44px; font-size:.95rem; color:var(--paper)}
 .me > span:only-child{padding-left:8px}
 .arch-svg{display:block; width:min(64vw,250px); height:auto; margin:10px auto 8px; filter:drop-shadow(0 10px 18px rgba(0,0,0,.35))}
@@ -89,12 +113,13 @@ main{padding-top:22px}
 .orn::before,.orn::after{content:""; flex:1; height:1px; background:linear-gradient(90deg,transparent,var(--gold))}
 .orn::after{transform:scaleX(-1)}
 .orn svg{width:26px; height:26px}
-h2.sec{font-size:2.05rem; color:var(--navy); font-style:italic; text-align:center}
+h2.sec{font-size:2.05rem; color:var(--navy); font-style:italic; text-align:center; text-shadow:0 1px 0 rgba(255,255,255,.7), 0 -1px 0 rgba(78,16,40,.12); scroll-margin-top:14px}
+.panel,.tool,.know,.day,.status,.letter{scroll-margin-top:14px}
 h2.sec.ruby{color:var(--ruby)}
 .lead{text-align:center; color:var(--muted); margin:.4em auto 0; max-width:30em; text-wrap:balance}
 .small{font-size:.92rem; color:var(--muted)}
 
-.status{display:grid; grid-template-columns:auto 1fr; align-items:center; gap:0 18px; background:var(--navy); color:#fff; border-radius:18px; padding:18px 22px; margin-bottom:18px;
+.status{display:grid; grid-template-columns:auto 1fr; align-items:center; gap:0 18px; background:var(--leather), var(--navy); background-blend-mode:multiply,normal; color:#fff; border-radius:18px; padding:18px 22px; margin-bottom:18px;
   box-shadow:inset 0 0 0 4px var(--navy), inset 0 0 0 5px rgba(246,201,74,.7)}
 .status .big{font-family:var(--display); font-weight:700; font-size:3.6rem; line-height:1; color:var(--sun); min-width:.9em; text-align:center}
 .status .st-main b{display:block; font-family:var(--display); font-size:1.55rem; line-height:1.15; text-wrap:balance}
@@ -105,7 +130,7 @@ h2.sec.ruby{color:var(--ruby)}
 .write .btn{min-height:58px; font-size:1.1rem; padding:0 34px}
 
 /* ---------- entries (letters) ---------- */
-.letter{position:relative; background:var(--paper); border:1px solid var(--line); border-radius:8px 8px 18px 18px; padding:26px 20px 18px; margin:0 0 26px;
+.letter{position:relative; background:var(--paperTex), var(--paper); background-blend-mode:multiply,normal; border:1px solid var(--line); border-radius:8px 8px 18px 18px; padding:26px 20px 18px; margin:0 0 26px;
   box-shadow:inset 0 0 0 5px var(--paper), inset 0 0 0 6px #E9D6A8, 0 6px 18px rgba(78,16,40,.12)}
 .letter::before{content:""; position:absolute; left:-1px; right:-1px; top:-1px; height:7px; border-radius:8px 8px 0 0; background:linear-gradient(90deg,var(--ruby) 0 40%,var(--sun) 40% 70%,var(--sky) 70%)}
 .letter h3{font-size:1.9rem; font-style:italic; color:var(--ruby)}
@@ -136,7 +161,7 @@ h2.sec.ruby{color:var(--ruby)}
 .empty{text-align:center; color:var(--muted); padding:24px 10px}
 
 /* ---------- panels / trip ---------- */
-.panel{background:var(--paper); border:1px solid var(--line); border-top:5px solid var(--navy); border-radius:6px 6px 16px 16px; padding:16px 18px 14px; margin:0 0 16px}
+.panel{background:var(--paperTex), var(--paper); background-blend-mode:multiply,normal; border:1px solid var(--line); border-top:5px solid var(--navy); border-radius:6px 6px 16px 16px; padding:16px 18px 14px; margin:0 0 16px}
 .panel.ruby{border-top-color:var(--ruby)}
 .panel.sun{border-top-color:var(--sun)}
 .panel h3{font-size:1.55rem; color:var(--navy); margin-bottom:6px}
@@ -172,7 +197,7 @@ h2.sec.ruby{color:var(--ruby)}
 .route b{font-family:var(--display); font-size:1.45rem; color:var(--navy); display:block; line-height:1.2}
 .route .when{display:block; color:var(--ink); font-size:.98rem; white-space:nowrap}
 .route .nt{display:block; color:var(--muted); font-size:.9rem}
-.day{background:var(--paper); border:1px solid var(--line); border-radius:16px; margin:0 0 12px; overflow:hidden}
+.day{background:var(--paperTex), var(--paper); background-blend-mode:multiply,normal; border:1px solid var(--line); border-radius:16px; margin:0 0 12px; overflow:hidden}
 .day summary{list-style:none; display:flex; align-items:center; gap:14px; padding:14px 16px; min-height:78px; cursor:pointer}
 .day summary::-webkit-details-marker{display:none}
 .day summary::after{content:""; width:11px; height:11px; border-right:3px solid var(--gold); border-bottom:3px solid var(--gold); transform:rotate(45deg); margin-left:auto; flex:none; transition:transform .2s}
@@ -201,7 +226,7 @@ h2.sec.ruby{color:var(--ruby)}
 .dbody h5{font-family:var(--display); font-size:1.15rem; margin:16px 0 4px; color:var(--ruby)}
 
 /* ---------- tools & info ---------- */
-.tool{background:var(--paper); border:1px solid var(--line); border-top:5px solid var(--sky); border-radius:6px 6px 16px 16px; padding:16px 18px 16px; margin:0 0 16px}
+.tool{background:var(--paperTex), var(--paper); background-blend-mode:multiply,normal; border:1px solid var(--line); border-top:5px solid var(--sky); border-radius:6px 6px 16px 16px; padding:16px 18px 16px; margin:0 0 16px}
 .tool h3{font-size:1.55rem; color:var(--navy); margin-bottom:2px}
 .fxrate{margin:.2em 0 .8em; color:var(--sky-deep); font-weight:600}
 .fxrow{display:grid; grid-template-columns:1fr auto 1fr; gap:10px; align-items:end}
@@ -217,7 +242,7 @@ h2.sec.ruby{color:var(--ruby)}
 .clk b{display:block; font-family:var(--display); font-size:2.2rem; color:var(--navy); line-height:1.1}
 .clk span{display:block; font-size:.92rem; color:var(--muted)}
 .diff{text-align:center; margin:12px 0 4px; font-weight:600; color:var(--navy)}
-.know{background:var(--paper); border:1px solid var(--line); border-radius:16px; padding:16px 18px 12px; margin:0 0 14px}
+.know{background:var(--paperTex), var(--paper); background-blend-mode:multiply,normal; border:1px solid var(--line); border-radius:16px; padding:16px 18px 12px; margin:0 0 14px}
 .know h3{font-size:1.5rem; color:var(--ruby); margin-bottom:4px}
 .know ul{margin:.3em 0 .6em; padding-left:1.2em}
 .know li{margin:.4em 0}
@@ -231,9 +256,24 @@ h2.sec.ruby{color:var(--ruby)}
 .pack input:checked + span{color:var(--muted); text-decoration:line-through}
 .packcount{font-weight:600; color:var(--sky-deep); margin:2px 0 6px}
 
+.jump{display:flex; flex-wrap:wrap; justify-content:center; gap:10px 6px; margin:0 0 20px; padding:12px 6px 10px; background:var(--sun-pale); border:1px solid #EFD98A; border-radius:16px; box-shadow:inset 0 0 0 3px var(--sun-pale), inset 0 0 0 4px rgba(185,138,46,.45)}
+.jump button{width:74px; display:flex; flex-direction:column; align-items:center; gap:5px; background:none; border:0; padding:2px 0; color:var(--navy-deep); font-weight:700; font-size:.86rem; line-height:1.15; text-align:center; min-height:44px}
+.jump.n5{padding-left:50px; padding-right:50px}
+.jump button span.ic{width:50px; height:50px; border-radius:50%; display:grid; place-items:center; background:var(--leather), var(--navy); background-blend-mode:multiply,normal; color:var(--sun); box-shadow:0 0 0 2px var(--sun-pale), 0 0 0 3.5px var(--gold)}
+.jump button:active span.ic{background:var(--ruby)}
+.jump svg{width:26px; height:26px; fill:none; stroke:currentColor; stroke-width:1.8; stroke-linecap:round; stroke-linejoin:round}
+.chips{display:flex; flex-wrap:wrap; justify-content:center; gap:8px; margin:0 0 16px}
+.chips button{width:46px; height:52px; border:0; border-radius:23px 23px 7px 7px; background:var(--c,#7A1C3A); color:#fff; font-family:var(--display); font-weight:700; font-size:1.4rem; line-height:1; padding:0}
+.chips-l{text-align:center; margin:0 0 6px; font-weight:600; color:var(--navy); font-size:.95rem}
+.subhead{font-family:var(--display); font-size:1.7rem; font-style:italic; color:var(--navy); text-align:center; margin:22px 0 4px; scroll-margin-top:14px}
+.toTop{position:fixed; right:14px; bottom:calc(86px + env(safe-area-inset-bottom)); z-index:25; width:52px; height:52px; border-radius:50%; border:2px solid var(--sun); background:var(--leather), #5A1830; background-blend-mode:multiply,normal; color:var(--sun); display:grid; place-items:center; padding:0; box-shadow:0 6px 16px rgba(0,0,0,.5)}
+.toTop svg{width:26px; height:26px; fill:none; stroke:currentColor; stroke-width:2.2; stroke-linecap:round; stroke-linejoin:round}
+.mapbtn.web{background:var(--sun-pale); border-color:#EFD98A}
+.mapbtn.web svg{fill:none; stroke:currentColor; stroke-width:1.8}
+.btns{display:flex; flex-wrap:wrap; gap:8px}
 /* ---------- tab bar ---------- */
-.tabs{position:fixed; left:0; right:0; bottom:0; z-index:20; display:flex; background:var(--navy-deep); border-top:3px solid var(--sun); padding-bottom:env(safe-area-inset-bottom)}
-.tabs button{flex:1; min-height:68px; background:none; border:0; color:#B9CBE6; font-family:var(--display); font-weight:700; font-size:1.2rem; position:relative; padding:0 4px; white-space:nowrap}
+.tabs{position:fixed; left:0; right:0; bottom:0; z-index:20; display:flex; background:linear-gradient(rgba(0,0,0,.45),rgba(0,0,0,.62)), var(--wood), #3B2214; border-top:3px solid var(--sun); box-shadow:0 -6px 18px rgba(0,0,0,.5); padding-bottom:env(safe-area-inset-bottom)}
+.tabs button{flex:1; min-height:68px; background:none; border:0; color:#F3DDB0; text-shadow:0 1px 2px rgba(0,0,0,.7); font-family:var(--display); font-weight:700; font-size:1.2rem; position:relative; padding:0 4px; white-space:nowrap}
 .tabs button[aria-selected="true"]{color:var(--sun)}
 .tabs button[aria-selected="true"]::before{content:""; position:absolute; top:0; left:50%; width:44px; height:6px; transform:translateX(-50%); background:var(--sun); border-radius:0 0 8px 8px}
 
@@ -287,13 +327,13 @@ textarea.field{min-height:150px; resize:vertical; line-height:1.5}
       <circle r="4" fill="#FBF1DB"/>
     </symbol>
     <symbol id="pin" viewBox="0 0 24 24"><path fill="currentColor" d="M12 2C8.1 2 5 5.1 5 9c0 5.2 7 13 7 13s7-7.8 7-13c0-3.9-3.1-7-7-7zm0 9.5a2.5 2.5 0 1 1 0-5 2.5 2.5 0 0 1 0 5z"/></symbol>
-  </defs>
+  <symbol id="i-today" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2.5v2.5M12 19v2.5M2.5 12H5M19 12h2.5M5.3 5.3l1.8 1.8M16.9 16.9l1.8 1.8M18.7 5.3l-1.8 1.8M7.1 16.9l-1.8 1.8"/></symbol><symbol id="i-pen" viewBox="0 0 24 24"><path d="M4 20l1-4.5L16.5 4l3.5 3.5L8.5 19z"/><path d="M14 6.5l3.5 3.5"/></symbol><symbol id="i-notes" viewBox="0 0 24 24"><path d="M3 5.5C5.5 4.5 8.5 4.5 12 6c3.5-1.5 6.5-1.5 9-.5V19c-2.5-1-5.5-1-9 .5-3.5-1.5-6.5-1.5-9-.5z"/><path d="M12 6v13.5"/></symbol><symbol id="i-ticket" viewBox="0 0 24 24"><path d="M3 7h18v3a2 2 0 0 0 0 4v3H3v-3a2 2 0 0 0 0-4z"/><path d="M14 7v2M14 11v2M14 15v2"/></symbol><symbol id="i-plane" viewBox="0 0 24 24"><path d="M21 15l-8-5V4.5a1.5 1.5 0 0 0-3 0V10l-8 5v2l8-2.2V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-4.2l8 2.2z"/></symbol><symbol id="i-guide" viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.6"/><path d="M5 20c0-4 3-6 7-6s7 2 7 6"/></symbol><symbol id="i-bed" viewBox="0 0 24 24"><path d="M3 19V6M3 15h18v4M21 15v-2.5a3 3 0 0 0-3-3h-7V15"/><circle cx="7" cy="11.5" r="1.6"/></symbol><symbol id="i-compass" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M15.5 8.5l-2 5-5 2 2-5z"/></symbol><symbol id="i-route" viewBox="0 0 24 24"><circle cx="6" cy="19" r="2"/><circle cx="18" cy="5" r="2"/><path d="M8 19h6a3.5 3.5 0 0 0 0-7h-4a3.5 3.5 0 0 1 0-7h6"/></symbol><symbol id="i-cal" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></symbol><symbol id="i-coin" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M8.5 8h7M8.5 11.5h7M8.5 8c5 0 5 5.5 0 5.5l5 3.5"/></symbol><symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol><symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.2v.4"/></symbol><symbol id="i-chat" viewBox="0 0 24 24"><path d="M4 5h16v11H9l-5 4z"/><path d="M8 9.5h8M8 12.5h5"/></symbol><symbol id="i-check" viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M8 12l3 3 5-6"/></symbol><symbol id="i-up" viewBox="0 0 24 24"><path d="M12 19V5M6 11l6-6 6 6"/></symbol><symbol id="i-globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3.2 3.2 3.2 14.8 0 18M12 3c-3.2 3.2-3.2 14.8 0 18"/></symbol></defs>
 </svg>
 
 <!-- ============ GATE ============ -->
 <section class="gate" id="gate" hidden>
   <form class="gate-card" id="gate-form" autocomplete="off">
-    <div class="hi" lang="hi">स्वागतम्</div>
+    <div class="hi"><button type="button" class="hx" lang="hi" data-say="Swagatam" data-pron="swah-gah-tam" data-mean="Welcome" aria-label="स्वागतम्, Swagatam, means Welcome">स्वागतम्</button></div>
     <h1>Monica &amp; Mete's India</h1>
     <p>Type the three secret words to open the journal.</p>
     <label for="words" style="position:absolute;left:-9999px">Secret words</label>
@@ -306,7 +346,7 @@ textarea.field{min-height:150px; resize:vertical; line-height:1.5}
 <!-- ============ PICKER ============ -->
 <section class="gate" id="picker" hidden>
   <div class="gate-card">
-    <div class="hi" lang="hi">नमस्ते</div>
+    <div class="hi"><button type="button" class="hx" lang="hi" data-say="Namaste" data-pron="nuh-muh-stay" data-mean="Hello, with a small bow" aria-label="नमस्ते, Namaste, means Hello">नमस्ते</button></div>
     <h1>Who's reading?</h1>
     <p>Pick your name so your comments and photos carry it.</p>
     <div class="people" id="people"></div>
@@ -318,7 +358,7 @@ textarea.field{min-height:150px; resize:vertical; line-height:1.5}
   <div class="offline" id="offline" hidden>Can't reach the journal right now. Check your internet connection.</div>
   <header class="hero">
     <div class="hero-top">
-      <span class="hi2" lang="hi">स्वागतम्</span>
+      <button type="button" class="hx hi2" lang="hi" data-say="Swagatam" data-pron="swah-gah-tam" data-mean="Welcome" aria-label="स्वागतम्, Swagatam, means Welcome">स्वागतम्</button>
       <button class="me" id="me-btn" aria-haspopup="true" aria-expanded="false"></button>
     </div>
     <div class="menu" id="menu" hidden>
@@ -364,6 +404,7 @@ textarea.field{min-height:150px; resize:vertical; line-height:1.5}
   <main class="wrap">
     <!-- JOURNAL -->
     <section class="tab on" id="tab-journal">
+      <div id="jump-journal"></div>
       <div class="status" id="status"></div>
       <div class="write" id="write" hidden><button class="btn" id="write-btn">Write a new note</button></div>
       <div id="feed"></div>
@@ -372,9 +413,10 @@ textarea.field{min-height:150px; resize:vertical; line-height:1.5}
 
     <!-- THE TRIP -->
     <section class="tab" id="tab-trip">
+      <div id="jump-trip"></div>
       <div id="tour" hidden></div>
 
-      <h2 class="sec">The journey</h2>
+      <h2 class="sec" id="sec-journey">The journey</h2>
       <p class="lead">Ten days through Delhi, Agra and Rajasthan, with a Great Rail Journeys tour manager looking after the group.</p>
       <div class="orn"><svg><use href="#lotus"/></svg></div>
       <div class="panel sun">
@@ -382,15 +424,19 @@ textarea.field{min-height:150px; resize:vertical; line-height:1.5}
         <p>This tour follows the Golden Triangle of Delhi, Agra and Jaipur, then reaches deeper into Rajasthan. There is a rickshaw ride through the Delhi bazaars, the Taj Mahal, the ancient Chand Baori stepwell, Amber Fort and two tiger safaris at Ranthambore. The last night is spent in a hilltop fort that once belonged to maharajas.</p>
         <p><b>Pace:</b> the tour company rates it "Comfortable Explorer". That means being happy with stairs, lifting a suitcase on and off transport, hills and uneven ground, and about an hour of walking with the group. Expect a few early starts and late nights, with rest time in between.</p>
       </div>
+      <h3 class="subhead" id="sec-route">The route</h3>
       <ol class="route" id="route"></ol>
       <div class="orn"><svg><use href="#lotus"/></svg></div>
-      <h2 class="sec ruby">Day by day</h2>
+      <h2 class="sec ruby" id="sec-days">Day by day</h2>
       <p class="lead" style="margin-bottom:16px">Tap a day to open it. The blue buttons open Google Maps.</p>
+      <p class="chips-l">Jump to a day</p>
+      <div class="chips" id="daychips"></div>
       <div id="days"></div>
     </section>
 
     <!-- TOOLS & INFO -->
     <section class="tab" id="tab-tools">
+      <div id="jump-tools"></div>
       <h2 class="sec">Tools and info</h2>
       <p class="lead">A rupee converter, both clocks, and the handy bits to have in one place.</p>
       <div class="orn"><svg><use href="#lotus"/></svg></div>
@@ -419,17 +465,17 @@ textarea.field{min-height:150px; resize:vertical; line-height:1.5}
       </div>
 
       <div class="orn"><svg><use href="#lotus"/></svg></div>
-      <h2 class="sec ruby">Key information</h2>
+      <h2 class="sec ruby" id="sec-know">Key information</h2>
       <div style="height:14px"></div>
       <div id="know"></div>
 
       <div class="orn"><svg><use href="#lotus"/></svg></div>
-      <h2 class="sec">A few Hindi words</h2>
+      <h2 class="sec" id="sec-phr">A few Hindi words</h2>
       <p class="lead" style="margin-bottom:16px">A smile and a "namaste" go a long way.</p>
       <div class="phr" id="phr"></div>
 
       <div class="orn"><svg><use href="#lotus"/></svg></div>
-      <h2 class="sec ruby">Packing list</h2>
+      <h2 class="sec ruby" id="sec-pack">Packing list</h2>
       <div class="tool pack" style="margin-top:14px">
         <p class="packcount" id="pack-count"></p>
         <div id="pack"></div>
@@ -438,6 +484,7 @@ textarea.field{min-height:150px; resize:vertical; line-height:1.5}
     </section>
   </main>
 
+  <button type="button" class="toTop" id="toTop" hidden aria-label="Back to the top of this page"><svg aria-hidden="true"><use href="#i-up"/></svg></button>
   <nav class="tabs" role="tablist" aria-label="Sections">
     <button role="tab" aria-selected="true" data-tab="journal">Journal</button>
     <button role="tab" aria-selected="false" data-tab="trip">The trip</button>
@@ -494,9 +541,9 @@ textarea.field{min-height:150px; resize:vertical; line-height:1.5}
    - Guest words open the same journal read-only.
    - Booking details ("Your tour") are encrypted with a separate key that only the family words unlock.
    ===================================================================== */
-const FAM_CHECK = {"iv": "NcFALShkoArWbWVn", "ct": "mQPbYK9aMpUhGPjRTqRgF+GW8P5b973g"};
-const GUEST_WRAP = {"iv": "I8lBk1YiKC6a8d19", "ct": "L5pzoqaPr0Z13mXjxbOOcjDv+yxAe4OIVzdx8gK45tzEhxBt8/Lnt2nOKVz1fzArGoI9Kr33DaCWAnfkF6Y="};
-const PRIV_BLOB = {"iv": "zDCPKWjFp8E6fgwi", "ct": "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"};
+const FAM_CHECK = {"iv": "Q6Jbk7AwyqmFyjRw", "ct": "e8fq64c+TwuxZNFf+SBh/9AzGhGOUvUm"};
+const GUEST_WRAP = {"iv": "F02kU1xFoUZbEhXi", "ct": "DrsIC1hDbyDFocJJR9SUFdbpPh/JPelo6NY4Zhsx/l6Zct/4k0KfFyPdTyTFZC3iCrEN9JTcAvXDtJTYbAQ="};
+const PRIV_BLOB = {"iv": "vNWTuZYbV8yaNOIX", "ct": "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"};
 const SALT_FAM = 'monica-india-2026-journal-v1';
 const SALT_GUEST = 'monica-india-2026-guest-v1';
 const SALT_PRIV = 'monica-india-2026-private-v1';
@@ -773,7 +820,7 @@ function startApp(){
   renderMe();
   $('#guest-note').hidden = S.mode !== 'guest';
   $('#write').hidden = !canWrite();
-  renderStatus(); renderTour(); renderTrip(); renderKnow(); renderPhrases(); renderPack();
+  renderStatus(); renderTour(); renderTrip(); renderKnow(); renderPhrases(); renderPack(); renderJumps();
   $$('.tab').forEach(t => t.classList.remove('on')); $('#tab-journal').classList.add('on');
   $$('.tabs button').forEach(x => x.setAttribute('aria-selected', String(x.dataset.tab === 'journal')));
   if (!appStarted) { appStarted = true; loadWeather(); initFx(); tickClocks(); startData(); setInterval(renderStatus, 60000); setInterval(tickClocks, 20000); }
@@ -793,6 +840,65 @@ $$('.tabs button').forEach(b => b.addEventListener('click', () => {
   $$('.tab').forEach(t => t.classList.toggle('on', t.id === 'tab-' + b.dataset.tab));
   window.scrollTo({ top: 0 });
 }));
+/* tap / hover / focus translations for Hindi text */
+(function(){
+  const tip = document.createElement('div'); tip.id = 'hxtip'; tip.setAttribute('role','tooltip'); tip.hidden = true; document.body.appendChild(tip);
+  let cur = null, timer = 0, shownAt = 0;
+  function show(el){
+    clearTimeout(timer); cur = el; shownAt = Date.now();
+    tip.innerHTML = `<b>${esc(el.dataset.say)}</b>means \u201c${esc(el.dataset.mean)}\u201d<small>Say it: ${esc(el.dataset.pron)}</small>`;
+    tip.hidden = false;
+    const r = el.getBoundingClientRect(), w = tip.offsetWidth;
+    let x = Math.max(12, Math.min(r.left, innerWidth - w - 12));
+    tip.style.left = x + 'px'; tip.style.top = (r.bottom + 12) + 'px';
+    tip.style.setProperty('--ax', Math.max(14, Math.min(r.left + r.width / 2 - x - 6, w - 30)) + 'px');
+    el.setAttribute('aria-describedby', 'hxtip');
+  }
+  function hide(){ clearTimeout(timer); if (cur) cur.removeAttribute('aria-describedby'); cur = null; tip.hidden = true; }
+  document.addEventListener('mouseover', e => { const el = e.target.closest && e.target.closest('.hx'); if (el && matchMedia('(hover:hover)').matches) show(el); });
+  document.addEventListener('mouseout', e => { if (e.target.closest && e.target.closest('.hx') && matchMedia('(hover:hover)').matches) hide(); });
+  document.addEventListener('focusin', e => { const el = e.target.closest && e.target.closest('.hx'); if (el) show(el); });
+  document.addEventListener('focusout', e => { if (e.target.closest && e.target.closest('.hx')) hide(); });
+  document.addEventListener('click', e => {
+    const el = e.target.closest && e.target.closest('.hx');
+    if (!el) { hide(); return; }
+    if (cur === el && !tip.hidden && Date.now() - shownAt < 450) { timer = setTimeout(hide, 5000); return; }
+    if (cur === el && !tip.hidden && !matchMedia('(hover:hover)').matches) { hide(); return; }
+    show(el); timer = setTimeout(hide, 5000);
+  });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') hide(); });
+  addEventListener('scroll', hide, { passive:true });
+})();
+
+/* section shortcut menus */
+const IC = n => `<svg aria-hidden="true"><use href="#i-${n}"/></svg>`;
+function jumpTo(sel){
+  const el = typeof sel === 'string' ? $(sel) : sel; if (!el) return;
+  if (el.tagName === 'DETAILS') el.open = true;
+  const rm = matchMedia('(prefers-reduced-motion:reduce)').matches;
+  el.scrollIntoView({ behavior: rm ? 'auto' : 'smooth', block:'start' });
+  if (!el.hasAttribute('tabindex')) el.setAttribute('tabindex','-1');
+  try { el.focus({ preventScroll:true }); } catch(_){}
+}
+function jumpBar(items){
+  return `<nav class="jump n${items.length}" aria-label="Jump to a section">${items.map(i => `<button type="button" data-jump="${i[0]}"><span class="ic">${IC(i[1])}</span>${i[2]}</button>`).join('')}</nav>`;
+}
+document.addEventListener('click', e => { const b = e.target.closest && e.target.closest('[data-jump]'); if (b) jumpTo(b.dataset.jump); });
+function renderJumps(){
+  const fam = !!S.priv;
+  $('#jump-journal').innerHTML = jumpBar([...($('#status').hidden ? [] : [['#status','today','Today']]), ...(canWrite() ? [['#write','pen','Write']] : []), ['#feed','notes','Notes']]);
+  $('#jump-trip').innerHTML = jumpBar([
+    ...(fam ? [['#tour-booking','ticket','Booking'],['#tour-flights','plane','Flights'],['#tour-guide','guide','Guide'],['#tour-hotels','bed','Hotels']] : []),
+    ['#sec-journey','compass','Overview'],['#sec-route','route','Route'],['#sec-days','cal','Day by day']]);
+  $('#jump-tools').innerHTML = jumpBar([['#fx','coin','Money'],['#clock','clock','Clocks'],['#sec-know','info','Key info'],['#sec-phr','chat','Hindi'],['#sec-pack','check','Packing']]);
+  $('#daychips').innerHTML = TRIP.map((d, i) => `<button type="button" style="--c:${d.c}" data-jump="#days .day:nth-child(${i + 1})" aria-label="Day ${i + 1}: ${esc(d.title)}">${i + 1}</button>`).join('');
+}
+(function(){
+  const b = $('#toTop'); if (!b) return;
+  const upd = () => { b.hidden = scrollY < 700; };
+  addEventListener('scroll', upd, { passive:true }); upd();
+  b.addEventListener('click', () => { const rm = matchMedia('(prefers-reduced-motion:reduce)').matches; scrollTo({ top:0, behavior: rm ? 'auto' : 'smooth' }); });
+})();
 function goTab(name){ $(`.tabs button[data-tab="${name}"]`).click(); }
 
 /* ---------------- trip views ---------------- */
@@ -833,7 +939,7 @@ function dayHTML(d, i, open){
   let sleep = '';
   if (d.stay) {
     sleep = st
-      ? `<div class="box blue"><h4>Where you sleep</h4><p><b>${esc(st.name)}</b></p>${addrHTML(st.addr)}<a class="mapbtn" href="${gmap(st.name + ', ' + st.addr.join(', '))}" target="_blank" rel="noopener">${PIN}Hotel on Google Maps</a><p class="small" style="margin-bottom:0">${esc(nights)}</p></div>`
+      ? `<div class="box blue"><h4>Where you sleep</h4><p><b>${esc(st.name)}</b></p>${addrHTML(st.addr)}<div class="btns"><a class="mapbtn" href="${gmap(st.name + ', ' + st.addr.join(', '))}" target="_blank" rel="noopener">${PIN}Hotel on Google Maps</a>${st.web ? `<a class="mapbtn web" href="${esc(st.web)}" target="_blank" rel="noopener"><svg aria-hidden="true"><use href="#i-globe"/></svg>${esc(st.webLabel || 'Hotel website')}</a>` : ''}</div><p class="small" style="margin-top:8px" style="margin-bottom:0">${esc(nights)}</p></div>`
       : `<div class="box blue"><h4>Where they sleep</h4><p>${esc(d.stayNote ? 'Overnight in ' + d.town + ' again, the second night.' : d.nights === 2 ? 'Overnight in ' + d.town + ', the first of two nights.' : 'Overnight in ' + d.town + ', for one night.')}</p></div>`;
   }
   return `<details class="day" ${open ? 'open' : ''}>
@@ -870,30 +976,30 @@ function renderTour(){
     const n = TRIP.find(d => d.stay === k && d.nights).nights;
     return `<div class="hotel"><div class="nt"><b>${n}</b><i>${n === 1 ? 'NIGHT' : 'NIGHTS'}</i></div><div>
       <h4>${esc(s.name)}</h4><p class="when">${stayDates(k)}</p>${addrHTML(s.addr)}
-      <a class="mapbtn" href="${gmap(s.name + ', ' + s.addr.join(', '))}" target="_blank" rel="noopener">${PIN}Open in Google Maps</a></div></div>`;
+      <div class="btns"><a class="mapbtn" href="${gmap(s.name + ', ' + s.addr.join(', '))}" target="_blank" rel="noopener">${PIN}Open in Google Maps</a>${s.web ? `<a class="mapbtn web" href="${esc(s.web)}" target="_blank" rel="noopener"><svg aria-hidden="true"><use href="#i-globe"/></svg>${esc(s.webLabel || 'Hotel website')}</a>` : ''}</div></div></div>`;
   }).join('');
   el.hidden = false;
   el.innerHTML = `
     <h2 class="sec ruby">Your tour</h2>
     <p class="lead">Booking details, just for the family.</p>
     <div class="orn"><svg><use href="#lotus"/></svg></div>
-    <div class="panel ruby"><h3>Your booking</h3>
+    <div class="panel ruby" id="tour-booking"><h3>Your booking</h3>
       <div class="kvr"><span>Tour company</span><b>${esc(P.operator)}</b></div>
       <div class="kvr"><span>Tour</span><b>${esc(P.tour)}</b></div>
       <div class="kvr"><span>Booking reference</span><b class="ref">${esc(P.ref)}</b></div>
       <div class="kvr"><span>Travellers</span><b>${esc(P.travellers)}</b></div>
       <div class="kvr"><span>Dates</span><b class="nw">4 to 13 November 2026</b></div>
     </div>
-    <div class="panel"><h3>Flights</h3>${flights}
+    <div class="panel" id="tour-flights"><h3>Flights</h3>${flights}
       <p class="small">${esc(P.flightNote)}</p>
     </div>
-    <div class="panel"><h3>Your tour manager</h3>
+    <div class="panel" id="tour-guide"><h3>Your tour manager</h3>
       <p><b>${esc(g.name)}</b>, ${esc(g.title)}</p>
       <p>${esc(g.role)}</p>
       ${g.bio.map(b => `<p>${esc(b)}</p>`).join('')}
       <p class="small">If you would like to thank her at the end, there is an optional tipping page: <a href="${esc(P.tipLink)}" target="_blank" rel="noopener">tip ${esc(g.name.split(' ')[0])} online</a>.</p>
     </div>
-    <div class="panel"><h3>Where you stay</h3>${hotels}<p class="small" style="margin-bottom:0">Every room is a twin room.</p></div>`;
+    <div class="panel" id="tour-hotels"><h3>Where you stay</h3>${hotels}<p class="small" style="margin-bottom:0">Every room is a twin room.</p></div>`;
 }
 function renderKnow(){
   $('#know').innerHTML = KNOW.map(k => `<div class="know"><h3>${esc(k.h)}</h3><ul>${k.items.map(i => `<li>${i}</li>`).join('')}</ul></div>`).join('');
