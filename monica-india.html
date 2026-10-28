@@ -1,0 +1,974 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#4E1028">
+<title>Monica &amp; Mete's India</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,700;1,500;1,700&family=Lora:ital,wght@0,400;0,600;1,400&family=Tiro+Devanagari+Hindi&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ruby:#7A1C3A; --ruby-deep:#4E1028; --marigold:#E8A21A; --saffron:#D9731E;
+  --peacock:#0D6A6E; --peacock-deep:#07484B; --parch:#FBF1DB; --paper:#FFFBF2;
+  --ink:#3A1B22; --muted:#7C5E62; --gold:#B98A2E; --line:#E3CD97; --rose:#C2587A;
+  --display:'Cormorant Garamond',Georgia,serif; --body:'Lora',Georgia,serif;
+}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0; color:var(--ink); font:18px/1.65 var(--body);
+  background:var(--parch) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='48' height='48'%3E%3Cpath d='M24 0 48 24 24 48 0 24Z' fill='none' stroke='%23B98A2E' stroke-opacity='.15'/%3E%3Ccircle cx='24' cy='24' r='3.5' fill='none' stroke='%23B98A2E' stroke-opacity='.2'/%3E%3C/svg%3E");
+  padding-bottom:calc(92px + env(safe-area-inset-bottom));
+}
+h1,h2,h3,h4{font-family:var(--display); font-weight:700; line-height:1.15; margin:0}
+button{font:inherit; color:inherit; cursor:pointer}
+a{color:var(--peacock)}
+:focus-visible{outline:3px solid var(--marigold); outline-offset:3px; border-radius:6px}
+.wrap{max-width:720px; margin:0 auto; padding:0 18px}
+
+/* ---------- gate + picker ---------- */
+.gate{min-height:100vh; display:grid; place-items:center; padding:24px 18px; background:
+  radial-gradient(circle at 50% 0%, #7A1C3A 0%, #4E1028 70%);}
+.gate-card{width:100%; max-width:420px; background:var(--paper); border-radius:200px 200px 22px 22px; padding:54px 28px 30px; text-align:center;
+  box-shadow:0 0 0 6px var(--ruby-deep), 0 0 0 8px var(--gold), 0 24px 60px rgba(0,0,0,.4)}
+.gate-card .hi{font-family:'Tiro Devanagari Hindi',serif; font-size:2.4rem; color:var(--ruby); line-height:1.2}
+.gate-card h1{font-size:2.1rem; margin:6px 0 4px; color:var(--ruby-deep)}
+.gate-card p{margin:.4em 0 1.1em; color:var(--muted)}
+.field{width:100%; min-height:56px; border:2px solid var(--line); border-radius:14px; padding:12px 16px; font:inherit; background:#fff; color:var(--ink)}
+.field:focus{border-color:var(--peacock); outline:none}
+.err{color:#A3162F; min-height:1.6em; margin:.5em 0 0; font-size:.95rem}
+.btn{display:inline-flex; align-items:center; justify-content:center; gap:8px; min-height:52px; padding:0 26px; border:0; border-radius:999px;
+  background:var(--ruby); color:var(--paper); font-weight:600; letter-spacing:.01em; box-shadow:0 2px 0 var(--ruby-deep)}
+.btn:active{transform:translateY(1px); box-shadow:none}
+.btn.wide{width:100%}
+.btn.ghost{background:transparent; color:var(--peacock-deep); border:2px solid var(--peacock); box-shadow:none}
+.btn.quiet{background:transparent; color:var(--muted); box-shadow:none}
+.btn[disabled]{opacity:.55; cursor:default}
+.people{display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-top:18px}
+.person{background:#fff; border:2px solid var(--line); border-radius:70px 70px 14px 14px; padding:16px 8px 14px; text-align:center}
+.person:hover,.person:focus-visible{border-color:var(--marigold)}
+.person .med{margin:0 auto 6px}
+.person span{display:block; font-family:var(--display); font-weight:700; font-size:1.35rem}
+.med{--s:44px; width:var(--s); height:var(--s); border-radius:50%; background:var(--c,#7A1C3A); color:#fff; display:inline-grid; place-items:center;
+  font-family:var(--display); font-weight:700; font-size:calc(var(--s)*.5); box-shadow:0 0 0 2px var(--paper), 0 0 0 3px var(--gold); flex:none}
+.med.lg{--s:64px}
+.med.sm{--s:28px}
+
+/* ---------- hero ---------- */
+.hero{position:relative; color:var(--paper); text-align:center; padding:14px 18px 44px;
+  background:radial-gradient(120% 90% at 50% 0%, #8C2447 0%, var(--ruby-deep) 62%)}
+.hero::after{content:""; position:absolute; left:0; right:0; bottom:-1px; height:18px;
+  background:radial-gradient(circle at 12px 18px, var(--parch) 11px, transparent 12px) 0 0/24px 18px repeat-x}
+.hero-top{display:flex; align-items:center; justify-content:space-between; max-width:720px; margin:0 auto; gap:10px}
+.hi2{font-family:'Tiro Devanagari Hindi',serif; font-size:1.25rem; color:var(--marigold)}
+.me{display:flex; align-items:center; gap:8px; background:rgba(255,255,255,.1); border:1px solid rgba(232,162,26,.55); border-radius:999px; padding:4px 12px 4px 5px; min-height:44px; font-size:.95rem}
+.arch-svg{display:block; width:min(64vw,250px); height:auto; margin:10px auto 6px; filter:drop-shadow(0 10px 18px rgba(0,0,0,.35))}
+.hero h1{font-size:clamp(2.2rem,8.5vw,3.4rem); font-style:italic; letter-spacing:.01em}
+.hero .sub{margin:.4em 0 0; color:#F3D9A0; font-size:1rem}
+.guest-note{background:var(--peacock); color:#fff; text-align:center; padding:10px 18px; font-size:.95rem}
+.menu{position:absolute; right:14px; top:62px; z-index:5; background:var(--paper); color:var(--ink); border-radius:14px; padding:6px; min-width:220px; box-shadow:0 12px 30px rgba(0,0,0,.35); text-align:left}
+.menu button{display:block; width:100%; text-align:left; background:none; border:0; padding:12px 14px; border-radius:10px; min-height:48px}
+.menu button:hover{background:var(--parch)}
+
+/* ---------- sections ---------- */
+main{padding-top:22px}
+.tab{display:none}
+.tab.on{display:block}
+.orn{display:flex; align-items:center; gap:12px; color:var(--gold); margin:26px 0 18px}
+.orn::before,.orn::after{content:""; flex:1; height:1px; background:linear-gradient(90deg,transparent,var(--gold))}
+.orn::after{transform:scaleX(-1)}
+.orn svg{width:26px; height:26px}
+h2.sec{font-size:2rem; color:var(--ruby); font-style:italic; text-align:center}
+.lead{text-align:center; color:var(--muted); margin:.3em auto 0; max-width:34em}
+
+.status{background:var(--peacock); color:#fff; border-radius:18px; padding:18px 20px; margin-bottom:18px; display:flex; align-items:center; gap:16px;
+  box-shadow:inset 0 0 0 4px var(--peacock), inset 0 0 0 5px rgba(255,255,255,.45)}
+.status .big{font-family:var(--display); font-weight:700; font-size:3rem; line-height:1; color:var(--marigold)}
+.status p{margin:0; line-height:1.4}
+.status .btn{min-height:44px; padding:0 18px; background:var(--marigold); color:var(--ruby-deep); box-shadow:none; margin-top:8px}
+
+.write{display:flex; justify-content:center; margin:6px 0 22px}
+.write .btn{min-height:58px; font-size:1.1rem; padding:0 34px}
+
+/* ---------- entries (letters) ---------- */
+.letter{background:var(--paper); border:1px solid var(--line); border-top:6px solid var(--ruby); border-radius:6px 6px 18px 18px; padding:22px 20px 18px; margin:0 0 26px;
+  box-shadow:inset 0 0 0 5px var(--paper), inset 0 0 0 6px #E9D6A8, 0 6px 18px rgba(78,16,40,.12)}
+.letter h3{font-size:1.9rem; font-style:italic; color:var(--ruby)}
+.letter .meta{margin:2px 0 12px; color:var(--peacock-deep); font-weight:600; font-size:.95rem}
+.letter .text{white-space:normal; overflow-wrap:anywhere}
+.photos{display:grid; grid-template-columns:repeat(3,1fr); gap:6px; margin:14px 0 4px}
+.photos.one{grid-template-columns:1fr}
+.photos.two{grid-template-columns:1fr 1fr}
+.ph{position:relative; aspect-ratio:1/1; padding:0; border:2px solid var(--paper); outline:1px solid var(--line); border-radius:6px; overflow:hidden; background:#EEDFB9}
+.photos.one .ph{aspect-ratio:4/3}
+.ph img{width:100%; height:100%; object-fit:cover; display:block}
+.ph .more{position:absolute; inset:0; display:grid; place-items:center; background:rgba(78,16,40,.7); color:#fff; font-family:var(--display); font-size:2rem; font-weight:700}
+.waiting{color:var(--muted); font-style:italic; margin:10px 0 0; font-size:.95rem}
+.by{display:flex; align-items:center; gap:10px; margin-top:14px; color:var(--muted); font-size:.95rem}
+.acts{display:flex; flex-wrap:wrap; gap:8px; margin-top:12px; padding-top:12px; border-top:1px dashed var(--line)}
+.chipbtn{min-height:46px; padding:0 16px; border-radius:999px; background:#fff; border:2px solid var(--line); color:var(--ink); display:inline-flex; align-items:center; gap:8px}
+.chipbtn[aria-pressed="true"]{background:#FBE3EA; border-color:var(--rose); color:var(--ruby)}
+.chipbtn.plain{border-color:transparent; background:transparent; color:var(--muted); text-decoration:underline; padding:0 8px}
+.comments{margin-top:10px}
+.cm{display:flex; gap:10px; padding:10px 0; border-top:1px solid #F0E3C2}
+.cm .txt{flex:1; min-width:0; overflow-wrap:anywhere}
+.cm b{font-family:var(--display); font-size:1.15rem}
+.cm small{color:var(--muted); margin-left:6px}
+.cm .x{background:none; border:0; color:var(--muted); min-height:36px; padding:0 8px; font-size:.85rem; text-decoration:underline}
+.reply{display:flex; gap:8px; margin-top:8px}
+.reply .field{min-height:50px}
+.reply .btn{min-height:50px; padding:0 20px}
+.empty{text-align:center; color:var(--muted); padding:24px 10px}
+
+/* ---------- our trip ---------- */
+.route{list-style:none; margin:20px 0 6px; padding:0 0 0 30px; position:relative}
+.route::before{content:""; position:absolute; left:9px; top:8px; bottom:12px; border-left:3px dotted var(--gold)}
+.route li{position:relative; margin:0 0 14px}
+.route li::before{content:""; position:absolute; left:-30px; top:6px; width:16px; height:16px; border-radius:50%; background:var(--marigold); box-shadow:0 0 0 3px var(--paper), 0 0 0 4px var(--gold)}
+.route b{font-family:var(--display); font-size:1.4rem; color:var(--ruby); display:block; line-height:1.2}
+.route span{color:var(--muted); font-size:.95rem}
+.day{background:var(--paper); border:1px solid var(--line); border-radius:16px; margin:0 0 12px; overflow:hidden}
+.day summary{list-style:none; display:flex; align-items:center; gap:14px; padding:14px 16px; min-height:76px; cursor:pointer}
+.day summary::-webkit-details-marker{display:none}
+.day summary::after{content:""; width:11px; height:11px; border-right:3px solid var(--gold); border-bottom:3px solid var(--gold); transform:rotate(45deg); margin-left:auto; flex:none; transition:transform .2s}
+.day[open] summary::after{transform:rotate(-135deg)}
+.day[open] summary{border-bottom:1px solid var(--line); background:#FFF5DE}
+.dm{flex:none; width:56px; height:64px; border-radius:28px 28px 8px 8px; background:var(--ruby); color:var(--paper); display:flex; flex-direction:column; align-items:center; justify-content:center; line-height:1}
+.dm b{font-family:var(--display); font-size:1.7rem}
+.dm i{font-style:normal; font-size:.78rem; letter-spacing:.08em; margin-top:2px}
+.dt strong{font-family:var(--display); font-size:1.35rem; display:block; line-height:1.2}
+.dt small{color:var(--peacock-deep); font-size:.92rem; font-weight:600}
+.dbody{padding:14px 18px 18px}
+.dbody p{margin:.5em 0}
+.dbody .dfull{color:var(--muted); margin-top:0}
+.box{background:#FFF5DE; border-left:4px solid var(--marigold); border-radius:0 10px 10px 0; padding:8px 14px; margin:14px 0 4px}
+.box h4{font-size:1.15rem; color:var(--ruby)}
+.box p{margin:.2em 0}
+.wx{color:var(--peacock-deep); font-weight:600}
+.tip{background:#E5F2F1; border-radius:10px; padding:10px 14px}
+
+/* ---------- good to know ---------- */
+.know{background:var(--paper); border:1px solid var(--line); border-radius:16px; padding:16px 18px 12px; margin:0 0 14px}
+.know h3{font-size:1.5rem; color:var(--ruby); margin-bottom:4px}
+.know ul{margin:.3em 0 .6em; padding-left:1.2em}
+.know li{margin:.35em 0}
+
+/* ---------- tab bar ---------- */
+.tabs{position:fixed; left:0; right:0; bottom:0; z-index:20; display:flex; background:var(--ruby-deep); border-top:2px solid var(--gold); padding-bottom:env(safe-area-inset-bottom)}
+.tabs button{flex:1; min-height:68px; background:none; border:0; color:#E9CF9C; font-family:var(--display); font-weight:700; font-size:1.2rem; position:relative}
+.tabs button[aria-selected="true"]{color:var(--marigold)}
+.tabs button[aria-selected="true"]::before{content:""; position:absolute; top:0; left:50%; width:44px; height:6px; transform:translateX(-50%); background:var(--marigold); border-radius:0 0 8px 8px}
+
+/* ---------- sheet, lightbox, progress ---------- */
+.sheet{position:fixed; inset:0; z-index:40; background:rgba(40,8,20,.62); display:flex; align-items:flex-end; justify-content:center}
+.sheet-card{width:100%; max-width:640px; max-height:94vh; overflow:auto; background:var(--paper); border-radius:26px 26px 0 0; padding:22px 20px calc(22px + env(safe-area-inset-bottom)); border-top:6px solid var(--ruby)}
+.sheet-card h2{font-size:2rem; font-style:italic; color:var(--ruby); margin-bottom:10px}
+.sheet-card label{display:block; font-weight:600; margin:14px 0 6px}
+textarea.field{min-height:150px; resize:vertical; line-height:1.5}
+.previews{display:grid; grid-template-columns:repeat(4,1fr); gap:6px; margin-top:12px}
+.pv{position:relative; aspect-ratio:1/1; border-radius:6px; overflow:hidden; border:2px solid #fff; outline:1px solid var(--line)}
+.pv img{width:100%; height:100%; object-fit:cover}
+.pv button{position:absolute; top:2px; right:2px; width:30px; height:30px; border-radius:50%; border:0; background:rgba(78,16,40,.85); color:#fff; font-size:1rem; line-height:1}
+.row{display:flex; gap:10px; justify-content:flex-end; margin-top:20px; flex-wrap:wrap}
+.lb{position:fixed; inset:0; z-index:50; background:rgba(20,4,10,.96); display:flex; flex-direction:column; color:#fff}
+.lb-top{display:flex; align-items:center; justify-content:space-between; padding:10px 14px; gap:10px}
+.lb-top .who{display:flex; align-items:center; gap:10px}
+.lb-stage{flex:1; position:relative; display:grid; place-items:center; min-height:0; touch-action:pan-y}
+.lb-stage img{max-width:100%; max-height:100%; object-fit:contain}
+.lb button{background:rgba(255,255,255,.14); border:0; color:#fff; min-width:52px; min-height:52px; border-radius:50%; font-size:1.5rem}
+.lb .nav{position:absolute; top:50%; transform:translateY(-50%)}
+.lb .prev{left:8px}.lb .next{right:8px}
+.lb .rm{border-radius:999px; font-size:1rem; padding:0 16px; min-width:0; min-height:44px}
+.lb-count{text-align:center; padding:10px; color:#E9CF9C}
+.progress{position:fixed; left:12px; right:12px; bottom:calc(80px + env(safe-area-inset-bottom)); z-index:45; max-width:600px; margin:0 auto; background:var(--ruby-deep); color:#fff; border-radius:16px; padding:12px 16px; box-shadow:0 8px 24px rgba(0,0,0,.4)}
+.bar{height:8px; background:rgba(255,255,255,.2); border-radius:6px; margin-top:8px; overflow:hidden}
+.bar i{display:block; height:100%; width:0; background:var(--marigold); transition:width .25s}
+.toast{position:fixed; left:50%; bottom:calc(88px + env(safe-area-inset-bottom)); transform:translateX(-50%); z-index:60; background:var(--ink); color:#fff; padding:12px 18px; border-radius:14px; max-width:90vw; text-align:center; box-shadow:0 8px 24px rgba(0,0,0,.35)}
+.offline{background:#A3162F; color:#fff; text-align:center; padding:8px 14px; font-size:.95rem}
+@media (min-width:600px){ .previews{grid-template-columns:repeat(6,1fr)} .photos{grid-template-columns:repeat(4,1fr)} .photos.one{grid-template-columns:1fr} .photos.two{grid-template-columns:1fr 1fr} }
+@media (prefers-reduced-motion:reduce){ *{transition:none!important; animation:none!important} }
+</style>
+</head>
+<body>
+
+<!-- shared ornaments -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="lotus" viewBox="-20 -20 40 40">
+      <g fill="currentColor">
+        <ellipse rx="3.6" ry="10" cy="-8"/>
+        <ellipse rx="3.6" ry="10" cy="-8" transform="rotate(45)"/>
+        <ellipse rx="3.6" ry="10" cy="-8" transform="rotate(90)"/>
+        <ellipse rx="3.6" ry="10" cy="-8" transform="rotate(135)"/>
+        <ellipse rx="3.6" ry="10" cy="-8" transform="rotate(180)"/>
+        <ellipse rx="3.6" ry="10" cy="-8" transform="rotate(225)"/>
+        <ellipse rx="3.6" ry="10" cy="-8" transform="rotate(270)"/>
+        <ellipse rx="3.6" ry="10" cy="-8" transform="rotate(315)"/>
+      </g>
+      <circle r="4" fill="#FBF1DB"/>
+    </symbol>
+  </defs>
+</svg>
+
+<!-- ============ GATE ============ -->
+<section class="gate" id="gate" hidden>
+  <form class="gate-card" id="gate-form" autocomplete="off">
+    <div class="hi" lang="hi">स्वागतम्</div>
+    <h1>Monica &amp; Mete's India</h1>
+    <p>Type the three secret words to open the journal.</p>
+    <label class="sr" for="words" style="position:absolute;left:-9999px">Secret words</label>
+    <input class="field" id="words" type="text" inputmode="text" autocapitalize="none" autocorrect="off" spellcheck="false" placeholder="three secret words" required>
+    <p class="err" id="gate-err" role="alert"></p>
+    <button class="btn wide" id="gate-btn" type="submit">Open the journal</button>
+  </form>
+</section>
+
+<!-- ============ PICKER ============ -->
+<section class="gate" id="picker" hidden>
+  <div class="gate-card">
+    <div class="hi" lang="hi">नमस्ते</div>
+    <h1>Who's reading?</h1>
+    <p>Pick your name so your comments and photos carry it.</p>
+    <div class="people" id="people"></div>
+  </div>
+</section>
+
+<!-- ============ APP ============ -->
+<div id="app" hidden>
+  <div class="offline" id="offline" hidden>Can't reach the journal right now. Check your internet connection.</div>
+  <header class="hero">
+    <div class="hero-top">
+      <span class="hi2" lang="hi">स्वागतम्</span>
+      <button class="me" id="me-btn" aria-haspopup="true" aria-expanded="false"></button>
+    </div>
+    <div class="menu" id="menu" hidden>
+      <button id="m-switch">Switch person</button>
+      <button id="m-lock">Lock this device</button>
+    </div>
+    <svg class="arch-svg" viewBox="0 0 300 340" role="img" aria-label="The Taj Mahal at dusk inside a pointed arch">
+      <defs>
+        <clipPath id="archclip"><path d="M22 340V178C22 116 90 78 150 22C210 78 278 116 278 178V340Z"/></clipPath>
+        <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stop-color="#2A1550"/><stop offset=".42" stop-color="#B4456B"/><stop offset=".74" stop-color="#F0A04B"/><stop offset="1" stop-color="#FFD58A"/>
+        </linearGradient>
+        <g id="taj" fill="#FFF4DC">
+          <rect x="56" y="282" width="188" height="9"/>
+          <rect x="112" y="238" width="76" height="46"/>
+          <path d="M116 240C112 200 134 180 150 180C166 180 188 200 184 240Z"/>
+          <rect x="149" y="160" width="2" height="22"/><circle cx="150" cy="158" r="3"/>
+          <path d="M116 240C116 227 128 227 128 240Z"/><path d="M172 240C172 227 184 227 184 240Z"/>
+          <rect x="88" y="262" width="24" height="22"/><path d="M90 262C90 250 110 250 110 262Z"/>
+          <rect x="188" y="262" width="24" height="22"/><path d="M190 262C190 250 210 250 210 262Z"/>
+          <rect x="76" y="212" width="10" height="72"/><path d="M74 212C74 200 88 200 88 212Z"/><rect x="80" y="196" width="2" height="8"/>
+          <rect x="214" y="212" width="10" height="72"/><path d="M212 212C212 200 226 200 226 212Z"/><rect x="218" y="196" width="2" height="8"/>
+        </g>
+      </defs>
+      <path d="M12 340V178C12 110 84 70 150 8C216 70 288 110 288 178V340Z" fill="#E8A21A"/>
+      <path d="M17 340V178C17 113 87 74 150 14C213 74 283 113 283 178V340Z" fill="#4E1028"/>
+      <g clip-path="url(#archclip)">
+        <rect width="300" height="340" fill="url(#sky)"/>
+        <g fill="#FFF4DC"><circle cx="70" cy="110" r="1.6"/><circle cx="230" cy="124" r="1.4"/><circle cx="188" cy="74" r="1.8"/><circle cx="112" cy="84" r="1.3"/><circle cx="150" cy="60" r="1.6"/></g>
+        <circle cx="150" cy="214" r="54" fill="#FFE6A8" opacity=".85"/>
+        <use href="#taj"/>
+        <path d="M138 284V258C138 246 162 246 162 258V284Z" fill="#B4456B" opacity=".85"/>
+        <rect y="291" width="300" height="49" fill="#5B2145" opacity=".7"/>
+        <g transform="translate(0 576) scale(1 -1)" opacity=".26"><use href="#taj"/></g>
+      </g>
+      <path d="M22 340V178C22 116 90 78 150 22C210 78 278 116 278 178V340" fill="none" stroke="#E8A21A" stroke-width="1.5"/>
+    </svg>
+    <h1>Monica &amp; Mete's India</h1>
+    <p class="sub">Highlights of India and the Golden Triangle, 4 to 13 November 2026</p>
+  </header>
+  <div class="guest-note" id="guest-note" hidden>You're a guest here. You can look at everything, but not add anything.</div>
+
+  <main class="wrap">
+    <!-- JOURNAL -->
+    <section class="tab on" id="tab-journal">
+      <div class="status" id="status"></div>
+      <div class="write" id="write" hidden><button class="btn" id="write-btn">Write a new note</button></div>
+      <div id="feed"></div>
+      <div class="empty" id="feed-empty" hidden></div>
+    </section>
+
+    <!-- OUR TRIP -->
+    <section class="tab" id="tab-trip">
+      <h2 class="sec">The journey</h2>
+      <p class="lead">Ten days through Delhi, Agra and Rajasthan with Della Cogan from Great Rail Journeys as tour manager.</p>
+      <div class="orn"><svg><use href="#lotus"/></svg></div>
+      <ol class="route" id="route"></ol>
+      <div class="orn"><svg><use href="#lotus"/></svg></div>
+      <h2 class="sec">Day by day</h2>
+      <p class="lead" style="margin-bottom:16px">Tap a day to open it.</p>
+      <div id="days"></div>
+    </section>
+
+    <!-- GOOD TO KNOW -->
+    <section class="tab" id="tab-know">
+      <h2 class="sec">Good to know</h2>
+      <p class="lead">The handy bits from the tour company's notes, in plain words.</p>
+      <div class="orn"><svg><use href="#lotus"/></svg></div>
+      <div id="know"></div>
+    </section>
+  </main>
+
+  <nav class="tabs" role="tablist" aria-label="Sections">
+    <button role="tab" aria-selected="true" data-tab="journal">Journal</button>
+    <button role="tab" aria-selected="false" data-tab="trip">The trip</button>
+    <button role="tab" aria-selected="false" data-tab="know">Good to know</button>
+  </nav>
+</div>
+
+<!-- COMPOSER -->
+<div class="sheet" id="composer" hidden>
+  <div class="sheet-card" role="dialog" aria-modal="true" aria-labelledby="cmp-title">
+    <h2 id="cmp-title">A new note</h2>
+    <label for="cmp-day">Which day is it about?</label>
+    <select class="field" id="cmp-day"></select>
+    <label for="cmp-text">What happened?</label>
+    <textarea class="field" id="cmp-text" placeholder="Tell everyone about it…"></textarea>
+    <label>Photos</label>
+    <input type="file" id="cmp-files" accept="image/*" multiple hidden>
+    <button class="btn ghost" id="cmp-pick" type="button">Choose photos</button>
+    <span id="cmp-count" style="margin-left:10px;color:var(--muted)"></span>
+    <p style="color:var(--muted);font-size:.92rem;margin:.6em 0 0">Pick as many as you like in one go.</p>
+    <div class="previews" id="cmp-previews"></div>
+    <div class="row">
+      <button class="btn quiet" id="cmp-cancel" type="button">Cancel</button>
+      <button class="btn" id="cmp-post" type="button">Share with the family</button>
+    </div>
+  </div>
+</div>
+
+<!-- LIGHTBOX -->
+<div class="lb" id="lb" hidden role="dialog" aria-modal="true" aria-label="Photo viewer">
+  <div class="lb-top">
+    <div class="who" id="lb-who"></div>
+    <div style="display:flex;gap:8px;align-items:center">
+      <button class="rm" id="lb-rm" hidden>Remove photo</button>
+      <button id="lb-close" aria-label="Close">✕</button>
+    </div>
+  </div>
+  <div class="lb-stage" id="lb-stage">
+    <button class="nav prev" id="lb-prev" aria-label="Previous photo">‹</button>
+    <img id="lb-img" alt="">
+    <button class="nav next" id="lb-next" aria-label="Next photo">›</button>
+  </div>
+  <div class="lb-count" id="lb-count"></div>
+</div>
+
+<input type="file" id="add-files" accept="image/*" multiple hidden>
+<div class="progress" id="progress" hidden><div id="prog-label"></div><div class="bar"><i id="prog-bar"></i></div></div>
+<div class="toast" id="toast" hidden></div>
+
+<script type="module">
+/* =====================================================================
+   Monica & Mete's India: encrypted family journal
+   - Everything stored in Firestore is encrypted in the browser with the family secret words.
+   - Guest words open the same journal read-only.
+   ===================================================================== */
+const FAM_CHECK = {"iv": "tZ0MrqNfZMAeQocC", "ct": "fkXhYkpvtoFqKFN1mUAqRNRQ2N3ntYjz"};
+const GUEST_WRAP = {"iv": "yRedIp+yxQpHaq1S", "ct": "MbRQ6xkD/XqeVcAWBDFwdeWfQ4GZ6d3U19hD7Jgak24DFg1cLJzUwBnN6NgaXD842QOpi2JS5BI2Gjagaw0="};
+const SALT_FAM = 'monica-india-2026-journal-v1';
+const SALT_GUEST = 'monica-india-2026-guest-v1';
+
+const FIREBASE_CONFIG = {
+  apiKey: "AIzaSyCTkpTqmf0NgjpBqSLfeg9LdvrKLpFmTKY",
+  authDomain: "india-trip-72c8a.firebaseapp.com",
+  projectId: "india-trip-72c8a",
+  storageBucket: "india-trip-72c8a.firebasestorage.app",
+  messagingSenderId: "87327350224",
+  appId: "1:87327350224:web:a55efb019f381cd175add5"
+};
+const COL = { posts:'mum_posts', comments:'mum_comments', photos:'mum_photos', hidden:'mum_hidden' };
+const LS = { key:'mj_key', mode:'mj_mode', who:'mj_who' };
+const DEPART = Date.parse('2026-11-04T18:50:00Z'); // VS300 from Heathrow, UK time = UTC in November
+
+const PEOPLE = [
+  { id:'monica', name:'Monica', color:'#7A1C3A' },
+  { id:'mete',   name:'Mete',   color:'#0D6A6E' },
+  { id:'tim',    name:'Tim',    color:'#C9820F' },
+  { id:'suzy',   name:'Suzy',   color:'#B24468' },
+  { id:'millie', name:'Millie', color:'#4F5FA8' },
+  { id:'ali',    name:'Ali',    color:'#C5602A' },
+  { id:'nicky',  name:'Nicky',  color:'#2F7A56' }
+];
+const MODERATORS = ['monica','tim'];
+
+/* ---------------- trip content ---------------- */
+const STAYS = {
+  delhi:  { name:'Crowne Plaza Okhla, Delhi', addr:'Plot No. 1, Community Centre Phase 1, Okhla, Delhi 110020' },
+  agra:   { name:'Hotel Clarks Shiraz, Agra', addr:'54 Taj Road, Agra, Uttar Pradesh 282001' },
+  ranth:  { name:'Ranthambore Regency, Sawai Madhopur', addr:'Ranthambhor Road, Subhash Nagar, Saptar, Sawai Madhopur, Rajasthan 322001' },
+  jaipur: { name:'Hyatt Place Jaipur Malviya Nagar', addr:'Apex Circle, Jhalana Gram, Malviya Nagar, Jaipur, Rajasthan 302017' },
+  tijara: { name:'Tijara Fort Palace', addr:'Hasanpur Mafi Elaka, Tijara, Rajasthan 301411' }
+};
+const TRIP = [
+  { date:'2026-11-04', title:'Flying to Delhi', where:'London Heathrow to Delhi, overnight',
+    flight:'Virgin Atlantic VS300 leaves London Heathrow Terminal 3 at 18:50. Check in three hours before, so about 15:50.',
+    plan:['Meet the tour group and Della, the tour manager, at the airport. A Great Rail Journeys meet and greet team will be there to help with check-in.',
+          'The flight is overnight and lands in Delhi on Thursday morning.'] },
+  { date:'2026-11-05', title:'Arriving in Delhi', where:'Delhi', wx:'delhi', stay:'delhi', nights:2, meals:['Dinner'],
+    plan:['Land in the morning and head to the hotel to rest and freshen up.',
+          'In the evening everyone gathers for dinner and gets to know each other.'],
+    tip:'The hotel is a few kilometres from the ruins of a 14th-century Tughlaq fortress, if you feel like a wander.' },
+  { date:'2026-11-06', title:'Old Delhi and New Delhi', where:'Delhi', wx:'delhi', stay:'delhi', stayNote:'Second night here.', meals:['Breakfast','Dinner'],
+    plan:['Morning: Old Delhi. The Jama Masjid, one of India\u2019s largest mosques; a rickshaw ride through the busy Chandni Chowk bazaars; the Red Fort from outside; and Raj Ghat, the Gandhi memorial.',
+          'Lunch is free time, so you choose where to eat.',
+          'Afternoon: New Delhi\u2019s wide avenues and grand buildings, including India Gate and the President\u2019s Palace, then the 16th-century tomb of the Emperor Humayun.',
+          'Back at the hotel in time for dinner.'] },
+  { date:'2026-11-07', title:'The Taj Mahal', where:'Agra', wx:'agra', stay:'agra', nights:1, meals:['Breakfast','Dinner'],
+    plan:['Travel to Agra on the Gatimaan Express train.',
+          'Straight to the Taj Mahal for a guided tour of the white marble tomb Shah Jahan built for his wife.',
+          'Check in, rest, then visit the huge red sandstone Agra Fort in the afternoon.',
+          'Dinner at the hotel.'],
+    tip:'A good day for the camera. Lots of photos to share here!' },
+  { date:'2026-11-08', title:'The Moon Well', where:'Abhaneri to Ranthambore', wx:'ranth', stay:'ranth', nights:2, meals:['Breakfast','Lunch','Dinner'],
+    plan:['Leave Agra by coach and head into Rajasthan.',
+          'Stop at Abhaneri to see the Chand Baori, or Moon Well, one of India\u2019s oldest and deepest step wells, from the 8th century. There is also a historic palace and a temple next door.',
+          'Lunch at Laxmi Vilas, then on to the hotel at the edge of Ranthambore National Park.',
+          'Dinner together at the hotel.'] },
+  { date:'2026-11-09', title:'Tiger country', where:'Ranthambore National Park', wx:'ranth', stay:'ranth', stayNote:'Second night here.', meals:['Breakfast','Lunch','Dinner'],
+    plan:['A free morning to relax and look around the hotel.',
+          'After lunch, a talk from a local naturalist, then off into the park in an open-topped vehicle called a canter.',
+          'Tigers are the star, but you may also see leopards, hyenas, crocodiles, jackals and more.',
+          'Back to the hotel for dinner.'],
+    tip:'Mobile phones are banned inside Ranthambore Tiger Reserve. Cameras are still allowed, so take a proper camera and share the pictures here afterwards.' },
+  { date:'2026-11-10', title:'The Pink City', where:'Ranthambore to Jaipur', wx:'jaipur', stay:'jaipur', nights:2, meals:['Breakfast','Lunch','Dinner'],
+    plan:['An early morning safari: another chance to spot a tiger, and maybe sloth bears, macaques and wild boar.',
+          'Breakfast and lunch at the hotel, then a coach ride to Jaipur, the Pink City.',
+          'Check in, freshen up, and dinner.'] },
+  { date:'2026-11-11', title:'Amber Fort and the City Palace', where:'Jaipur', wx:'jaipur', stay:'jaipur', stayNote:'Second night here.', meals:['Breakfast','Dinner'],
+    plan:['Amber Fort first. You switch from coach to jeep to reach the entrance of this yellow sandstone fort, built for the Rajput maharajas around 1600.',
+          'Afternoon: the 17th-century City Palace and the Jantar Mantar, an 18th-century astronomical observatory.',
+          'Last, a drive past the Hawa Mahal, the five-storey Palace of the Winds.'] },
+  { date:'2026-11-12', title:'A night in a maharaja\u2019s fort', where:'Tijara Fort Palace', wx:'tijara', stay:'tijara', nights:1, meals:['Breakfast','Dinner'],
+    plan:['After breakfast, a coach through the countryside, arriving early afternoon.',
+          'A jeep takes you up to the hotel, a 15th-century hilltop fort that has been restored.',
+          'A free afternoon to sit on the colonnaded verandas or walk the ramparts at sunset.',
+          'Dinner, then a cultural dance show.'],
+    tip:'The last night of the tour, and probably the most special place to stay.' },
+  { date:'2026-11-13', title:'Heading home', where:'Delhi to London Heathrow', wx:'delhi', meals:['Breakfast'],
+    flight:'Virgin Atlantic VS301 leaves Delhi at 11:20 and lands at London Heathrow at 15:55.',
+    plan:['Up early. The hotel provides a picnic breakfast for the drive back to Delhi.',
+          'At Delhi airport you board the flight home.'] }
+];
+const ROUTE = [
+  { place:'Delhi', when:'Thursday 5 and Friday 6 November, two nights' },
+  { place:'Agra', when:'Saturday 7 November, one night' },
+  { place:'Ranthambore', when:'Sunday 8 and Monday 9 November, two nights' },
+  { place:'Jaipur', when:'Tuesday 10 and Wednesday 11 November, two nights' },
+  { place:'Tijara Fort', when:'Thursday 12 November, one night' },
+  { place:'Home', when:'Friday 13 November' }
+];
+const KNOW = [
+  { h:'Before you go', items:[
+    'You need an Indian e-visa before you fly. It can take up to 72 hours to come through, so do it early: <a href="https://indianvisaonline.gov.in/evisa/" target="_blank" rel="noopener">indianvisaonline.gov.in/evisa</a>.',
+    'You also need an online e-Arrival Card, ideally about 72 hours before you fly. You get a QR code to show at the airport, on your phone or printed: <a href="https://indianvisaonline.gov.in/earrival/" target="_blank" rel="noopener">indianvisaonline.gov.in/earrival</a>.',
+    'There is a health self-declaration form too, done up to 24 hours before arrival: <a href="https://airsuvidha.civilaviation.gov.in/" target="_blank" rel="noopener">Air Suvidha</a>.',
+    'Tell your bank you are travelling, and check the foreign card fees.'] },
+  { h:'Heathrow', items:[
+    'The flight leaves at 18:50 from Terminal 3. Long-haul check-in opens three hours before, so aim to be there by about 15:50.',
+    'Look for the Great Rail Journeys meet and greet team in their branded clothes.'] },
+  { h:'Money', items:[
+    'You can\u2019t buy Indian rupees before you leave, and taking them into the country is an offence. Change money at the airport, at hotel reception, or use cash machines.',
+    'Keep your receipts so you can change leftover rupees back before you come home.',
+    'Bring a credit card. Hotels may ask for one as a guarantee.'] },
+  { h:'Water and food', items:[
+    'Only drink bottled water with the cap seal unbroken. Hotel rooms and the coach have free drinking water to fill a bottle.',
+    'Use the hotel\u2019s filtered water for brushing teeth.',
+    'The tour company has no special dietary needs or allergies on file. If that\u2019s wrong, tell them before you go.'] },
+  { h:'Cameras and phones', items:[
+    'Phones are not allowed inside Ranthambore Tiger Reserve (the tiger safaris on 9 and 10 November). Cameras are fine.'] },
+  { h:'What to pack', items:[
+    'Light layers, sunscreen, sunglasses, a hat, insect repellent and a refillable water bottle.',
+    'Your GHIC card if you have one.',
+    'A small overnight bag, for the times your main luggage goes ahead of you.',
+    'Paracetamol, diarrhoea tablets, travel sickness tablets, hand sanitiser and wet wipes.',
+    'Plugs in India are types C, D and M at 230 volts, but most hotels have UK three-pin sockets.'] },
+  { h:'Tipping', items:[
+    'Tips for bellboys, waiters, rickshaw drivers and local guides are already included.',
+    'The tour company suggests about \u00a335 for the local tour escort, coach drivers and helpers, handed to Della at the end.',
+    'A personal tip for Della is entirely up to you. \u00a35 to \u00a37 per person per day is the guideline.'] },
+  { h:'On the street', items:[
+    'You may be approached by beggars and snake charmers. The advice is not to hand over money, as it can encourage exploitation. Giving to a charity such as The Railway Children is suggested instead.'] }
+];
+
+/* ---------------- helpers ---------------- */
+const $ = (s, r=document) => r.querySelector(s);
+const $$ = (s, r=document) => [...r.querySelectorAll(s)];
+const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const nl = s => esc(s).replace(/\n/g, '<br>');
+const rid = () => Date.now().toString(36) + Math.random().toString(36).slice(2, 10);
+const lsGet = k => { try { return localStorage.getItem(k); } catch { return null; } };
+const lsSet = (k, v) => { try { localStorage.setItem(k, v); } catch {} };
+const lsDel = k => { try { localStorage.removeItem(k); } catch {} };
+const person = id => PEOPLE.find(p => p.id === id) || { id, name: id || 'Someone', color:'#7C5E62' };
+const med = (id, cls='') => { const p = person(id); return `<span class="med ${cls}" style="--c:${p.color}" aria-hidden="true">${esc(p.name[0])}</span>`; };
+const fmtDate = (iso, opts) => new Date(iso + 'T12:00:00Z').toLocaleDateString('en-GB', Object.assign({ weekday:'long', day:'numeric', month:'long', timeZone:'UTC' }, opts));
+function timeAgo(ts){
+  const s = Math.max(0, (Date.now() - ts) / 1000);
+  if (s < 60) return 'just now';
+  if (s < 3600) return Math.round(s/60) + ' min ago';
+  if (s < 86400) return Math.round(s/3600) + ' h ago';
+  if (s < 7*86400) return Math.round(s/86400) + (Math.round(s/86400) === 1 ? ' day ago' : ' days ago');
+  return new Date(ts).toLocaleDateString('en-GB', { day:'numeric', month:'short' });
+}
+let toastTimer;
+function toast(msg, ms=4200){ const t = $('#toast'); t.textContent = msg; t.hidden = false; clearTimeout(toastTimer); toastTimer = setTimeout(() => t.hidden = true, ms); }
+
+/* ---------------- crypto ---------------- */
+const te = new TextEncoder(), td = new TextDecoder();
+function toB64(buf){ const b = new Uint8Array(buf); let s = ''; for (let i = 0; i < b.length; i += 0x8000) s += String.fromCharCode.apply(null, b.subarray(i, i + 0x8000)); return btoa(s); }
+function fromB64(s){ const bin = atob(s); const b = new Uint8Array(bin.length); for (let i = 0; i < bin.length; i++) b[i] = bin.charCodeAt(i); return b; }
+async function derive(words, salt){
+  const base = await crypto.subtle.importKey('raw', te.encode(words), 'PBKDF2', false, ['deriveKey']);
+  return crypto.subtle.deriveKey({ name:'PBKDF2', salt: te.encode(salt), iterations: 600000, hash:'SHA-256' }, base, { name:'AES-GCM', length:256 }, true, ['encrypt','decrypt']);
+}
+const importRaw = b64 => crypto.subtle.importKey('raw', fromB64(b64), 'AES-GCM', true, ['encrypt','decrypt']);
+const exportRaw = async k => toB64(await crypto.subtle.exportKey('raw', k));
+async function encJSON(key, obj){
+  const iv = crypto.getRandomValues(new Uint8Array(12));
+  const ct = await crypto.subtle.encrypt({ name:'AES-GCM', iv }, key, te.encode(JSON.stringify(obj)));
+  return { iv: toB64(iv), ct: toB64(ct) };
+}
+async function decJSON(key, e){
+  const pt = await crypto.subtle.decrypt({ name:'AES-GCM', iv: fromB64(e.iv) }, key, fromB64(e.ct));
+  return JSON.parse(td.decode(pt));
+}
+async function tryWords(raw){
+  const words = raw.toLowerCase().replace(/[^a-z]/g, '');
+  if (!words) return null;
+  const kf = await derive(words, SALT_FAM);
+  try { await decJSON(kf, FAM_CHECK); return { mode:'family', raw: await exportRaw(kf) }; } catch {}
+  const kg = await derive(words, SALT_GUEST);
+  try { const famRaw = await decJSON(kg, GUEST_WRAP); return { mode:'guest', raw: famRaw }; } catch {}
+  return null;
+}
+
+/* ---------------- state ---------------- */
+const S = { mode:null, who:null, key:null, posts:[], comments:[], hidden:new Set(), photos:{}, watching:new Set(), cards:new Map(), fb:null };
+const canWrite = () => S.mode === 'family' && !!S.who;
+const canHide = item => canWrite() && (item.who === S.who || MODERATORS.includes(S.who));
+
+/* ---------------- boot / gate ---------------- */
+async function boot(){
+  const k = lsGet(LS.key), m = lsGet(LS.mode);
+  if (k && m) {
+    try { const key = await importRaw(k); await decJSON(key, FAM_CHECK); S.key = key; S.mode = m; }
+    catch { lsDel(LS.key); lsDel(LS.mode); }
+  }
+  if (!S.key) { $('#gate').hidden = false; $('#words').focus(); return; }
+  proceedAfterGate();
+}
+function proceedAfterGate(){
+  $('#gate').hidden = true;
+  if (S.mode === 'family') {
+    const w = lsGet(LS.who);
+    if (w && PEOPLE.some(p => p.id === w)) S.who = w;
+    else { showPicker(); return; }
+  }
+  startApp();
+}
+$('#gate-form').addEventListener('submit', async e => {
+  e.preventDefault();
+  const btn = $('#gate-btn'), err = $('#gate-err');
+  err.textContent = ''; btn.disabled = true; btn.textContent = 'Opening…';
+  try {
+    const r = await tryWords($('#words').value);
+    if (!r) { err.textContent = "Those words didn't open it. Check the spelling and try again."; return; }
+    S.key = await importRaw(r.raw); S.mode = r.mode;
+    lsSet(LS.key, r.raw); lsSet(LS.mode, r.mode);
+    proceedAfterGate();
+  } catch { err.textContent = 'Something went wrong. Please try again.'; }
+  finally { btn.disabled = false; btn.textContent = 'Open the journal'; }
+});
+function showPicker(){
+  $('#people').innerHTML = PEOPLE.map(p => `<button class="person" data-id="${p.id}">${med(p.id,'lg')}<span>${esc(p.name)}</span></button>`).join('');
+  $('#picker').hidden = false;
+}
+$('#people').addEventListener('click', e => {
+  const b = e.target.closest('.person'); if (!b) return;
+  S.who = b.dataset.id; lsSet(LS.who, S.who);
+  $('#picker').hidden = true;
+  startApp();
+});
+
+/* ---------------- app start ---------------- */
+let appStarted = false;
+function startApp(){
+  $('#app').hidden = false;
+  renderMe();
+  $('#guest-note').hidden = S.mode !== 'guest';
+  $('#write').hidden = !canWrite();
+  renderStatus(); renderTrip(); renderKnow();
+  $$('.tab').forEach(t => t.classList.remove('on')); $('#tab-journal').classList.add('on');
+  if (!appStarted) { appStarted = true; loadWeather(); startData(); setInterval(renderStatus, 60000); }
+  else { renderFeed(); }
+}
+function renderMe(){
+  const b = $('#me-btn');
+  b.innerHTML = S.mode === 'guest' ? `<span>Guest</span>` : `${med(S.who,'sm')}<span>${esc(person(S.who).name)}</span>`;
+}
+$('#me-btn').addEventListener('click', () => { const m = $('#menu'); m.hidden = !m.hidden; $('#me-btn').setAttribute('aria-expanded', String(!m.hidden)); $('#m-switch').hidden = S.mode === 'guest'; });
+document.addEventListener('click', e => { if (!e.target.closest('#menu') && !e.target.closest('#me-btn')) $('#menu').hidden = true; });
+$('#m-switch').addEventListener('click', () => { $('#menu').hidden = true; $('#app').hidden = true; showPicker(); });
+$('#m-lock').addEventListener('click', () => { lsDel(LS.key); lsDel(LS.mode); lsDel(LS.who); location.reload(); });
+
+/* tabs */
+$$('.tabs button').forEach(b => b.addEventListener('click', () => {
+  $$('.tabs button').forEach(x => x.setAttribute('aria-selected', String(x === b)));
+  $$('.tab').forEach(t => t.classList.toggle('on', t.id === 'tab-' + b.dataset.tab));
+  window.scrollTo({ top: 0 });
+}));
+function goTab(name){ $(`.tabs button[data-tab="${name}"]`).click(); }
+
+/* ---------------- trip views ---------------- */
+function todayISO(){ return new Intl.DateTimeFormat('en-CA', { timeZone:'Asia/Kolkata' }).format(new Date()); }
+function todayIdx(){
+  const t = todayISO();
+  const i = TRIP.findIndex(d => d.date === t);
+  if (i >= 0) return i;
+  return t > TRIP[TRIP.length - 1].date ? 99 : -1;
+}
+function renderStatus(){
+  const el = $('#status'); if (!el) return;
+  const now = Date.now(); const idx = todayIdx();
+  if (now < DEPART) {
+    const hrs = Math.ceil((DEPART - now) / 3600000);
+    const days = Math.ceil((DEPART - now) / 86400000);
+    const big = hrs <= 48 ? hrs : days, unit = hrs <= 48 ? (hrs === 1 ? 'hour' : 'hours') : (days === 1 ? 'day' : 'days');
+    el.innerHTML = `<div class="big">${big}</div><p>${unit} until Monica and Mete fly to Delhi.<br>Their notes and photos will appear below.</p>`;
+  } else if (idx >= 0 && idx < TRIP.length) {
+    const d = TRIP[idx];
+    el.innerHTML = `<div class="big">${idx + 1}</div><p><b>Day ${idx + 1} of ${TRIP.length}: ${esc(d.title)}</b><br>${esc(d.where)}<br><button class="btn" id="st-go">See today's plan</button></p>`;
+    $('#st-go').onclick = () => { goTab('trip'); const det = $$('.day')[idx]; if (det) { det.open = true; setTimeout(() => det.scrollIntoView({ behavior:'smooth', block:'start' }), 60); } };
+  } else if (idx === 99) {
+    el.innerHTML = `<div class="big">✓</div><p><b>Welcome home!</b><br>That's the whole trip. Every note and photo stays here.</p>`;
+  } else { el.hidden = true; }
+}
+function dayHTML(d, i, open){
+  const dn = new Date(d.date + 'T12:00:00Z').getUTCDate();
+  const mon = fmtDate(d.date, { weekday:undefined, day:undefined, month:'short' }).toUpperCase();
+  const st = d.stay ? STAYS[d.stay] : null;
+  const nights = d.nights ? `${d.nights} ${d.nights === 1 ? 'night' : 'nights'} here.` : (d.stayNote || '');
+  return `<details class="day" ${open ? 'open' : ''}>
+    <summary><span class="dm"><b>${dn}</b><i>${esc(mon)}</i></span><span class="dt"><strong>${esc(d.title)}</strong><small>${esc(d.where)}</small></span></summary>
+    <div class="dbody">
+      <p class="dfull">${esc(fmtDate(d.date))}, day ${i + 1}</p>
+      ${d.flight ? `<div class="box"><h4>The flight</h4><p>${esc(d.flight)}</p></div>` : ''}
+      ${d.plan.map(p => `<p>${esc(p)}</p>`).join('')}
+      ${st ? `<div class="box"><h4>Where you sleep</h4><p><b>${esc(st.name)}</b><br>${esc(st.addr)}<br>${esc(nights)}</p></div>` : ''}
+      ${d.meals && d.meals.length ? `<div class="box"><h4>Meals included</h4><p>${esc(d.meals.join(', '))}</p></div>` : ''}
+      ${d.wx ? `<p class="wx" data-wx="${d.wx}:${d.date}" hidden></p>` : ''}
+      ${d.tip ? `<p class="tip">${esc(d.tip)}</p>` : ''}
+    </div></details>`;
+}
+function renderTrip(){
+  $('#route').innerHTML = ROUTE.map(r => `<li><b>${esc(r.place)}</b><span>${esc(r.when)}</span></li>`).join('');
+  const t = todayIdx();
+  $('#days').innerHTML = TRIP.map((d, i) => dayHTML(d, i, i === t)).join('');
+}
+function renderKnow(){
+  $('#know').innerHTML = KNOW.map(k => `<div class="know"><h3>${esc(k.h)}</h3><ul>${k.items.map(i => `<li>${i}</li>`).join('')}</ul></div>`).join('');
+}
+const WX = { delhi:[28.55,77.27], agra:[27.18,78.04], ranth:[26.02,76.35], jaipur:[26.85,75.80], tijara:[27.94,76.86] };
+async function loadWeather(){
+  for (const [k, [la, lo]] of Object.entries(WX)) {
+    try {
+      const r = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${la}&longitude=${lo}&daily=temperature_2m_max,temperature_2m_min&timezone=Asia%2FKolkata&forecast_days=16`);
+      const j = await r.json();
+      j.daily.time.forEach((d, i) => {
+        $$(`[data-wx="${k}:${d}"]`).forEach(el => { el.textContent = `Forecast: about ${Math.round(j.daily.temperature_2m_max[i])}° in the day and ${Math.round(j.daily.temperature_2m_min[i])}° at night.`; el.hidden = false; });
+      });
+    } catch {}
+  }
+}
+
+/* ---------------- data (Firestore) ---------------- */
+const decCache = new Map();
+async function decDoc(d){
+  if (decCache.has(d.id)) return decCache.get(d.id);
+  let v = null;
+  try { v = await decJSON(S.key, d.data().enc); } catch {}
+  decCache.set(d.id, v);
+  return v;
+}
+function setOnline(ok){ $('#offline').hidden = ok; }
+async function startData(){
+  try {
+    const [appMod, fsMod] = await Promise.all([
+      import('https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js'),
+      import('https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js')
+    ]);
+    const app = appMod.initializeApp(FIREBASE_CONFIG);
+    S.fb = Object.assign({ db: fsMod.getFirestore(app) }, fsMod);
+  } catch { setOnline(false); return; }
+  const { db, collection, query, orderBy, onSnapshot } = S.fb;
+
+  onSnapshot(collection(db, COL.hidden), async snap => {
+    const set = new Set();
+    for (const d of snap.docs) { const v = await decDoc(d); if (v && v.id) set.add(v.id); }
+    S.hidden = set; setOnline(true); refreshAll();
+  }, () => setOnline(false));
+
+  onSnapshot(query(collection(db, COL.posts), orderBy('ts', 'desc')), async snap => {
+    const out = [];
+    for (const d of snap.docs) { const v = await decDoc(d); if (v) out.push({ id: d.id, ts: d.data().ts, ...v }); }
+    S.posts = out; setOnline(true); renderFeed();
+  }, () => setOnline(false));
+
+  onSnapshot(query(collection(db, COL.comments), orderBy('ts', 'asc')), async snap => {
+    const out = [];
+    for (const d of snap.docs) { const v = await decDoc(d); if (v) out.push({ id: d.id, ts: d.data().ts, pid: d.data().pid, ...v }); }
+    S.comments = out; setOnline(true);
+    S.cards.forEach((_, pid) => { renderActions(pid); renderComments(pid); });
+  }, () => setOnline(false));
+}
+function watchPhotos(pid){
+  if (S.watching.has(pid) || !S.fb) return;
+  S.watching.add(pid);
+  const { db, collection, query, where, onSnapshot } = S.fb;
+  onSnapshot(query(collection(db, COL.photos), where('pid', '==', pid)), async snap => {
+    const out = [];
+    for (const d of snap.docs) { const v = await decDoc(d); if (v) out.push({ id: d.id, ts: d.data().ts, ...v }); }
+    out.sort((a, b) => a.ts - b.ts);
+    S.photos[pid] = out; renderPhotos(pid); renderActions(pid);
+    if (lb.pid === pid && !$('#lb').hidden) lbShow(lb.i);
+  }, () => {});
+}
+const visPhotos = pid => (S.photos[pid] || []).filter(p => !S.hidden.has(p.id));
+const visComments = pid => S.comments.filter(c => c.pid === pid && c.kind === 'c' && !S.hidden.has(c.id));
+const visHearts = pid => S.comments.filter(c => c.pid === pid && c.kind === 'h' && !S.hidden.has(c.id));
+
+/* ---------------- feed rendering ---------------- */
+function refreshAll(){ renderFeed(); }
+function renderFeed(){
+  const feed = $('#feed');
+  const posts = S.posts.filter(p => !S.hidden.has(p.id));
+  const keep = new Set(posts.map(p => p.id));
+  for (const [pid, el] of S.cards) if (!keep.has(pid)) { el.remove(); S.cards.delete(pid); }
+  for (const p of posts) {
+    let el = S.cards.get(p.id);
+    if (!el) { el = buildCard(p); S.cards.set(p.id, el); watchPhotos(p.id); }
+    feed.appendChild(el);
+    renderPhotos(p.id); renderActions(p.id); renderComments(p.id);
+  }
+  const empty = $('#feed-empty');
+  empty.hidden = posts.length > 0;
+  if (!posts.length) empty.textContent = canWrite() ? 'No notes yet. Tap "Write a new note" to add the first one.' : 'No notes yet. Monica and Mete\'s first note will appear here.';
+}
+function buildCard(p){
+  const day = TRIP[Math.min(Math.max(p.day ?? 0, 0), TRIP.length - 1)];
+  const el = document.createElement('article');
+  el.className = 'letter'; el.dataset.pid = p.id;
+  el.innerHTML = `
+    <h3>${esc(fmtDate(day.date))}</h3>
+    <p class="meta">Day ${(p.day ?? 0) + 1}: ${esc(day.title)}, ${esc(day.where)}</p>
+    <div class="text">${p.text ? nl(p.text) : ''}</div>
+    <div data-photos></div>
+    <div class="by">${med(p.who)}<span>Written by ${esc(person(p.who).name)}, ${esc(timeAgo(p.ts))}</span></div>
+    <div class="acts" data-acts></div>
+    <div class="comments" data-comments></div>
+    ${canWrite() ? `<div class="reply"><input class="field" data-reply placeholder="Write a comment…" aria-label="Write a comment"><button class="btn" data-act="comment">Send</button></div>` : ''}`;
+  return el;
+}
+function renderPhotos(pid){
+  const el = S.cards.get(pid); if (!el) return;
+  const box = $('[data-photos]', el), ph = visPhotos(pid);
+  if (!S.photos[pid]) { box.innerHTML = ''; return; }
+  if (!ph.length) { box.innerHTML = ''; return; }
+  const max = ph.length === 1 ? 1 : ph.length === 2 ? 2 : 6;
+  const shown = ph.slice(0, max), extra = ph.length - shown.length;
+  box.innerHTML = `<div class="photos ${ph.length === 1 ? 'one' : ph.length === 2 ? 'two' : ''}">` +
+    shown.map((x, i) => `<button class="ph" data-act="open" data-i="${i}" aria-label="Open photo ${i + 1} of ${ph.length}"><img src="${x.img}" alt="Photo ${i + 1} added by ${esc(person(x.who).name)}" loading="lazy">${(i === shown.length - 1 && extra > 0) ? `<span class="more">+${extra}</span>` : ''}</button>`).join('') + `</div>`;
+}
+function renderActions(pid){
+  const el = S.cards.get(pid); if (!el) return;
+  const post = S.posts.find(p => p.id === pid); if (!post) return;
+  const hearts = visHearts(pid), who = new Set(hearts.map(h => h.who));
+  const mine = canWrite() && who.has(S.who);
+  const n = who.size;
+  let h = `<button class="chipbtn" data-act="heart" aria-pressed="${mine}" ${canWrite() ? '' : 'disabled'} aria-label="${n} ${n === 1 ? 'heart' : 'hearts'}"><span aria-hidden="true">♥</span>${n ? n : ''} ${n === 0 && canWrite() ? 'Love this' : ''}</button>`;
+  if (canWrite()) h += `<button class="chipbtn" data-act="addphotos">Add photos</button>`;
+  if (canHide(post)) h += `<button class="chipbtn plain" data-act="hide-post">Remove note</button>`;
+  $('[data-acts]', el).innerHTML = h;
+}
+function renderComments(pid){
+  const el = S.cards.get(pid); if (!el) return;
+  const list = visComments(pid);
+  $('[data-comments]', el).innerHTML = list.map(c => `<div class="cm">${med(c.who,'sm')}<div class="txt"><b>${esc(person(c.who).name)}</b><small>${esc(timeAgo(c.ts))}</small><br>${nl(c.text)}${canHide(c) ? `<br><button class="x" data-act="hide-comment" data-id="${c.id}">Remove</button>` : ''}</div></div>`).join('');
+}
+
+/* ---------------- actions ---------------- */
+const withTimeout = (p, ms) => Promise.race([p, new Promise((_, rej) => setTimeout(() => rej(new Error('timeout')), ms))]);
+async function writeDoc(colName, data, id){
+  const { db, collection, doc, setDoc, addDoc } = S.fb;
+  if (id) return withTimeout(setDoc(doc(db, colName, id), data), 45000);
+  return withTimeout(addDoc(collection(db, colName), data), 45000);
+}
+async function hideId(id){ await writeDoc(COL.hidden, { ts: Date.now(), enc: await encJSON(S.key, { id, by: S.who }) }); }
+
+$('#feed').addEventListener('click', async e => {
+  const b = e.target.closest('[data-act]'); if (!b) return;
+  const card = b.closest('.letter'); const pid = card && card.dataset.pid;
+  const act = b.dataset.act;
+  if (act === 'open') return openLb(pid, +b.dataset.i);
+  if (!canWrite() && act !== 'open') return;
+  try {
+    if (act === 'heart') {
+      const mine = visHearts(pid).filter(h => h.who === S.who);
+      if (mine.length) { for (const h of mine) await hideId(h.id); }
+      else await writeDoc(COL.comments, { ts: Date.now(), pid, enc: await encJSON(S.key, { who: S.who, kind:'h' }) });
+    } else if (act === 'comment') {
+      const inp = $('[data-reply]', card), text = inp.value.trim(); if (!text) return;
+      b.disabled = true;
+      await writeDoc(COL.comments, { ts: Date.now(), pid, enc: await encJSON(S.key, { who: S.who, kind:'c', text }) });
+      inp.value = ''; b.disabled = false;
+    } else if (act === 'hide-post') {
+      if (confirm('Remove this whole note from the journal?')) await hideId(pid);
+    } else if (act === 'hide-comment') {
+      if (confirm('Remove this comment?')) await hideId(b.dataset.id);
+    } else if (act === 'addphotos') {
+      const inp = $('#add-files'); inp.dataset.pid = pid; inp.click();
+    }
+  } catch { toast("That didn't save. Check your connection and try again."); b.disabled = false; }
+});
+$('#feed').addEventListener('keydown', e => { if (e.key === 'Enter' && e.target.matches('[data-reply]')) { e.preventDefault(); $('[data-act="comment"]', e.target.closest('.letter')).click(); } });
+
+/* ---------------- photos: prepare + upload ---------------- */
+async function loadBitmap(file){
+  try { return await createImageBitmap(file, { imageOrientation:'from-image' }); }
+  catch {
+    const url = URL.createObjectURL(file);
+    try { const img = new Image(); img.src = url; await img.decode(); return img; }
+    finally { setTimeout(() => URL.revokeObjectURL(url), 5000); }
+  }
+}
+async function compress(file){
+  const bmp = await loadBitmap(file);
+  const w0 = bmp.width || bmp.naturalWidth, h0 = bmp.height || bmp.naturalHeight;
+  let max = 1400, q = 0.74;
+  for (let i = 0; i < 6; i++) {
+    const s = Math.min(1, max / Math.max(w0, h0));
+    const c = document.createElement('canvas'); c.width = Math.max(1, Math.round(w0 * s)); c.height = Math.max(1, Math.round(h0 * s));
+    c.getContext('2d').drawImage(bmp, 0, 0, c.width, c.height);
+    const url = c.toDataURL('image/jpeg', q);
+    if (url.length < 450000) return url;
+    max *= 0.85; q = Math.max(0.4, q - 0.06);
+  }
+  throw new Error('too big');
+}
+function progress(label, done, total){
+  const p = $('#progress'); p.hidden = false;
+  $('#prog-label').textContent = label;
+  $('#prog-bar').style.width = (total ? Math.round(done / total * 100) : 0) + '%';
+}
+async function uploadPhotos(files, pid){
+  let done = 0, failed = 0, next = 0;
+  const total = files.length;
+  progress(`Getting photos ready… 0 of ${total}`, 0, total);
+  async function one(file, i){
+    for (let attempt = 0; attempt < 2; attempt++) {
+      try {
+        const img = await compress(file);
+        const enc = await encJSON(S.key, { who: S.who, img });
+        await writeDoc(COL.photos, { ts: Date.now() + i, pid, enc });
+        return true;
+      } catch {}
+    }
+    return false;
+  }
+  async function worker(){
+    while (next < total) {
+      const i = next++;
+      const ok = await one(files[i], i);
+      if (!ok) failed++;
+      done++;
+      progress(`Uploading photos… ${done} of ${total}`, done, total);
+    }
+  }
+  await Promise.all(Array.from({ length: Math.min(3, total) }, worker));
+  $('#progress').hidden = true;
+  return failed;
+}
+$('#add-files').addEventListener('change', async e => {
+  const files = [...e.target.files]; const pid = e.target.dataset.pid; e.target.value = '';
+  if (!files.length || !canWrite()) return;
+  const failed = await uploadPhotos(files, pid);
+  toast(failed ? `${files.length - failed} added. ${failed} didn't upload, so try those again.` : (files.length === 1 ? 'Photo added.' : `${files.length} photos added.`));
+});
+
+/* ---------------- composer ---------------- */
+let cmpFiles = [];
+function openComposer(){
+  const t = todayIdx(); const def = t >= 0 && t < TRIP.length ? t : (t === 99 ? TRIP.length - 1 : 0);
+  $('#cmp-day').innerHTML = TRIP.map((d, i) => `<option value="${i}" ${i === def ? 'selected' : ''}>Day ${i + 1}: ${esc(fmtDate(d.date, { weekday:'short' }))}, ${esc(d.title)}</option>`).join('');
+  $('#cmp-text').value = ''; cmpFiles = []; renderPreviews();
+  $('#composer').hidden = false; document.body.style.overflow = 'hidden';
+  setTimeout(() => $('#cmp-text').focus(), 50);
+}
+function closeComposer(){ $('#composer').hidden = true; document.body.style.overflow = ''; $$('#cmp-previews img').forEach(i => URL.revokeObjectURL(i.src)); }
+function renderPreviews(){
+  $$('#cmp-previews img').forEach(i => URL.revokeObjectURL(i.src));
+  $('#cmp-previews').innerHTML = cmpFiles.map((f, i) => `<div class="pv"><img src="${URL.createObjectURL(f)}" alt=""><button type="button" data-rm="${i}" aria-label="Remove this photo">✕</button></div>`).join('');
+  $('#cmp-count').textContent = cmpFiles.length ? `${cmpFiles.length} chosen` : '';
+}
+$('#write-btn').addEventListener('click', openComposer);
+$('#cmp-cancel').addEventListener('click', closeComposer);
+$('#cmp-pick').addEventListener('click', () => $('#cmp-files').click());
+$('#cmp-files').addEventListener('change', e => { cmpFiles = cmpFiles.concat([...e.target.files]); e.target.value = ''; renderPreviews(); });
+$('#cmp-previews').addEventListener('click', e => { const b = e.target.closest('[data-rm]'); if (!b) return; cmpFiles.splice(+b.dataset.rm, 1); renderPreviews(); });
+$('#cmp-post').addEventListener('click', async () => {
+  if (!canWrite() || !S.fb) { toast("The journal isn't connected yet. Try again in a moment."); return; }
+  const text = $('#cmp-text').value.trim(), day = +$('#cmp-day').value, files = cmpFiles.slice();
+  if (!text && !files.length) { toast('Add a few words or a photo first.'); return; }
+  const btn = $('#cmp-post'); btn.disabled = true; btn.textContent = 'Sharing…';
+  const pid = rid(); let failed = 0;
+  try {
+    if (files.length) failed = await uploadPhotos(files, pid);
+    if (files.length && failed === files.length && !text) { toast("None of the photos uploaded. Check your connection and try again."); return; }
+    await writeDoc(COL.posts, { ts: Date.now(), enc: await encJSON(S.key, { who: S.who, day, text }) }, pid);
+    closeComposer();
+    toast(failed ? `Shared. ${failed} ${failed === 1 ? 'photo' : 'photos'} didn't upload, so add ${failed === 1 ? 'it' : 'them'} again with "Add photos".` : 'Shared with the family.');
+  } catch { toast("That didn't save. Check your connection and try again."); }
+  finally { btn.disabled = false; btn.textContent = 'Share with the family'; $('#progress').hidden = true; }
+});
+
+/* ---------------- lightbox ---------------- */
+const lb = { pid:null, i:0 };
+function openLb(pid, i){ lb.pid = pid; $('#lb').hidden = false; document.body.style.overflow = 'hidden'; lbShow(i); $('#lb-close').focus(); }
+function lbShow(i){
+  const list = visPhotos(lb.pid);
+  if (!list.length) { closeLb(); return; }
+  lb.i = (i + list.length) % list.length;
+  const p = list[lb.i];
+  $('#lb-img').src = p.img; $('#lb-img').alt = `Photo added by ${person(p.who).name}`;
+  $('#lb-who').innerHTML = `${med(p.who)}<span>Added by ${esc(person(p.who).name)}</span>`;
+  $('#lb-count').textContent = `${lb.i + 1} of ${list.length}`;
+  $('#lb-rm').hidden = !canHide(p);
+  $('#lb-prev').hidden = $('#lb-next').hidden = list.length < 2;
+}
+function closeLb(){ $('#lb').hidden = true; document.body.style.overflow = ''; }
+$('#lb-close').addEventListener('click', closeLb);
+$('#lb-prev').addEventListener('click', () => lbShow(lb.i - 1));
+$('#lb-next').addEventListener('click', () => lbShow(lb.i + 1));
+$('#lb-rm').addEventListener('click', async () => {
+  const p = visPhotos(lb.pid)[lb.i]; if (!p || !confirm('Remove this photo from the journal?')) return;
+  try { await hideId(p.id); } catch { toast("That didn't save. Try again."); }
+});
+document.addEventListener('keydown', e => {
+  if (!$('#lb').hidden) { if (e.key === 'Escape') closeLb(); if (e.key === 'ArrowLeft') lbShow(lb.i - 1); if (e.key === 'ArrowRight') lbShow(lb.i + 1); }
+  else if (!$('#composer').hidden && e.key === 'Escape') closeComposer();
+});
+let tx = null;
+$('#lb-stage').addEventListener('touchstart', e => { tx = e.touches[0].clientX; }, { passive:true });
+$('#lb-stage').addEventListener('touchend', e => { if (tx == null) return; const dx = e.changedTouches[0].clientX - tx; tx = null; if (Math.abs(dx) > 50) lbShow(lb.i + (dx < 0 ? 1 : -1)); });
+
+boot();
+</script>
+</body>
+</html>
