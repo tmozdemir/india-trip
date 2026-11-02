@@ -36,7 +36,7 @@ a{color:var(--sky-deep)}
 :focus-visible{outline:3px solid var(--sun); outline-offset:3px; border-radius:6px}
 .wrap{max-width:720px; margin:0 auto; padding:0 18px}
 /* the journal: a leather-bound book lying on the desk, with paper pages */
-main.wrap{position:relative; width:calc(100% - 16px); max-width:728px; margin:16px auto 8px; padding:6px 6px 18px; border:10px solid transparent; border-radius:18px;
+main.wrap{position:relative; width:calc(100% - 16px); max-width:728px; margin:26px auto 8px; padding:6px 6px 18px; border:10px solid transparent; border-radius:18px;
   background:
     url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='48' height='48'%3E%3Cpath d='M24 0 48 24 24 48 0 24Z' fill='none' stroke='%23B98A2E' stroke-opacity='.13'/%3E%3Ccircle cx='24' cy='24' r='3.5' fill='none' stroke='%23B98A2E' stroke-opacity='.17'/%3E%3C/svg%3E") padding-box,
     var(--paperTex) padding-box,
@@ -348,7 +348,7 @@ textarea.field{min-height:150px; resize:vertical; line-height:1.5}
 .linkbtn{display:inline-flex; align-items:center; gap:6px; min-height:44px; margin-top:2px; padding:0; background:none; border:0; color:var(--sky-deep); font-weight:700; text-decoration:underline; text-underline-offset:3px}
 .linkbtn svg{width:20px; height:20px; fill:none; stroke:currentColor; stroke-width:1.8; stroke-linecap:round; stroke-linejoin:round}
 @media (max-width:360px){ .legend{grid-template-columns:1fr} }
-.banners{max-width:728px; width:calc(100% - 16px); margin:16px auto 4px; position:relative; z-index:2}
+.banners{max-width:728px; width:calc(100% - 16px); margin:28px auto 0; position:relative; z-index:2}
 .banners:empty{display:none}
 .bn{position:relative; background:var(--paperTex), var(--paper); background-blend-mode:multiply,normal; border:1px solid var(--line); border-left:8px solid var(--c,var(--navy)); border-radius:8px 16px 16px 8px; padding:14px 46px 12px 16px; margin:0 0 12px; box-shadow:0 6px 16px rgba(0,0,0,.35), inset 0 0 0 3px var(--paper), inset 0 0 0 4px #E9D6A8}
 .bn-x{position:absolute; top:4px; right:4px; width:44px; height:44px; border:0; background:none; color:var(--muted); font-size:1.7rem; line-height:1; border-radius:50%}
@@ -364,8 +364,36 @@ textarea.field{min-height:150px; resize:vertical; line-height:1.5}
 .bn-live{margin:.4em 0 .2em; padding:8px 12px; background:var(--mist); border:1px solid var(--mist-line); border-radius:10px; font-weight:600; color:var(--navy)}
 .bn-live small{display:block; font-weight:400; color:var(--muted); font-size:.85rem}
 .bn .btns{margin-top:8px}
+.bn-c{padding:0; border-radius:8px 14px 14px 8px; display:flex; align-items:stretch; margin-bottom:8px}
+.bn-c .bn-x{position:static; flex:none; width:48px; height:auto; min-height:52px}
+.bn-t{flex:1; min-width:0; min-height:52px; display:flex; align-items:center; gap:10px; padding:5px 4px 5px 10px; background:none; border:0; text-align:left; color:var(--ink)}
+.bn-ic.sm{width:36px; height:36px; box-shadow:0 0 0 1.5px var(--paper), 0 0 0 2.5px var(--gold)}
+.bn-ic.sm svg{width:20px; height:20px}
+.bn-tt{flex:1; min-width:0; font-family:var(--display); font-weight:700; font-size:1.2rem; line-height:1.2; color:var(--ruby); white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
+.bn-cd{flex:none; font-weight:700; font-size:.88rem; color:var(--navy); white-space:nowrap; max-width:40%; overflow:hidden; text-overflow:ellipsis}
+.bn-cd:empty{display:none}
+.bn-t > svg:last-child{flex:none; width:22px; height:22px; fill:none; stroke:var(--navy); stroke-width:2.4; stroke-linecap:round; stroke-linejoin:round}
+.bn .linkbtn{margin-top:4px}
 .bn-more{display:block; margin:0 auto 12px; min-height:44px; padding:0 18px; border-radius:999px; border:2px solid var(--gold); background:var(--paper); color:var(--navy); font-weight:600}
 .bn-preview{margin:0 0 10px; padding:8px 12px; background:var(--navy); color:#fff; border-radius:10px; font-size:.9rem; text-align:center}
+.hero-body{display:block}
+.hero-text{min-width:0; flex:1}
+.hero{transition:height .75s cubic-bezier(.4,0,.2,1), padding .75s cubic-bezier(.4,0,.2,1)}
+.hero.anim{overflow:hidden}
+.hero.nomove,.hero.nomove *{transition:none!important}
+.hero .arch-svg,.hero h1,.hero .sub,.hero .sub span:first-child{transition:width .75s cubic-bezier(.4,0,.2,1), margin .75s cubic-bezier(.4,0,.2,1), font-size .75s cubic-bezier(.4,0,.2,1), max-height .75s, opacity .5s}
+.hero .sub span:first-child{max-height:4em; overflow:hidden}
+.hero.compact{padding:10px 20px 20px}
+.hero.compact .hero-top{margin:0 auto}
+.hero.compact .hero-body{display:flex; align-items:center; gap:16px; text-align:left; max-width:720px; margin:0 auto}
+.hero.compact .arch-svg{flex:none; margin:0; width:clamp(66px, calc((28vh - 84px) / 1.133), 170px)}
+.hero.compact h1{font-size:clamp(1.4rem,5.8vw,2.1rem)}
+.hero.compact .sub{margin-top:.25em; font-size:.98rem}
+.hero.compact .sub .nw{white-space:normal}
+.hero.compact .sub span:first-child{max-height:0; opacity:0}
+.hero-toggle{position:absolute; left:50%; bottom:-19px; transform:translateX(-50%); z-index:6; width:68px; height:38px; border-radius:0 0 19px 19px; border:2px solid var(--gold); border-top:0; background:var(--leather), #5A1830; background-blend-mode:multiply,normal; color:var(--sun); display:grid; place-items:center; padding:0; box-shadow:0 6px 12px rgba(0,0,0,.4)}
+.hero-toggle svg{width:24px; height:24px; fill:none; stroke:currentColor; stroke-width:2.4; stroke-linecap:round; stroke-linejoin:round; transition:transform .4s; margin-top:4px}
+.hero:not(.compact) .hero-toggle svg{transform:rotate(180deg)}
 @media (max-width:380px){ .fxrow{grid-template-columns:1fr} .fxrow .eq{display:none} }
 @media (prefers-reduced-motion:reduce){ *{transition:none!important; animation:none!important} }
 </style>
@@ -389,7 +417,7 @@ textarea.field{min-height:150px; resize:vertical; line-height:1.5}
       <circle r="4" fill="#FBF1DB"/>
     </symbol>
     <symbol id="pin" viewBox="0 0 24 24"><path fill="currentColor" d="M12 2C8.1 2 5 5.1 5 9c0 5.2 7 13 7 13s7-7.8 7-13c0-3.9-3.1-7-7-7zm0 9.5a2.5 2.5 0 1 1 0-5 2.5 2.5 0 0 1 0 5z"/></symbol>
-  <symbol id="i-today" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2.5v2.5M12 19v2.5M2.5 12H5M19 12h2.5M5.3 5.3l1.8 1.8M16.9 16.9l1.8 1.8M18.7 5.3l-1.8 1.8M7.1 16.9l-1.8 1.8"/></symbol><symbol id="i-pen" viewBox="0 0 24 24"><path d="M4 20l1-4.5L16.5 4l3.5 3.5L8.5 19z"/><path d="M14 6.5l3.5 3.5"/></symbol><symbol id="i-notes" viewBox="0 0 24 24"><path d="M3 5.5C5.5 4.5 8.5 4.5 12 6c3.5-1.5 6.5-1.5 9-.5V19c-2.5-1-5.5-1-9 .5-3.5-1.5-6.5-1.5-9-.5z"/><path d="M12 6v13.5"/></symbol><symbol id="i-ticket" viewBox="0 0 24 24"><path d="M3 7h18v3a2 2 0 0 0 0 4v3H3v-3a2 2 0 0 0 0-4z"/><path d="M14 7v2M14 11v2M14 15v2"/></symbol><symbol id="i-plane" viewBox="0 0 24 24"><path d="M21 15l-8-5V4.5a1.5 1.5 0 0 0-3 0V10l-8 5v2l8-2.2V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-4.2l8 2.2z"/></symbol><symbol id="i-guide" viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.6"/><path d="M5 20c0-4 3-6 7-6s7 2 7 6"/></symbol><symbol id="i-bed" viewBox="0 0 24 24"><path d="M3 19V6M3 15h18v4M21 15v-2.5a3 3 0 0 0-3-3h-7V15"/><circle cx="7" cy="11.5" r="1.6"/></symbol><symbol id="i-compass" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M15.5 8.5l-2 5-5 2 2-5z"/></symbol><symbol id="i-route" viewBox="0 0 24 24"><circle cx="6" cy="19" r="2"/><circle cx="18" cy="5" r="2"/><path d="M8 19h6a3.5 3.5 0 0 0 0-7h-4a3.5 3.5 0 0 1 0-7h6"/></symbol><symbol id="i-cal" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></symbol><symbol id="i-coin" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M8.5 8h7M8.5 11.5h7M8.5 8c5 0 5 5.5 0 5.5l5 3.5"/></symbol><symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol><symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.2v.4"/></symbol><symbol id="i-chat" viewBox="0 0 24 24"><path d="M4 5h16v11H9l-5 4z"/><path d="M8 9.5h8M8 12.5h5"/></symbol><symbol id="i-check" viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M8 12l3 3 5-6"/></symbol><symbol id="i-up" viewBox="0 0 24 24"><path d="M12 19V5M6 11l6-6 6 6"/></symbol><symbol id="i-globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3.2 3.2 3.2 14.8 0 18M12 3c-3.2 3.2-3.2 14.8 0 18"/></symbol><symbol id="i-train" viewBox="0 0 24 24"><rect x="5" y="3" width="14" height="14" rx="3"/><path d="M5 11h14M8.5 21l2-4M15.5 21l-2-4"/><circle cx="9" cy="14" r=".7"/><circle cx="15" cy="14" r=".7"/></symbol><symbol id="i-bus" viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="13" rx="2.5"/><path d="M4 11h16M7 20v-3M17 20v-3"/><circle cx="8" cy="14" r=".8"/><circle cx="16" cy="14" r=".8"/></symbol><symbol id="i-jeep" viewBox="0 0 24 24"><path d="M3 16v-4.5l2.2-4.5H15l3.5 4.5H21V16"/><path d="M3 11.5h15.5"/><circle cx="7.5" cy="17" r="2"/><circle cx="16.5" cy="17" r="2"/></symbol><symbol id="i-map" viewBox="0 0 24 24"><path d="M3 6l6-2 6 2 6-2v14l-6 2-6-2-6 2z"/><path d="M9 4v14M15 6v14"/></symbol><symbol id="i-chev" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></symbol></defs>
+  <symbol id="i-today" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2.5v2.5M12 19v2.5M2.5 12H5M19 12h2.5M5.3 5.3l1.8 1.8M16.9 16.9l1.8 1.8M18.7 5.3l-1.8 1.8M7.1 16.9l-1.8 1.8"/></symbol><symbol id="i-pen" viewBox="0 0 24 24"><path d="M4 20l1-4.5L16.5 4l3.5 3.5L8.5 19z"/><path d="M14 6.5l3.5 3.5"/></symbol><symbol id="i-notes" viewBox="0 0 24 24"><path d="M3 5.5C5.5 4.5 8.5 4.5 12 6c3.5-1.5 6.5-1.5 9-.5V19c-2.5-1-5.5-1-9 .5-3.5-1.5-6.5-1.5-9-.5z"/><path d="M12 6v13.5"/></symbol><symbol id="i-ticket" viewBox="0 0 24 24"><path d="M3 7h18v3a2 2 0 0 0 0 4v3H3v-3a2 2 0 0 0 0-4z"/><path d="M14 7v2M14 11v2M14 15v2"/></symbol><symbol id="i-plane" viewBox="0 0 24 24"><path d="M21 15l-8-5V4.5a1.5 1.5 0 0 0-3 0V10l-8 5v2l8-2.2V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-4.2l8 2.2z"/></symbol><symbol id="i-guide" viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.6"/><path d="M5 20c0-4 3-6 7-6s7 2 7 6"/></symbol><symbol id="i-bed" viewBox="0 0 24 24"><path d="M3 19V6M3 15h18v4M21 15v-2.5a3 3 0 0 0-3-3h-7V15"/><circle cx="7" cy="11.5" r="1.6"/></symbol><symbol id="i-compass" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M15.5 8.5l-2 5-5 2 2-5z"/></symbol><symbol id="i-route" viewBox="0 0 24 24"><circle cx="6" cy="19" r="2"/><circle cx="18" cy="5" r="2"/><path d="M8 19h6a3.5 3.5 0 0 0 0-7h-4a3.5 3.5 0 0 1 0-7h6"/></symbol><symbol id="i-cal" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></symbol><symbol id="i-coin" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M8.5 8h7M8.5 11.5h7M8.5 8c5 0 5 5.5 0 5.5l5 3.5"/></symbol><symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol><symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.2v.4"/></symbol><symbol id="i-chat" viewBox="0 0 24 24"><path d="M4 5h16v11H9l-5 4z"/><path d="M8 9.5h8M8 12.5h5"/></symbol><symbol id="i-check" viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M8 12l3 3 5-6"/></symbol><symbol id="i-up" viewBox="0 0 24 24"><path d="M12 19V5M6 11l6-6 6 6"/></symbol><symbol id="i-globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3.2 3.2 3.2 14.8 0 18M12 3c-3.2 3.2-3.2 14.8 0 18"/></symbol><symbol id="i-train" viewBox="0 0 24 24"><rect x="5" y="3" width="14" height="14" rx="3"/><path d="M5 11h14M8.5 21l2-4M15.5 21l-2-4"/><circle cx="9" cy="14" r=".7"/><circle cx="15" cy="14" r=".7"/></symbol><symbol id="i-bus" viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="13" rx="2.5"/><path d="M4 11h16M7 20v-3M17 20v-3"/><circle cx="8" cy="14" r=".8"/><circle cx="16" cy="14" r=".8"/></symbol><symbol id="i-jeep" viewBox="0 0 24 24"><path d="M3 16v-4.5l2.2-4.5H15l3.5 4.5H21V16"/><path d="M3 11.5h15.5"/><circle cx="7.5" cy="17" r="2"/><circle cx="16.5" cy="17" r="2"/></symbol><symbol id="i-map" viewBox="0 0 24 24"><path d="M3 6l6-2 6 2 6-2v14l-6 2-6-2-6 2z"/><path d="M9 4v14M15 6v14"/></symbol><symbol id="i-down" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></symbol><symbol id="i-chev" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></symbol></defs>
 </svg>
 
 <!-- ============ GATE ============ -->
@@ -418,7 +446,6 @@ textarea.field{min-height:150px; resize:vertical; line-height:1.5}
 <!-- ============ APP ============ -->
 <div id="app" hidden>
   <div class="offline" id="offline" hidden>Can't reach the journal right now. Check your internet connection.</div>
-  <div class="banners" id="banners" role="region" aria-label="Reminders for today"></div>
   <header class="hero">
     <div class="hero-top">
       <button type="button" class="hx hi2" lang="hi" data-say="Swagatam" data-pron="swah-gah-tam" data-mean="Welcome" aria-label="स्वागतम्, Swagatam, means Welcome">स्वागतम्</button>
@@ -428,6 +455,7 @@ textarea.field{min-height:150px; resize:vertical; line-height:1.5}
       <button id="m-switch">Switch person</button>
       <button id="m-lock">Lock this device</button>
     </div>
+    <div class="hero-body">
     <svg class="arch-svg" viewBox="0 0 300 340" role="img" aria-label="The Taj Mahal at golden hour inside a pointed arch">
       <defs>
         <clipPath id="archclip"><path d="M22 340V178C22 116 90 78 150 22C210 78 278 116 278 178V340Z"/></clipPath>
@@ -459,9 +487,14 @@ textarea.field{min-height:150px; resize:vertical; line-height:1.5}
       </g>
       <path d="M22 340V178C22 116 90 78 150 22C210 78 278 116 278 178V340" fill="none" stroke="#F6C94A" stroke-width="1.5"/>
     </svg>
+    <div class="hero-text">
     <h1>Monica &amp; Mete's India</h1>
     <p class="sub"><span>Highlights of India and the Golden Triangle</span><span class="nw">4 to 13 November 2026</span></p>
+    </div>
+    </div>
+    <button type="button" class="hero-toggle" id="hero-toggle" aria-expanded="true" aria-label="Shrink the header"><svg aria-hidden="true"><use href="#i-down"/></svg></button>
   </header>
+  <div class="banners" id="banners" role="region" aria-label="Reminders for today"></div>
   <div class="guest-note" id="guest-note" hidden>You're a guest here. You can look at everything, but not add anything.</div>
 
   <main class="wrap">
@@ -619,9 +652,9 @@ textarea.field{min-height:150px; resize:vertical; line-height:1.5}
    - Guest words open the same journal read-only.
    - Booking details ("Your tour") are encrypted with a separate key that only the family words unlock.
    ===================================================================== */
-const FAM_CHECK = {"iv": "H9qHktlDR5la6Nz2", "ct": "KoU/RDAdKHg52/zhQKir/IugFJVKWpIH"};
-const GUEST_WRAP = {"iv": "fw2WqCV1AS6Q1sA+", "ct": "yentNrmn8sdwigTDAt6xl9J7P8aljk+H/GOfjk0R98ulTtydECbiOuzSuomVZty1k++zJXrK8OdoUfqd7R8="};
-const PRIV_BLOB = {"iv": "2107/1oXJUSoSbQb", "ct": "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"};
+const FAM_CHECK = {"iv": "OSgOGEUG84VcQi80", "ct": "vgM+yREurYqfLucp9YmZAECgdJl7EDN8"};
+const GUEST_WRAP = {"iv": "o6gk0qkem+kZA2UF", "ct": "/bmT1Ubr0qTf/Mogqj2lwyIKnctUxhNCgp7+f1118NLGas8TnoP5YVOVUHY1N1vA1LmrG8MWA2OoKjsuMCk="};
+const PRIV_BLOB = {"iv": "egSVYkt4ImMhI+dJ", "ct": "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"};
 const SALT_FAM = 'monica-india-2026-journal-v1';
 const SALT_GUEST = 'monica-india-2026-guest-v1';
 const SALT_PRIV = 'monica-india-2026-private-v1';
@@ -898,7 +931,7 @@ function startApp(){
   renderMe();
   $('#guest-note').hidden = S.mode !== 'guest';
   $('#write').hidden = !canWrite();
-  renderStatus(); renderTour(); renderTrip(); renderKnow(); renderPhrases(); renderPack(); renderJumps(); renderMap(); BNSIG = ''; renderBannersIfChanged();
+  renderStatus(); renderTour(); renderTrip(); renderKnow(); renderPhrases(); renderPack(); renderJumps(); renderMap(); BNSIG = ''; renderBannersIfChanged(); heroShowThenShrink();
   $$('.tab').forEach(t => t.classList.remove('on')); $('#tab-journal').classList.add('on');
   $$('.tabs button').forEach(x => x.setAttribute('aria-selected', String(x.dataset.tab === 'journal')));
   if (!appStarted) { appStarted = true; loadWeather(); initFx(); tickClocks(); startData(); setInterval(renderStatus, 60000); setInterval(tickClocks, 20000); }
@@ -917,6 +950,7 @@ $$('.tabs button').forEach(b => b.addEventListener('click', () => {
   $$('.tabs button').forEach(x => x.setAttribute('aria-selected', String(x === b)));
   $$('.tab').forEach(t => t.classList.toggle('on', t.id === 'tab-' + b.dataset.tab));
   window.scrollTo({ top: 0 });
+  heroShowThenShrink();
 }));
 /* tap / hover / focus translations for Hindi text */
 (function(){
@@ -1187,36 +1221,37 @@ function bannerEvents(){
     html:['<b>E-visa</b>: it can take up to 72 hours to come through. <a href="https://indianvisaonline.gov.in/evisa/" target="_blank" rel="noopener">indianvisaonline.gov.in/evisa</a>',
           '<b>e-Arrival Card</b>, about 72 hours before the flight. Keep the QR code on a phone or printed. <a href="https://indianvisaonline.gov.in/earrival/" target="_blank" rel="noopener">indianvisaonline.gov.in/earrival</a>',
           '<b>Health form</b> on <a href="https://airsuvidha.civilaviation.gov.in/" target="_blank" rel="noopener">Air Suvidha</a>, up to 24 hours before arrival.'] });
-  ev.push({ id:'day0', kind:'Flight day', title:'The flight to Delhi is this evening', color:SKYD, icon:'plane', from:OUT - 12 * HR, to:OUT, hideFam:true, count:{ at:OUT, pre:'Leaves in' },
+  ev.push({ key:true, id:'day0', kind:'Flight day', title:'The flight to Delhi is this evening', color:SKYD, icon:'plane', from:OUT - 12 * HR, to:OUT, hideFam:true, count:{ at:OUT, pre:'Leaves in' },
     lines:['The group meets at Heathrow in the evening and flies overnight.','You land in Delhi on Thursday morning.'] });
   if (fam) {
     const f0 = fl(0), f1 = fl(1), h = stay('delhi');
-    ev.push({ id:'flyout', kind:'Flight today', title:'Flying to Delhi this evening', color:SKYD, icon:'plane', from:OUT - 12 * HR, to:OUT, count:{ at:OUT, pre:'Leaves in' },
+    ev.push({ key:true, id:'flyout', kind:'Flight today', title:'Flying to Delhi this evening', color:SKYD, icon:'plane', from:OUT - 12 * HR, to:OUT, count:{ at:OUT, pre:'Leaves in' },
       lines:[`${f0.airline} ${f0.no} leaves Heathrow at ${f0.dep}.`, 'Check-in opens three hours before: aim to be at Terminal 3, Zone A by about 15:50.', 'Look for the Great Rail Journeys team in branded clothing.', 'Have passports, e-visas and the e-Arrival QR code to hand.'],
       live:{ iata:f0.no, dep:OUT, kind:'out' }, status:f0.status, map:{ q:f0.map, label:f0.mapLabel } });
-    ev.push({ id:'landing', kind:'Landing', title:'Arriving in Delhi', color:SKYD, icon:'plane', from:OUT, to:ISTms('2026-11-05', '18:00'), count:{ at:LAND, pre:'Due in' },
+    ev.push({ key:true, id:'landing', kind:'Landing', title:'Arriving in Delhi', color:SKYD, icon:'plane', from:OUT, to:ISTms('2026-11-05', '18:00'), count:{ at:LAND, pre:'Due in' },
       lines:[`${f0.no} is due in at about 09:00 Delhi time, which is 03:30 in the UK.`, 'Delhi is 5½ hours ahead of the UK.', h ? `Tonight: ${h.name}.` : 'Dinner together this evening.'],
       live:{ iata:f0.no, dep:OUT, kind:'in' }, status:f0.status, map: h ? { q:h.name + ', ' + h.addr.join(', '), label:'Hotel on Google Maps' } : null });
-    ev.push({ id:'flyhome', kind:'Early start tomorrow', title:'The drive to Delhi and the flight home', color:SKYD, icon:'plane', from:ISTms('2026-11-12', '18:00'), to:BACK, count:{ at:BACK, pre:'Flight leaves in' },
+    ev.push({ key:true, id:'flyhome', kind:'Early start tomorrow', title:'The drive to Delhi and the flight home', color:SKYD, icon:'plane', from:ISTms('2026-11-12', '18:00'), to:BACK, count:{ at:BACK, pre:'Flight leaves in' },
       lines:[`${f1.airline} ${f1.no} leaves Delhi at ${f1.dep} and lands at Heathrow at ${f1.arrT}, the same day.`, 'Up early for the drive, with a picnic breakfast from the hotel.', 'Pack tonight, and check the hotel departure time with your tour manager.', 'The terminal is not on the itinerary, so check the live status page.'],
       live:{ iata:f1.no, dep:BACK, kind:'out' }, status:f1.status, map:{ q:f1.map, label:f1.mapLabel } });
-    ev.push({ id:'homeflight', kind:'Flying home', title:'On the way home', color:SKYD, icon:'plane', from:BACK, to:BACKARR + 2 * HR, count:{ at:BACKARR, pre:'Lands in' },
+    ev.push({ key:true, id:'homeflight', kind:'Flying home', title:'On the way home', color:SKYD, icon:'plane', from:BACK, to:BACKARR + 2 * HR, count:{ at:BACKARR, pre:'Lands in' },
       lines:[`${f1.no} is due at Heathrow at ${f1.arrT} UK time.`], live:{ iata:f1.no, dep:BACK, kind:'in' }, status:f1.status });
   }
   ev.push({ id:'eve6', kind:'Early start tomorrow', title:'Tomorrow starts with a safari', color:GREEN, icon:'jeep', from:ISTms('2026-11-09', '18:00'), to:ISTms('2026-11-10', '06:00'), day:6,
     lines:['An early morning safari in the open-topped canters, then breakfast and lunch at the hotel.', 'After that, the coach to Jaipur.', 'Ask your tour manager this evening for the exact wake-up time.'] });
-  ev.push({ id:'eve9', kind:'Early start tomorrow', title:'The drive to Delhi and the flight home', color:SKYD, icon:'plane', from:ISTms('2026-11-12', '18:00'), to:ISTms('2026-11-13', '06:00'), hideFam:true, day:9,
+  ev.push({ key:true, id:'eve9', kind:'Early start tomorrow', title:'The drive to Delhi and the flight home', color:SKYD, icon:'plane', from:ISTms('2026-11-12', '18:00'), to:ISTms('2026-11-13', '06:00'), hideFam:true, day:9,
     lines:['Up early for the drive back to Delhi, with a picnic breakfast from the hotel.', 'Then the flight home from Delhi airport.', 'Pack tonight, and ask your tour manager for the exact times.'] });
   TRIP.forEach((d, i) => {
     if (i === 0) return;
     const st = d.stay && stay(d.stay);
     const lines = DAYBN[i].slice();
     if (st && d.nights) lines.push(`Tonight: ${st.name}.`);
-    ev.push({ id:'day' + i, kind:`Today, day ${i + 1} of ${TRIP.length}`, title:d.title, color:d.c, icon:DAYIC[i], from:ISTms(d.date, '06:00'), to:ISTms(d.date, '22:00'), day:i, hideFam:(i === 1 || i === 9), lines });
+    ev.push({ key:[3, 4, 8, 9].includes(i), id:'day' + i, kind:`Today, day ${i + 1} of ${TRIP.length}`, title:d.title, color:d.c, icon:DAYIC[i], from:ISTms(d.date, '06:00'), to:ISTms(d.date, '22:00'), day:i, hideFam:(i === 1 || i === 9), lines });
   });
   return ev.filter(e => !(fam && e.hideFam));
 }
 let BNLIVE = {}, BNTIMER = 0, BNSHOWALL = false;
+const bnPrefs = () => { try { return JSON.parse(lsGet('mj_bnopen') || '{}'); } catch (_) { return {}; } };
 const bnDismissed = () => { try { return JSON.parse(lsGet('mj_bn') || '[]'); } catch (_) { return []; } };
 function fmtLeft(ms){
   if (ms < 60000) return 'less than a minute';
@@ -1245,6 +1280,10 @@ function renderBanners(){
   const shown = active.filter(e => BNSHOWALL || !dis.includes(e.id)), hidden = active.length - shown.length;
   box.innerHTML = (NOWOFF ? `<p class="bn-preview">Previewing the page as it would look on ${esc(new Date(now).toLocaleString('en-GB', { dateStyle:'medium', timeStyle:'short', timeZone:'Europe/London' }))} UK time.</p>` : '') +
     shown.map(e => {
+      const open = (bnPrefs()[e.id] ?? !!e.key);
+      if (!open) return `<section class="bn bn-c" style="--c:${e.color}" data-bn="${e.id}">
+        <button type="button" class="bn-t" data-bn-t="${e.id}" aria-expanded="false" aria-label="${esc(e.kind)}: ${esc(e.title)}. Show details."><span class="bn-ic sm">${IC(e.icon)}</span><span class="bn-tt">${esc(e.title)}</span>${e.count ? `<span class="bn-cd" data-at="${e.count.at}" data-pre=""></span>` : ''}${IC('down')}</button>
+        <button type="button" class="bn-x" data-bn-x="${e.id}" aria-label="Hide this reminder">×</button></section>`;
       const btns = [];
       if (e.status) btns.push(`<a class="mapbtn web" href="${esc(e.status)}" target="_blank" rel="noopener">${IC('plane')}Live status and gate</a>`);
       if (e.map) btns.push(`<a class="mapbtn" href="${gmap(e.map.q)}" target="_blank" rel="noopener">${PIN}${esc(e.map.label)}</a>`);
@@ -1255,7 +1294,8 @@ function renderBanners(){
         <div class="bn-h"><span class="bn-ic">${IC(e.icon)}</span><div><small>${esc(e.kind)}</small><h2>${esc(e.title)}</h2></div></div>
         ${e.count ? `<p class="bn-count" data-at="${e.count.at}" data-pre="${esc(e.count.pre)}"></p>` : ''}
         <ul>${items}</ul>${bnLiveHTML(e)}
-        ${btns.length ? `<div class="btns">${btns.join('')}</div>` : ''}</section>`;
+        ${btns.length ? `<div class="btns">${btns.join('')}</div>` : ''}
+        <button type="button" class="linkbtn" data-bn-t="${e.id}" aria-expanded="true">Show less</button></section>`;
     }).join('') +
     (hidden ? `<button type="button" class="bn-more" data-bn-show="1">Show ${hidden} hidden reminder${hidden > 1 ? 's' : ''}</button>` : (BNSHOWALL && dis.length ? `<button type="button" class="bn-more" data-bn-show="0">Hide dismissed reminders</button>` : ''));
   tickBanners();
@@ -1268,7 +1308,7 @@ function renderBannersIfChanged(){
   if (sig !== BNSIG) { BNSIG = sig; renderBanners(); }
 }
 function tickBanners(){
-  $$('#banners .bn-count').forEach(p => { const left = Number(p.dataset.at) - NOW(); p.textContent = left > 0 ? `${p.dataset.pre} ${fmtLeft(left)}` : ''; });
+  $$('#banners .bn-count, #banners .bn-cd').forEach(p => { const left = Number(p.dataset.at) - NOW(); p.textContent = left > 0 ? `${p.dataset.pre ? p.dataset.pre + ' ' : ''}${fmtLeft(left)}` : ''; });
 }
 async function liveFetch(l){
   const key = S.priv && S.priv.flightKey; if (!key) return null;
@@ -1292,9 +1332,43 @@ function liveRefresh(active){
   });
 }
 document.addEventListener('click', e => {
+  const tg = e.target.closest && e.target.closest('[data-bn-t]');
+  if (tg) { const id = tg.dataset.bnT, p = bnPrefs(), ev = bannerEvents().find(v => v.id === id), cur = p[id] ?? !!(ev && ev.key); p[id] = !cur; lsSet('mj_bnopen', JSON.stringify(p)); renderBanners(); const again = $(`[data-bn-t="${id}"]`); if (again) again.focus({ preventScroll:true }); return; }
   const x = e.target.closest && e.target.closest('[data-bn-x]'), s = e.target.closest && e.target.closest('[data-bn-show]');
   if (x) { const d = bnDismissed(); d.push(x.dataset.bnX); lsSet('mj_bn', JSON.stringify(d)); renderBanners(); }
   else if (s) { BNSHOWALL = s.dataset.bnShow === '1'; renderBanners(); }
+});
+
+/* header: show it in full for a moment, then shrink it so the content is easier to reach */
+const HERO_HOLD = 2600;
+let heroTimer = 0, heroManual = false, heroEarly = null;
+function heroEl(){ return $('.hero'); }
+function heroMeasure(target){
+  const hero = heroEl(), was = hero.classList.contains('compact'), sh = hero.style.height;
+  hero.classList.add('nomove'); hero.style.height = 'auto'; hero.classList.toggle('compact', target);
+  const h = hero.offsetHeight;
+  hero.classList.toggle('compact', was); hero.style.height = sh; void hero.offsetHeight; hero.classList.remove('nomove');
+  return h;
+}
+function heroSet(compact){
+  const hero = heroEl(); if (!hero || hero.classList.contains('compact') === compact) return;
+  const tb = $('#hero-toggle'); if (tb) { tb.setAttribute('aria-expanded', String(!compact)); tb.setAttribute('aria-label', compact ? 'Show the full header' : 'Shrink the header'); }
+  const y0 = scrollY, h0 = hero.offsetHeight, h1 = heroMeasure(compact);
+  if (matchMedia('(prefers-reduced-motion:reduce)').matches) { hero.classList.toggle('compact', compact); return; }
+  hero.style.height = h0 + 'px'; hero.classList.add('anim');
+  hero.classList.toggle('compact', compact); void hero.offsetHeight;
+  hero.style.height = h1 + 'px';
+  if (y0 > 0) { const t0 = performance.now(); (function keep(){ const dh = h0 - hero.offsetHeight; scrollTo(0, Math.max(0, y0 - dh)); if (performance.now() - t0 < 800) requestAnimationFrame(keep); })(); }
+  setTimeout(() => { hero.style.height = ''; hero.classList.remove('anim'); }, 800);
+}
+function heroShowThenShrink(){
+  clearTimeout(heroTimer); heroManual = false;
+  heroSet(false);
+  heroTimer = setTimeout(() => { if (!heroManual) heroSet(true); }, HERO_HOLD);
+}
+$('#hero-toggle').addEventListener('click', () => {
+  const hero = heroEl(); clearTimeout(heroTimer);
+  if (hero.classList.contains('compact')) { heroManual = true; heroSet(false); } else { heroManual = false; heroSet(true); }
 });
 
 function goTab(name){ $(`.tabs button[data-tab="${name}"]`).click(); }
