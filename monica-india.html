@@ -270,7 +270,7 @@ h2.sec.ruby{color:var(--ruby)}
 .toTop{position:fixed; right:14px; bottom:calc(86px + env(safe-area-inset-bottom)); z-index:25; width:52px; height:52px; border-radius:50%; border:2px solid var(--sun); background:var(--leather), #5A1830; background-blend-mode:multiply,normal; color:var(--sun); display:grid; place-items:center; padding:0; box-shadow:0 6px 16px rgba(0,0,0,.5)}
 .toTop svg{width:26px; height:26px; fill:none; stroke:currentColor; stroke-width:2.2; stroke-linecap:round; stroke-linejoin:round}
 .mapbtn.web{background:var(--sun-pale); border-color:#EFD98A}
-.mapbtn.web svg{fill:none; stroke:currentColor; stroke-width:1.8}
+.mapbtn.web svg{fill:none; stroke:currentColor; stroke-width:1.8; stroke-linecap:round; stroke-linejoin:round}
 .btns{display:flex; flex-wrap:wrap; gap:8px}
 /* ---------- tab bar ---------- */
 .tabs{position:fixed; left:0; right:0; bottom:0; z-index:20; display:flex; background:linear-gradient(rgba(0,0,0,.45),rgba(0,0,0,.62)), var(--wood), #3B2214; border-top:3px solid var(--sun); box-shadow:0 -6px 18px rgba(0,0,0,.5); padding-bottom:env(safe-area-inset-bottom)}
@@ -348,6 +348,24 @@ textarea.field{min-height:150px; resize:vertical; line-height:1.5}
 .linkbtn{display:inline-flex; align-items:center; gap:6px; min-height:44px; margin-top:2px; padding:0; background:none; border:0; color:var(--sky-deep); font-weight:700; text-decoration:underline; text-underline-offset:3px}
 .linkbtn svg{width:20px; height:20px; fill:none; stroke:currentColor; stroke-width:1.8; stroke-linecap:round; stroke-linejoin:round}
 @media (max-width:360px){ .legend{grid-template-columns:1fr} }
+.banners{max-width:728px; width:calc(100% - 16px); margin:16px auto 4px; position:relative; z-index:2}
+.banners:empty{display:none}
+.bn{position:relative; background:var(--paperTex), var(--paper); background-blend-mode:multiply,normal; border:1px solid var(--line); border-left:8px solid var(--c,var(--navy)); border-radius:8px 16px 16px 8px; padding:14px 46px 12px 16px; margin:0 0 12px; box-shadow:0 6px 16px rgba(0,0,0,.35), inset 0 0 0 3px var(--paper), inset 0 0 0 4px #E9D6A8}
+.bn-x{position:absolute; top:4px; right:4px; width:44px; height:44px; border:0; background:none; color:var(--muted); font-size:1.7rem; line-height:1; border-radius:50%}
+.bn-h{display:flex; align-items:center; gap:12px}
+.bn-h h2{font-size:1.45rem; color:var(--ruby); line-height:1.15}
+.bn-h small{display:block; font-weight:700; letter-spacing:.04em; text-transform:uppercase; font-size:.78rem; color:var(--c,var(--navy))}
+.bn-ic{flex:none; width:46px; height:46px; border-radius:50%; background:var(--c,var(--navy)); color:#fff; display:grid; place-items:center; box-shadow:0 0 0 2px var(--paper), 0 0 0 3.5px var(--gold)}
+.bn-ic svg{width:26px; height:26px; fill:none; stroke:currentColor; stroke-width:1.8; stroke-linecap:round; stroke-linejoin:round}
+.bn-count{margin:10px 0 0; font-family:var(--display); font-weight:700; font-size:1.7rem; line-height:1.1; color:var(--navy)}
+.bn-count:empty{display:none}
+.bn ul{margin:.6em 0 .2em; padding-left:1.15em}
+.bn li{margin:.3em 0}
+.bn-live{margin:.4em 0 .2em; padding:8px 12px; background:var(--mist); border:1px solid var(--mist-line); border-radius:10px; font-weight:600; color:var(--navy)}
+.bn-live small{display:block; font-weight:400; color:var(--muted); font-size:.85rem}
+.bn .btns{margin-top:8px}
+.bn-more{display:block; margin:0 auto 12px; min-height:44px; padding:0 18px; border-radius:999px; border:2px solid var(--gold); background:var(--paper); color:var(--navy); font-weight:600}
+.bn-preview{margin:0 0 10px; padding:8px 12px; background:var(--navy); color:#fff; border-radius:10px; font-size:.9rem; text-align:center}
 @media (max-width:380px){ .fxrow{grid-template-columns:1fr} .fxrow .eq{display:none} }
 @media (prefers-reduced-motion:reduce){ *{transition:none!important; animation:none!important} }
 </style>
@@ -400,6 +418,7 @@ textarea.field{min-height:150px; resize:vertical; line-height:1.5}
 <!-- ============ APP ============ -->
 <div id="app" hidden>
   <div class="offline" id="offline" hidden>Can't reach the journal right now. Check your internet connection.</div>
+  <div class="banners" id="banners" role="region" aria-label="Reminders for today"></div>
   <header class="hero">
     <div class="hero-top">
       <button type="button" class="hx hi2" lang="hi" data-say="Swagatam" data-pron="swah-gah-tam" data-mean="Welcome" aria-label="स्वागतम्, Swagatam, means Welcome">स्वागतम्</button>
@@ -600,9 +619,9 @@ textarea.field{min-height:150px; resize:vertical; line-height:1.5}
    - Guest words open the same journal read-only.
    - Booking details ("Your tour") are encrypted with a separate key that only the family words unlock.
    ===================================================================== */
-const FAM_CHECK = {"iv": "qqZLdqr3XQyioYIb", "ct": "3uBTxe3tero8Iq8rS69+ranIB++mhD7b"};
-const GUEST_WRAP = {"iv": "Y3EywvnVnGnR7xzW", "ct": "AXtavKTkAJjWRT6bWcpvvCPDipuy+aGM6ez8l/CsPV9guMU2lU+d6AH381BkfIbaTWZnUnBhn0KgMjyND/Q="};
-const PRIV_BLOB = {"iv": "YmKRNQDTaQXhO9nb", "ct": "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"};
+const FAM_CHECK = {"iv": "H9qHktlDR5la6Nz2", "ct": "KoU/RDAdKHg52/zhQKir/IugFJVKWpIH"};
+const GUEST_WRAP = {"iv": "fw2WqCV1AS6Q1sA+", "ct": "yentNrmn8sdwigTDAt6xl9J7P8aljk+H/GOfjk0R98ulTtydECbiOuzSuomVZty1k++zJXrK8OdoUfqd7R8="};
+const PRIV_BLOB = {"iv": "2107/1oXJUSoSbQb", "ct": "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"};
 const SALT_FAM = 'monica-india-2026-journal-v1';
 const SALT_GUEST = 'monica-india-2026-guest-v1';
 const SALT_PRIV = 'monica-india-2026-private-v1';
@@ -879,7 +898,7 @@ function startApp(){
   renderMe();
   $('#guest-note').hidden = S.mode !== 'guest';
   $('#write').hidden = !canWrite();
-  renderStatus(); renderTour(); renderTrip(); renderKnow(); renderPhrases(); renderPack(); renderJumps(); renderMap();
+  renderStatus(); renderTour(); renderTrip(); renderKnow(); renderPhrases(); renderPack(); renderJumps(); renderMap(); BNSIG = ''; renderBannersIfChanged();
   $$('.tab').forEach(t => t.classList.remove('on')); $('#tab-journal').classList.add('on');
   $$('.tabs button').forEach(x => x.setAttribute('aria-selected', String(x.dataset.tab === 'journal')));
   if (!appStarted) { appStarted = true; loadWeather(); initFx(); tickClocks(); startData(); setInterval(renderStatus, 60000); setInterval(tickClocks, 20000); }
@@ -1141,10 +1160,147 @@ document.addEventListener('click', e => {
   else if (od) openDay(Number(od.dataset.openDay));
 });
 
+/* ---------------- timed banners ---------------- */
+let NOWOFF = 0;
+try { const q = new URLSearchParams(location.search).get('now'); if (q) { const t0 = Date.parse(q); if (!isNaN(t0)) NOWOFF = t0 - Date.now(); } } catch (_) {}
+const NOW = () => Date.now() + NOWOFF;
+const ISTms = (date, hm) => Date.parse(`${date}T${hm}:00+05:30`);
+const HR = 3600000;
+const DAYBN = {
+  1:['Landing in Delhi this morning.','Check in at the hotel, then rest and freshen up.','Dinner together this evening, to meet the rest of the group.','India is 5½ hours ahead of the UK.'],
+  2:['Old Delhi this morning: the Jama Masjid, a rickshaw ride through Chandni Chowk, the Red Fort from outside, and Raj Ghat.','Lunch is free time, so you choose where to eat.','New Delhi this afternoon, then Humayun’s Tomb.','Dinner at the hotel.'],
+  3:['Today you take the Gatimaan Express train to Agra.','Then the Taj Mahal with a guide, and the red sandstone Agra Fort.','Agra is a one-night stop, so keep a small overnight bag to hand.','Check the time of the train with your tour manager.'],
+  4:['A long coach day into Rajasthan, leaving Agra.','A stop at Abhaneri to see the Chand Baori, the Moon Well.','Lunch at Laxmi Vilas, then on to Ranthambore for two nights.'],
+  5:['A free morning, then a talk from a local naturalist after lunch.','Then the afternoon safari in an open-topped canter.','Phones are banned inside the reserve, so take a proper camera.'],
+  6:['An early morning safari in the open-topped canters.','Breakfast and lunch at the hotel, then the coach to Jaipur.','Check in at Jaipur, with some free time before dinner.'],
+  7:['Amber Fort first: you swap from coach to jeep for the last stretch.','This afternoon: the City Palace and the Jantar Mantar observatory.','The last sight is a drive past the Hawa Mahal.'],
+  8:['After breakfast, a coach through the countryside, arriving in the early afternoon.','A jeep takes you up to the hilltop fort hotel.','Dinner, then a cultural dance show.','Pack tonight: tomorrow is an early start.'],
+  9:['Up early for the drive back to Delhi, with a picnic breakfast from the hotel.','Then the flight home from Delhi airport.']
+};
+const DAYIC = ['plane','plane','compass','train','bus','jeep','jeep','compass','bus','plane'];
+function bannerEvents(){
+  const P = S.priv, fam = !!P, ev = [];
+  const OUT = DEPART, BACK = ISTms('2026-11-13', '11:20'), BACKARR = Date.parse('2026-11-13T15:55:00Z'), LAND = ISTms('2026-11-05', '09:00');
+  const stay = k => P && P.stays && P.stays[k];
+  const fl = i => P && P.flights && P.flights[i];
+  ev.push({ id:'forms', kind:'Before the flight', title:'Three things to do online', color:SKYD, icon:'info', from:Date.parse('2026-11-01T00:00:00Z'), to:OUT,
+    html:['<b>E-visa</b>: it can take up to 72 hours to come through. <a href="https://indianvisaonline.gov.in/evisa/" target="_blank" rel="noopener">indianvisaonline.gov.in/evisa</a>',
+          '<b>e-Arrival Card</b>, about 72 hours before the flight. Keep the QR code on a phone or printed. <a href="https://indianvisaonline.gov.in/earrival/" target="_blank" rel="noopener">indianvisaonline.gov.in/earrival</a>',
+          '<b>Health form</b> on <a href="https://airsuvidha.civilaviation.gov.in/" target="_blank" rel="noopener">Air Suvidha</a>, up to 24 hours before arrival.'] });
+  ev.push({ id:'day0', kind:'Flight day', title:'The flight to Delhi is this evening', color:SKYD, icon:'plane', from:OUT - 12 * HR, to:OUT, hideFam:true, count:{ at:OUT, pre:'Leaves in' },
+    lines:['The group meets at Heathrow in the evening and flies overnight.','You land in Delhi on Thursday morning.'] });
+  if (fam) {
+    const f0 = fl(0), f1 = fl(1), h = stay('delhi');
+    ev.push({ id:'flyout', kind:'Flight today', title:'Flying to Delhi this evening', color:SKYD, icon:'plane', from:OUT - 12 * HR, to:OUT, count:{ at:OUT, pre:'Leaves in' },
+      lines:[`${f0.airline} ${f0.no} leaves Heathrow at ${f0.dep}.`, 'Check-in opens three hours before: aim to be at Terminal 3, Zone A by about 15:50.', 'Look for the Great Rail Journeys team in branded clothing.', 'Have passports, e-visas and the e-Arrival QR code to hand.'],
+      live:{ iata:f0.no, dep:OUT, kind:'out' }, status:f0.status, map:{ q:f0.map, label:f0.mapLabel } });
+    ev.push({ id:'landing', kind:'Landing', title:'Arriving in Delhi', color:SKYD, icon:'plane', from:OUT, to:ISTms('2026-11-05', '18:00'), count:{ at:LAND, pre:'Due in' },
+      lines:[`${f0.no} is due in at about 09:00 Delhi time, which is 03:30 in the UK.`, 'Delhi is 5½ hours ahead of the UK.', h ? `Tonight: ${h.name}.` : 'Dinner together this evening.'],
+      live:{ iata:f0.no, dep:OUT, kind:'in' }, status:f0.status, map: h ? { q:h.name + ', ' + h.addr.join(', '), label:'Hotel on Google Maps' } : null });
+    ev.push({ id:'flyhome', kind:'Early start tomorrow', title:'The drive to Delhi and the flight home', color:SKYD, icon:'plane', from:ISTms('2026-11-12', '18:00'), to:BACK, count:{ at:BACK, pre:'Flight leaves in' },
+      lines:[`${f1.airline} ${f1.no} leaves Delhi at ${f1.dep} and lands at Heathrow at ${f1.arrT}, the same day.`, 'Up early for the drive, with a picnic breakfast from the hotel.', 'Pack tonight, and check the hotel departure time with your tour manager.', 'The terminal is not on the itinerary, so check the live status page.'],
+      live:{ iata:f1.no, dep:BACK, kind:'out' }, status:f1.status, map:{ q:f1.map, label:f1.mapLabel } });
+    ev.push({ id:'homeflight', kind:'Flying home', title:'On the way home', color:SKYD, icon:'plane', from:BACK, to:BACKARR + 2 * HR, count:{ at:BACKARR, pre:'Lands in' },
+      lines:[`${f1.no} is due at Heathrow at ${f1.arrT} UK time.`], live:{ iata:f1.no, dep:BACK, kind:'in' }, status:f1.status });
+  }
+  ev.push({ id:'eve6', kind:'Early start tomorrow', title:'Tomorrow starts with a safari', color:GREEN, icon:'jeep', from:ISTms('2026-11-09', '18:00'), to:ISTms('2026-11-10', '06:00'), day:6,
+    lines:['An early morning safari in the open-topped canters, then breakfast and lunch at the hotel.', 'After that, the coach to Jaipur.', 'Ask your tour manager this evening for the exact wake-up time.'] });
+  ev.push({ id:'eve9', kind:'Early start tomorrow', title:'The drive to Delhi and the flight home', color:SKYD, icon:'plane', from:ISTms('2026-11-12', '18:00'), to:ISTms('2026-11-13', '06:00'), hideFam:true, day:9,
+    lines:['Up early for the drive back to Delhi, with a picnic breakfast from the hotel.', 'Then the flight home from Delhi airport.', 'Pack tonight, and ask your tour manager for the exact times.'] });
+  TRIP.forEach((d, i) => {
+    if (i === 0) return;
+    const st = d.stay && stay(d.stay);
+    const lines = DAYBN[i].slice();
+    if (st && d.nights) lines.push(`Tonight: ${st.name}.`);
+    ev.push({ id:'day' + i, kind:`Today, day ${i + 1} of ${TRIP.length}`, title:d.title, color:d.c, icon:DAYIC[i], from:ISTms(d.date, '06:00'), to:ISTms(d.date, '22:00'), day:i, hideFam:(i === 1 || i === 9), lines });
+  });
+  return ev.filter(e => !(fam && e.hideFam));
+}
+let BNLIVE = {}, BNTIMER = 0, BNSHOWALL = false;
+const bnDismissed = () => { try { return JSON.parse(lsGet('mj_bn') || '[]'); } catch (_) { return []; } };
+function fmtLeft(ms){
+  if (ms < 60000) return 'less than a minute';
+  const m = Math.floor(ms / 60000), d = Math.floor(m / 1440), h = Math.floor((m % 1440) / 60), mm = m % 60;
+  return d ? `${d} day${d > 1 ? 's' : ''} ${h} h` : h ? `${h} h ${mm} min` : `${mm} min`;
+}
+function bnLiveHTML(ev){
+  if (!ev.live) return '';
+  const hasKey = !!(S.priv && S.priv.flightKey), r = BNLIVE[ev.live.iata + ev.live.kind];
+  if (!hasKey) return '';
+  if (!r) return `<p class="bn-live">Checking the airline for gate details…</p>`;
+  if (r.none) return `<p class="bn-live">No live details from the airline for this flight yet. Use the live status button.</p>`;
+  if (r.err) return `<p class="bn-live">Couldn’t reach the live flight data just now. Use the live status button.</p>`;
+  const bits = [];
+  const sm = { scheduled:'On schedule', active:'In the air', landed:'Landed', cancelled:'Cancelled', incident:'Incident reported', diverted:'Diverted' }[r.status];
+  if (sm) bits.push(sm);
+  if (r.delay > 0) bits.push(`Delayed by ${r.delay} min`);
+  if (ev.live.kind === 'out') { bits.push(r.dTerm ? `Terminal ${r.dTerm}` : ''); bits.push(r.dGate ? `Gate ${r.dGate}` : 'Gate not released yet'); }
+  else { if (r.aTerm) bits.push(`Terminal ${r.aTerm}`); if (r.belt) bits.push(`Baggage belt ${r.belt}`); }
+  return `<p class="bn-live"><b>Live:</b> ${bits.filter(Boolean).map(esc).join(' · ')}<small>Updated ${esc(new Date(r.at).toLocaleTimeString('en-GB', { hour:'2-digit', minute:'2-digit' }))}</small></p>`;
+}
+function renderBanners(){
+  const box = $('#banners'); if (!box) return;
+  const now = NOW(), dis = bnDismissed();
+  const active = bannerEvents().filter(e => now >= e.from && now < e.to);
+  const shown = active.filter(e => BNSHOWALL || !dis.includes(e.id)), hidden = active.length - shown.length;
+  box.innerHTML = (NOWOFF ? `<p class="bn-preview">Previewing the page as it would look on ${esc(new Date(now).toLocaleString('en-GB', { dateStyle:'medium', timeStyle:'short', timeZone:'Europe/London' }))} UK time.</p>` : '') +
+    shown.map(e => {
+      const btns = [];
+      if (e.status) btns.push(`<a class="mapbtn web" href="${esc(e.status)}" target="_blank" rel="noopener">${IC('plane')}Live status and gate</a>`);
+      if (e.map) btns.push(`<a class="mapbtn" href="${gmap(e.map.q)}" target="_blank" rel="noopener">${PIN}${esc(e.map.label)}</a>`);
+      if (e.day != null) btns.push(`<button type="button" class="mapbtn tomap" data-open-day="${e.day}">${IC('cal')}Open the plan</button><button type="button" class="mapbtn tomap" data-map-day="${e.day}">${IC('map')}On the map</button>`);
+      const items = (e.html || e.lines.map(esc)).map(l => `<li>${l}</li>`).join('');
+      return `<section class="bn" style="--c:${e.color}" aria-label="${esc(e.kind)}: ${esc(e.title)}" data-bn="${e.id}">
+        <button type="button" class="bn-x" data-bn-x="${e.id}" aria-label="Hide this reminder">×</button>
+        <div class="bn-h"><span class="bn-ic">${IC(e.icon)}</span><div><small>${esc(e.kind)}</small><h2>${esc(e.title)}</h2></div></div>
+        ${e.count ? `<p class="bn-count" data-at="${e.count.at}" data-pre="${esc(e.count.pre)}"></p>` : ''}
+        <ul>${items}</ul>${bnLiveHTML(e)}
+        ${btns.length ? `<div class="btns">${btns.join('')}</div>` : ''}</section>`;
+    }).join('') +
+    (hidden ? `<button type="button" class="bn-more" data-bn-show="1">Show ${hidden} hidden reminder${hidden > 1 ? 's' : ''}</button>` : (BNSHOWALL && dis.length ? `<button type="button" class="bn-more" data-bn-show="0">Hide dismissed reminders</button>` : ''));
+  tickBanners();
+  clearInterval(BNTIMER); BNTIMER = setInterval(() => { tickBanners(); if (Math.floor(NOW() / 60000) % 1 === 0) renderBannersIfChanged(); }, 30000);
+  liveRefresh(active);
+}
+let BNSIG = '';
+function renderBannersIfChanged(){
+  const now = NOW(), sig = bannerEvents().filter(e => now >= e.from && now < e.to).map(e => e.id).join(',');
+  if (sig !== BNSIG) { BNSIG = sig; renderBanners(); }
+}
+function tickBanners(){
+  $$('#banners .bn-count').forEach(p => { const left = Number(p.dataset.at) - NOW(); p.textContent = left > 0 ? `${p.dataset.pre} ${fmtLeft(left)}` : ''; });
+}
+async function liveFetch(l){
+  const key = S.priv && S.priv.flightKey; if (!key) return null;
+  const r = await fetch(`https://api.aviationstack.com/v1/flights?access_key=${encodeURIComponent(key)}&flight_iata=${encodeURIComponent(l.iata)}`);
+  const j = await r.json();
+  if (!j || !Array.isArray(j.data)) throw new Error('no data');
+  const hit = j.data.find(x => x.departure && x.departure.scheduled && Math.abs(Date.parse(x.departure.scheduled) - l.dep) < 3 * HR);
+  if (!hit) return { status:'', at:Date.now(), none:true };
+  return { status:hit.flight_status || '', delay:Number(hit.departure.delay || 0), dTerm:hit.departure.terminal || '', dGate:hit.departure.gate || '', aTerm:hit.arrival && hit.arrival.terminal || '', belt:hit.arrival && hit.arrival.baggage || '', at:Date.now() };
+}
+function liveRefresh(active){
+  if (!(S.priv && S.priv.flightKey)) return;
+  active.filter(e => e.live).forEach(async e => {
+    const k = e.live.iata + e.live.kind, cur = BNLIVE[k];
+    if (cur && !cur.err && Date.now() - cur.at < 30 * 60000) return;
+    if (cur && cur.err && Date.now() - cur.at < 5 * 60000) return;
+    BNLIVE[k] = cur || null;
+    try { const r = await liveFetch(e.live); BNLIVE[k] = r || { err:true, at:Date.now() }; }
+    catch (_) { BNLIVE[k] = { err:true, at:Date.now() }; }
+    renderBanners();
+  });
+}
+document.addEventListener('click', e => {
+  const x = e.target.closest && e.target.closest('[data-bn-x]'), s = e.target.closest && e.target.closest('[data-bn-show]');
+  if (x) { const d = bnDismissed(); d.push(x.dataset.bnX); lsSet('mj_bn', JSON.stringify(d)); renderBanners(); }
+  else if (s) { BNSHOWALL = s.dataset.bnShow === '1'; renderBanners(); }
+});
+
 function goTab(name){ $(`.tabs button[data-tab="${name}"]`).click(); }
 
 /* ---------------- trip views ---------------- */
-function todayISO(){ return new Intl.DateTimeFormat('en-CA', { timeZone:'Asia/Kolkata' }).format(new Date()); }
+function todayISO(){ return new Intl.DateTimeFormat('en-CA', { timeZone:'Asia/Kolkata' }).format(new Date(NOW())); }
 function todayIdx(){
   const t = todayISO();
   const i = TRIP.findIndex(d => d.date === t);
@@ -1153,7 +1309,7 @@ function todayIdx(){
 }
 function renderStatus(){
   const el = $('#status'); if (!el) return;
-  const now = Date.now(); const idx = todayIdx();
+  const now = NOW(); const idx = todayIdx();
   el.hidden = false;
   if (now < DEPART) {
     const hrs = Math.ceil((DEPART - now) / 3600000), days = Math.ceil((DEPART - now) / 86400000);
@@ -1213,7 +1369,7 @@ function renderTour(){
       <div class="fl-down" aria-hidden="true">↓</div>
       <div class="fl-leg"><b>${esc(f.arrT)}</b><span>${f.to.map(esc).join(', ')}</span></div>
       <p class="fl-meta">${esc(f.airline)} ${esc(f.no)}, ${esc(f.cls)}</p>
-      <a class="mapbtn" href="${gmap(f.map)}" target="_blank" rel="noopener">${PIN}${esc(f.mapLabel)}</a>
+      <div class="btns"><a class="mapbtn" href="${gmap(f.map)}" target="_blank" rel="noopener">${PIN}${esc(f.mapLabel)}</a>${f.status ? `<a class="mapbtn web" href="${esc(f.status)}" target="_blank" rel="noopener">${IC('plane')}Live status and gate</a>` : ''}</div>
     </div>`).join('');
   const hotels = Object.entries(P.stays).map(([k, s]) => {
     const n = TRIP.find(d => d.stay === k && d.nights).nights;
@@ -1235,6 +1391,7 @@ function renderTour(){
     </div>
     <div class="panel" id="tour-flights"><h3>Flights</h3>${flights}
       <p class="small">${esc(P.flightNote)}</p>
+      <p class="small">The “Live status and gate” buttons open the tracking site straight on that flight and date. The gate shows “N/A” until the airline releases it, so tap Refresh on that page nearer the time. It shows terminal and gate, but not check-in desk numbers. For Virgin Atlantic at Heathrow, the itinerary says Terminal 3, Zone A.</p>
     </div>
     <div class="panel" id="tour-guide"><h3>Your tour manager</h3>
       <p><b>${esc(g.name)}</b>, ${esc(g.title)}</p>
