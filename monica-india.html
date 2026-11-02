@@ -348,7 +348,7 @@ textarea.field{min-height:150px; resize:vertical; line-height:1.5}
 .linkbtn{display:inline-flex; align-items:center; gap:6px; min-height:44px; margin-top:2px; padding:0; background:none; border:0; color:var(--sky-deep); font-weight:700; text-decoration:underline; text-underline-offset:3px}
 .linkbtn svg{width:20px; height:20px; fill:none; stroke:currentColor; stroke-width:1.8; stroke-linecap:round; stroke-linejoin:round}
 @media (max-width:360px){ .legend{grid-template-columns:1fr} }
-.banners{max-width:728px; width:calc(100% - 16px); margin:28px auto 0; position:relative; z-index:2}
+.banners{max-width:728px; width:calc(100% - 16px); margin:16px auto 14px; position:relative; z-index:2}
 .banners:empty{display:none}
 .bn{position:relative; background:var(--paperTex), var(--paper); background-blend-mode:multiply,normal; border:1px solid var(--line); border-left:8px solid var(--c,var(--navy)); border-radius:8px 16px 16px 8px; padding:14px 46px 12px 16px; margin:0 0 12px; box-shadow:0 6px 16px rgba(0,0,0,.35), inset 0 0 0 3px var(--paper), inset 0 0 0 4px #E9D6A8}
 .bn-x{position:absolute; top:4px; right:4px; width:44px; height:44px; border:0; background:none; color:var(--muted); font-size:1.7rem; line-height:1; border-radius:50%}
@@ -374,25 +374,25 @@ textarea.field{min-height:150px; resize:vertical; line-height:1.5}
 .bn-cd:empty{display:none}
 .bn-t > svg:last-child{flex:none; width:22px; height:22px; fill:none; stroke:var(--navy); stroke-width:2.4; stroke-linecap:round; stroke-linejoin:round}
 .bn .linkbtn{margin-top:4px}
-.bn-more{display:block; margin:0 auto 12px; min-height:44px; padding:0 18px; border-radius:999px; border:2px solid var(--gold); background:var(--paper); color:var(--navy); font-weight:600}
 .bn-preview{margin:0 0 10px; padding:8px 12px; background:var(--navy); color:#fff; border-radius:10px; font-size:.9rem; text-align:center}
 .hero-body{display:block}
 .hero-text{min-width:0; flex:1}
-.hero{transition:height .75s cubic-bezier(.4,0,.2,1), padding .75s cubic-bezier(.4,0,.2,1)}
+.hero{transition:height 1.5s cubic-bezier(.45,0,.2,1), padding 1.5s cubic-bezier(.45,0,.2,1)}
 .hero.anim{overflow:hidden}
 .hero.nomove,.hero.nomove *{transition:none!important}
-.hero .arch-svg,.hero h1,.hero .sub,.hero .sub span:first-child{transition:width .75s cubic-bezier(.4,0,.2,1), margin .75s cubic-bezier(.4,0,.2,1), font-size .75s cubic-bezier(.4,0,.2,1), max-height .75s, opacity .5s}
+.hero .arch-svg,.hero h1,.hero .sub,.hero .sub span:first-child{transition:width 1.5s cubic-bezier(.45,0,.2,1), margin 1.5s cubic-bezier(.45,0,.2,1), font-size 1.5s cubic-bezier(.45,0,.2,1), max-height 1.5s, opacity .9s}
 .hero .sub span:first-child{max-height:4em; overflow:hidden}
-.hero.compact{padding:10px 20px 20px}
+.hero.compact{padding:24px 24px 26px}
 .hero.compact .hero-top{margin:0 auto}
 .hero.compact .hero-body{display:flex; align-items:center; gap:16px; text-align:left; max-width:720px; margin:0 auto}
-.hero.compact .arch-svg{flex:none; margin:0; width:clamp(66px, calc((28vh - 84px) / 1.133), 170px)}
+.hero.compact .arch-svg{flex:none; margin:0; width:clamp(62px, calc((28vh - 100px) / 1.133), 170px)}
 .hero.compact h1{font-size:clamp(1.4rem,5.8vw,2.1rem)}
 .hero.compact .sub{margin-top:.25em; font-size:.98rem}
 .hero.compact .sub .nw{white-space:normal}
 .hero.compact .sub span:first-child{max-height:0; opacity:0}
-.hero-toggle{position:absolute; left:50%; bottom:-19px; transform:translateX(-50%); z-index:6; width:68px; height:38px; border-radius:0 0 19px 19px; border:2px solid var(--gold); border-top:0; background:var(--leather), #5A1830; background-blend-mode:multiply,normal; color:var(--sun); display:grid; place-items:center; padding:0; box-shadow:0 6px 12px rgba(0,0,0,.4)}
-.hero-toggle svg{width:24px; height:24px; fill:none; stroke:currentColor; stroke-width:2.4; stroke-linecap:round; stroke-linejoin:round; transition:transform .4s; margin-top:4px}
+.hero-toggle{position:absolute; left:50%; bottom:-12px; transform:translateX(-50%); z-index:6; width:44px; height:24px; border-radius:0 0 12px 12px; border:1.5px solid var(--gold); border-top:0; background:var(--leather), #5A1830; background-blend-mode:multiply,normal; color:var(--sun); display:grid; place-items:center; padding:0; box-shadow:0 3px 6px rgba(0,0,0,.35)}
+.hero-toggle::after{content:""; position:absolute; inset:-8px -14px -12px}
+.hero-toggle svg{width:16px; height:16px; fill:none; stroke:currentColor; stroke-width:2.6; stroke-linecap:round; stroke-linejoin:round; transition:transform 1s; margin-top:-1px}
 .hero:not(.compact) .hero-toggle svg{transform:rotate(180deg)}
 @media (max-width:380px){ .fxrow{grid-template-columns:1fr} .fxrow .eq{display:none} }
 @media (prefers-reduced-motion:reduce){ *{transition:none!important; animation:none!important} }
@@ -446,12 +446,14 @@ textarea.field{min-height:150px; resize:vertical; line-height:1.5}
 <!-- ============ APP ============ -->
 <div id="app" hidden>
   <div class="offline" id="offline" hidden>Can't reach the journal right now. Check your internet connection.</div>
+  <div class="banners" id="banners" role="region" aria-label="Reminders for today"></div>
   <header class="hero">
     <div class="hero-top">
       <button type="button" class="hx hi2" lang="hi" data-say="Swagatam" data-pron="swah-gah-tam" data-mean="Welcome" aria-label="स्वागतम्, Swagatam, means Welcome">स्वागतम्</button>
       <button class="me" id="me-btn" aria-haspopup="true" aria-expanded="false"></button>
     </div>
     <div class="menu" id="menu" hidden>
+      <button id="m-bn" hidden>Show hidden reminders</button>
       <button id="m-switch">Switch person</button>
       <button id="m-lock">Lock this device</button>
     </div>
@@ -494,7 +496,6 @@ textarea.field{min-height:150px; resize:vertical; line-height:1.5}
     </div>
     <button type="button" class="hero-toggle" id="hero-toggle" aria-expanded="true" aria-label="Shrink the header"><svg aria-hidden="true"><use href="#i-down"/></svg></button>
   </header>
-  <div class="banners" id="banners" role="region" aria-label="Reminders for today"></div>
   <div class="guest-note" id="guest-note" hidden>You're a guest here. You can look at everything, but not add anything.</div>
 
   <main class="wrap">
@@ -652,9 +653,9 @@ textarea.field{min-height:150px; resize:vertical; line-height:1.5}
    - Guest words open the same journal read-only.
    - Booking details ("Your tour") are encrypted with a separate key that only the family words unlock.
    ===================================================================== */
-const FAM_CHECK = {"iv": "OSgOGEUG84VcQi80", "ct": "vgM+yREurYqfLucp9YmZAECgdJl7EDN8"};
-const GUEST_WRAP = {"iv": "o6gk0qkem+kZA2UF", "ct": "/bmT1Ubr0qTf/Mogqj2lwyIKnctUxhNCgp7+f1118NLGas8TnoP5YVOVUHY1N1vA1LmrG8MWA2OoKjsuMCk="};
-const PRIV_BLOB = {"iv": "egSVYkt4ImMhI+dJ", "ct": "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"};
+const FAM_CHECK = {"iv": "2D0Wi3BefNSh+cmL", "ct": "WZFb7bpL2jLZoJXd2eqM7gxvTMpKP5XV"};
+const GUEST_WRAP = {"iv": "7noQrWf1LZg694tI", "ct": "/EWFq0U3u8bJ8kInUF4GWdGjsp7AagyUw9XhgXkufXozm3z5r5UlLalqwTHfG6khUW060CPuZC+8AjnkMoc="};
+const PRIV_BLOB = {"iv": "Zvk99NmrwkmNFuij", "ct": "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"};
 const SALT_FAM = 'monica-india-2026-journal-v1';
 const SALT_GUEST = 'monica-india-2026-guest-v1';
 const SALT_PRIV = 'monica-india-2026-private-v1';
@@ -943,6 +944,7 @@ function renderMe(){
 }
 $('#me-btn').addEventListener('click', () => { const m = $('#menu'); m.hidden = !m.hidden; $('#me-btn').setAttribute('aria-expanded', String(!m.hidden)); $('#m-switch').hidden = S.mode === 'guest'; });
 document.addEventListener('click', e => { if (!e.target.closest('#menu') && !e.target.closest('#me-btn')) $('#menu').hidden = true; });
+$('#m-bn').addEventListener('click', () => { $('#menu').hidden = true; lsDel('mj_bn'); renderBanners(); });
 $('#m-switch').addEventListener('click', () => { $('#menu').hidden = true; $('#app').hidden = true; showPicker(); });
 $('#m-lock').addEventListener('click', () => { [LS.key, LS.pkey, LS.mode, LS.who].forEach(lsDel); location.reload(); });
 
@@ -1250,7 +1252,7 @@ function bannerEvents(){
   });
   return ev.filter(e => !(fam && e.hideFam));
 }
-let BNLIVE = {}, BNTIMER = 0, BNSHOWALL = false;
+let BNLIVE = {}, BNTIMER = 0;
 const bnPrefs = () => { try { return JSON.parse(lsGet('mj_bnopen') || '{}'); } catch (_) { return {}; } };
 const bnDismissed = () => { try { return JSON.parse(lsGet('mj_bn') || '[]'); } catch (_) { return []; } };
 function fmtLeft(ms){
@@ -1277,7 +1279,7 @@ function renderBanners(){
   const box = $('#banners'); if (!box) return;
   const now = NOW(), dis = bnDismissed();
   const active = bannerEvents().filter(e => now >= e.from && now < e.to);
-  const shown = active.filter(e => BNSHOWALL || !dis.includes(e.id)), hidden = active.length - shown.length;
+  const shown = active.filter(e => !dis.includes(e.id)), hidden = active.length - shown.length;
   box.innerHTML = (NOWOFF ? `<p class="bn-preview">Previewing the page as it would look on ${esc(new Date(now).toLocaleString('en-GB', { dateStyle:'medium', timeStyle:'short', timeZone:'Europe/London' }))} UK time.</p>` : '') +
     shown.map(e => {
       const open = (bnPrefs()[e.id] ?? !!e.key);
@@ -1296,8 +1298,8 @@ function renderBanners(){
         <ul>${items}</ul>${bnLiveHTML(e)}
         ${btns.length ? `<div class="btns">${btns.join('')}</div>` : ''}
         <button type="button" class="linkbtn" data-bn-t="${e.id}" aria-expanded="true">Show less</button></section>`;
-    }).join('') +
-    (hidden ? `<button type="button" class="bn-more" data-bn-show="1">Show ${hidden} hidden reminder${hidden > 1 ? 's' : ''}</button>` : (BNSHOWALL && dis.length ? `<button type="button" class="bn-more" data-bn-show="0">Hide dismissed reminders</button>` : ''));
+    }).join('');
+  const mb = $('#m-bn'); if (mb) { mb.hidden = !hidden; mb.textContent = `Show ${hidden} hidden reminder${hidden > 1 ? 's' : ''}`; }
   tickBanners();
   clearInterval(BNTIMER); BNTIMER = setInterval(() => { tickBanners(); if (Math.floor(NOW() / 60000) % 1 === 0) renderBannersIfChanged(); }, 30000);
   liveRefresh(active);
@@ -1334,9 +1336,8 @@ function liveRefresh(active){
 document.addEventListener('click', e => {
   const tg = e.target.closest && e.target.closest('[data-bn-t]');
   if (tg) { const id = tg.dataset.bnT, p = bnPrefs(), ev = bannerEvents().find(v => v.id === id), cur = p[id] ?? !!(ev && ev.key); p[id] = !cur; lsSet('mj_bnopen', JSON.stringify(p)); renderBanners(); const again = $(`[data-bn-t="${id}"]`); if (again) again.focus({ preventScroll:true }); return; }
-  const x = e.target.closest && e.target.closest('[data-bn-x]'), s = e.target.closest && e.target.closest('[data-bn-show]');
-  if (x) { const d = bnDismissed(); d.push(x.dataset.bnX); lsSet('mj_bn', JSON.stringify(d)); renderBanners(); }
-  else if (s) { BNSHOWALL = s.dataset.bnShow === '1'; renderBanners(); }
+  const x = e.target.closest && e.target.closest('[data-bn-x]');
+  if (x) { const d = bnDismissed(); if (!d.includes(x.dataset.bnX)) d.push(x.dataset.bnX); lsSet('mj_bn', JSON.stringify(d)); renderBanners(); }
 });
 
 /* header: show it in full for a moment, then shrink it so the content is easier to reach */
@@ -1358,8 +1359,8 @@ function heroSet(compact){
   hero.style.height = h0 + 'px'; hero.classList.add('anim');
   hero.classList.toggle('compact', compact); void hero.offsetHeight;
   hero.style.height = h1 + 'px';
-  if (y0 > 0) { const t0 = performance.now(); (function keep(){ const dh = h0 - hero.offsetHeight; scrollTo(0, Math.max(0, y0 - dh)); if (performance.now() - t0 < 800) requestAnimationFrame(keep); })(); }
-  setTimeout(() => { hero.style.height = ''; hero.classList.remove('anim'); }, 800);
+  if (y0 > 0) { const t0 = performance.now(); (function keep(){ const dh = h0 - hero.offsetHeight; scrollTo(0, Math.max(0, y0 - dh)); if (performance.now() - t0 < 1600) requestAnimationFrame(keep); })(); }
+  setTimeout(() => { hero.style.height = ''; hero.classList.remove('anim'); }, 1600);
 }
 function heroShowThenShrink(){
   clearTimeout(heroTimer); heroManual = false;
