@@ -274,7 +274,7 @@ h2.sec.ruby{color:var(--ruby)}
 .btns{display:flex; flex-wrap:wrap; gap:8px}
 /* ---------- tab bar ---------- */
 .tabs{position:fixed; left:0; right:0; bottom:0; z-index:20; display:flex; background:linear-gradient(rgba(0,0,0,.45),rgba(0,0,0,.62)), var(--wood), #3B2214; border-top:3px solid var(--sun); box-shadow:0 -6px 18px rgba(0,0,0,.5); padding-bottom:env(safe-area-inset-bottom)}
-.tabs button{flex:1; min-height:68px; background:none; border:0; color:#F3DDB0; text-shadow:0 1px 2px rgba(0,0,0,.7); font-family:var(--display); font-weight:700; font-size:1.2rem; position:relative; padding:0 4px; white-space:nowrap}
+.tabs button{flex:1; min-height:68px; background:none; border:0; color:#F3DDB0; text-shadow:0 1px 2px rgba(0,0,0,.7); font-family:var(--display); font-weight:700; font-size:1.08rem; position:relative; padding:0 2px; white-space:nowrap}
 .tabs button[aria-selected="true"]{color:var(--sun)}
 .tabs button[aria-selected="true"]::before{content:""; position:absolute; top:0; left:50%; width:44px; height:6px; transform:translateX(-50%); background:var(--sun); border-radius:0 0 8px 8px}
 
@@ -305,6 +305,49 @@ textarea.field{min-height:150px; resize:vertical; line-height:1.5}
 .toast{position:fixed; left:50%; bottom:calc(92px + env(safe-area-inset-bottom)); transform:translateX(-50%); z-index:60; background:var(--ink); color:#fff; padding:12px 18px; border-radius:14px; max-width:90vw; text-align:center; box-shadow:0 8px 24px rgba(0,0,0,.35)}
 .offline{background:#A3162F; color:#fff; text-align:center; padding:8px 14px; font-size:.95rem}
 @media (min-width:600px){ .previews{grid-template-columns:repeat(6,1fr)} .photos{grid-template-columns:repeat(4,1fr)} .photos.one{grid-template-columns:1fr} .photos.two{grid-template-columns:1fr 1fr} }
+.mapwrap{position:relative; border:2px solid var(--gold); border-radius:18px; overflow:hidden; background:#F3E4BE; box-shadow:inset 0 0 0 4px #F3E4BE, inset 0 0 0 5px rgba(185,138,46,.5), 0 6px 16px rgba(78,16,40,.18); margin:14px 0 10px; scroll-margin-top:12px}
+.mapsvg{display:block; width:100%; height:auto; -webkit-tap-highlight-color:transparent; user-select:none; -webkit-user-select:none}
+.mapsvg .it{cursor:pointer; outline:none}
+.mapsvg .it:focus-visible{outline:3px solid var(--navy); outline-offset:2px; border-radius:8px}
+.mapsvg.has-sel .it{opacity:.4; transition:opacity .2s}
+.mapsvg.has-sel .it.on,.mapsvg.has-sel .it.sel{opacity:1}
+.mapsvg .it.sel{filter:drop-shadow(0 0 5px rgba(246,201,74,1)) drop-shadow(0 0 2px rgba(246,201,74,1))}
+.mapsvg .pin{transition:transform .2s}
+.mapsvg .it.sel .pin{transform:scale(1.3)}
+.mapsvg .lbl{font-family:var(--display); font-weight:700; font-size:21px; fill:var(--ink); paint-order:stroke; stroke:#F3E4BE; stroke-width:5px; stroke-linejoin:round}
+.mapsvg .sublbl{font-family:var(--body); font-size:13px; fill:#5B3A40; paint-order:stroke; stroke:#F3E4BE; stroke-width:4px; stroke-linejoin:round}
+.mapsvg .reg{font-family:var(--display); font-weight:700; font-size:15px; letter-spacing:.22em; fill:rgba(122,28,58,.22)}
+.mapnav{display:flex; align-items:center; justify-content:space-between; gap:8px; margin:0 0 14px}
+.mapnav button{min-height:54px; padding:0 20px; border-radius:999px; border:2px solid var(--sky); background:#fff; color:var(--navy); font-weight:700; font-size:1rem}
+.mapnav button[disabled]{opacity:.4}
+.mapnav span{flex:1; text-align:center; font-weight:600; color:var(--navy); font-size:.95rem}
+.mapcard{background:var(--paperTex), var(--paper); background-blend-mode:multiply,normal; border:1px solid var(--line); border-top:6px solid var(--c,var(--navy)); border-radius:6px 6px 16px 16px; padding:16px 18px 14px; margin:0 0 16px; scroll-margin-top:12px}
+.mc-head{display:flex; align-items:center; gap:14px}
+.mc-head h3{font-size:1.65rem; color:var(--ruby); line-height:1.15}
+.mc-head .when{margin:2px 0 0; font-weight:600; color:var(--navy); font-size:.95rem}
+.mc-badge{flex:none; width:52px; height:52px; border-radius:50%; background:var(--c,#7A1C3A); color:#fff; display:grid; place-items:center; box-shadow:0 0 0 2px var(--paper), 0 0 0 3.5px var(--gold)}
+.mc-badge b{font-family:var(--display); font-size:1.7rem; line-height:1}
+.mc-badge svg{width:28px; height:28px; fill:none; stroke:currentColor; stroke-width:1.8; stroke-linecap:round; stroke-linejoin:round}
+.mapcard p{margin:.6em 0}
+.mchips{display:flex; flex-wrap:wrap; gap:8px; margin:8px 0 2px}
+.mchip{display:inline-flex; align-items:center; gap:7px; padding:5px 12px 5px 9px; border-radius:999px; background:var(--sun-pale); border:1.5px solid #EFD98A; font-weight:600; font-size:.92rem; color:#4B3300}
+.mchip svg{width:20px; height:20px; fill:none; stroke:currentColor; stroke-width:1.8; stroke-linecap:round; stroke-linejoin:round; flex:none}
+.mc-sub{font-family:var(--display); font-size:1.2rem; color:var(--navy); margin:16px 0 6px}
+.daylink{display:flex; align-items:center; justify-content:space-between; gap:10px; width:100%; min-height:56px; margin:0 0 8px; padding:8px 14px; background:#fff; border:2px solid var(--line); border-radius:14px; text-align:left; color:var(--ink)}
+.daylink small{display:block; color:var(--sky-deep); font-weight:600; font-size:.9rem}
+.daylink svg{width:22px; height:22px; flex:none; fill:none; stroke:var(--ruby); stroke-width:2.2; stroke-linecap:round; stroke-linejoin:round}
+.daylink:hover,.daylink:focus-visible{border-color:var(--sun)}
+.chips button[aria-pressed="true"]{box-shadow:0 0 0 3px var(--paper), 0 0 0 5px var(--navy)}
+.legend{display:grid; grid-template-columns:1fr 1fr; gap:10px 12px; margin:0 0 16px}
+.lg-row{display:flex; align-items:center; gap:10px; background:var(--paper); border:1px solid var(--line); border-radius:12px; padding:8px 10px}
+.lg-row svg.lg{width:56px; height:24px; flex:none; overflow:visible}
+.lg-row b{display:block; font-family:var(--display); font-size:1.15rem; line-height:1.15; color:var(--navy)}
+.lg-row small{display:block; color:var(--muted); font-size:.82rem; line-height:1.3}
+.mapbtn.tomap{margin:4px 0 8px}
+.mapbtn.tomap svg{fill:none; stroke:currentColor; stroke-width:1.8; stroke-linecap:round; stroke-linejoin:round; color:var(--ruby)}
+.linkbtn{display:inline-flex; align-items:center; gap:6px; min-height:44px; margin-top:2px; padding:0; background:none; border:0; color:var(--sky-deep); font-weight:700; text-decoration:underline; text-underline-offset:3px}
+.linkbtn svg{width:20px; height:20px; fill:none; stroke:currentColor; stroke-width:1.8; stroke-linecap:round; stroke-linejoin:round}
+@media (max-width:360px){ .legend{grid-template-columns:1fr} }
 @media (max-width:380px){ .fxrow{grid-template-columns:1fr} .fxrow .eq{display:none} }
 @media (prefers-reduced-motion:reduce){ *{transition:none!important; animation:none!important} }
 </style>
@@ -328,7 +371,7 @@ textarea.field{min-height:150px; resize:vertical; line-height:1.5}
       <circle r="4" fill="#FBF1DB"/>
     </symbol>
     <symbol id="pin" viewBox="0 0 24 24"><path fill="currentColor" d="M12 2C8.1 2 5 5.1 5 9c0 5.2 7 13 7 13s7-7.8 7-13c0-3.9-3.1-7-7-7zm0 9.5a2.5 2.5 0 1 1 0-5 2.5 2.5 0 0 1 0 5z"/></symbol>
-  <symbol id="i-today" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2.5v2.5M12 19v2.5M2.5 12H5M19 12h2.5M5.3 5.3l1.8 1.8M16.9 16.9l1.8 1.8M18.7 5.3l-1.8 1.8M7.1 16.9l-1.8 1.8"/></symbol><symbol id="i-pen" viewBox="0 0 24 24"><path d="M4 20l1-4.5L16.5 4l3.5 3.5L8.5 19z"/><path d="M14 6.5l3.5 3.5"/></symbol><symbol id="i-notes" viewBox="0 0 24 24"><path d="M3 5.5C5.5 4.5 8.5 4.5 12 6c3.5-1.5 6.5-1.5 9-.5V19c-2.5-1-5.5-1-9 .5-3.5-1.5-6.5-1.5-9-.5z"/><path d="M12 6v13.5"/></symbol><symbol id="i-ticket" viewBox="0 0 24 24"><path d="M3 7h18v3a2 2 0 0 0 0 4v3H3v-3a2 2 0 0 0 0-4z"/><path d="M14 7v2M14 11v2M14 15v2"/></symbol><symbol id="i-plane" viewBox="0 0 24 24"><path d="M21 15l-8-5V4.5a1.5 1.5 0 0 0-3 0V10l-8 5v2l8-2.2V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-4.2l8 2.2z"/></symbol><symbol id="i-guide" viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.6"/><path d="M5 20c0-4 3-6 7-6s7 2 7 6"/></symbol><symbol id="i-bed" viewBox="0 0 24 24"><path d="M3 19V6M3 15h18v4M21 15v-2.5a3 3 0 0 0-3-3h-7V15"/><circle cx="7" cy="11.5" r="1.6"/></symbol><symbol id="i-compass" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M15.5 8.5l-2 5-5 2 2-5z"/></symbol><symbol id="i-route" viewBox="0 0 24 24"><circle cx="6" cy="19" r="2"/><circle cx="18" cy="5" r="2"/><path d="M8 19h6a3.5 3.5 0 0 0 0-7h-4a3.5 3.5 0 0 1 0-7h6"/></symbol><symbol id="i-cal" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></symbol><symbol id="i-coin" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M8.5 8h7M8.5 11.5h7M8.5 8c5 0 5 5.5 0 5.5l5 3.5"/></symbol><symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol><symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.2v.4"/></symbol><symbol id="i-chat" viewBox="0 0 24 24"><path d="M4 5h16v11H9l-5 4z"/><path d="M8 9.5h8M8 12.5h5"/></symbol><symbol id="i-check" viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M8 12l3 3 5-6"/></symbol><symbol id="i-up" viewBox="0 0 24 24"><path d="M12 19V5M6 11l6-6 6 6"/></symbol><symbol id="i-globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3.2 3.2 3.2 14.8 0 18M12 3c-3.2 3.2-3.2 14.8 0 18"/></symbol></defs>
+  <symbol id="i-today" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2.5v2.5M12 19v2.5M2.5 12H5M19 12h2.5M5.3 5.3l1.8 1.8M16.9 16.9l1.8 1.8M18.7 5.3l-1.8 1.8M7.1 16.9l-1.8 1.8"/></symbol><symbol id="i-pen" viewBox="0 0 24 24"><path d="M4 20l1-4.5L16.5 4l3.5 3.5L8.5 19z"/><path d="M14 6.5l3.5 3.5"/></symbol><symbol id="i-notes" viewBox="0 0 24 24"><path d="M3 5.5C5.5 4.5 8.5 4.5 12 6c3.5-1.5 6.5-1.5 9-.5V19c-2.5-1-5.5-1-9 .5-3.5-1.5-6.5-1.5-9-.5z"/><path d="M12 6v13.5"/></symbol><symbol id="i-ticket" viewBox="0 0 24 24"><path d="M3 7h18v3a2 2 0 0 0 0 4v3H3v-3a2 2 0 0 0 0-4z"/><path d="M14 7v2M14 11v2M14 15v2"/></symbol><symbol id="i-plane" viewBox="0 0 24 24"><path d="M21 15l-8-5V4.5a1.5 1.5 0 0 0-3 0V10l-8 5v2l8-2.2V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-4.2l8 2.2z"/></symbol><symbol id="i-guide" viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.6"/><path d="M5 20c0-4 3-6 7-6s7 2 7 6"/></symbol><symbol id="i-bed" viewBox="0 0 24 24"><path d="M3 19V6M3 15h18v4M21 15v-2.5a3 3 0 0 0-3-3h-7V15"/><circle cx="7" cy="11.5" r="1.6"/></symbol><symbol id="i-compass" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M15.5 8.5l-2 5-5 2 2-5z"/></symbol><symbol id="i-route" viewBox="0 0 24 24"><circle cx="6" cy="19" r="2"/><circle cx="18" cy="5" r="2"/><path d="M8 19h6a3.5 3.5 0 0 0 0-7h-4a3.5 3.5 0 0 1 0-7h6"/></symbol><symbol id="i-cal" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></symbol><symbol id="i-coin" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M8.5 8h7M8.5 11.5h7M8.5 8c5 0 5 5.5 0 5.5l5 3.5"/></symbol><symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol><symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.2v.4"/></symbol><symbol id="i-chat" viewBox="0 0 24 24"><path d="M4 5h16v11H9l-5 4z"/><path d="M8 9.5h8M8 12.5h5"/></symbol><symbol id="i-check" viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M8 12l3 3 5-6"/></symbol><symbol id="i-up" viewBox="0 0 24 24"><path d="M12 19V5M6 11l6-6 6 6"/></symbol><symbol id="i-globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3.2 3.2 3.2 14.8 0 18M12 3c-3.2 3.2-3.2 14.8 0 18"/></symbol><symbol id="i-train" viewBox="0 0 24 24"><rect x="5" y="3" width="14" height="14" rx="3"/><path d="M5 11h14M8.5 21l2-4M15.5 21l-2-4"/><circle cx="9" cy="14" r=".7"/><circle cx="15" cy="14" r=".7"/></symbol><symbol id="i-bus" viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="13" rx="2.5"/><path d="M4 11h16M7 20v-3M17 20v-3"/><circle cx="8" cy="14" r=".8"/><circle cx="16" cy="14" r=".8"/></symbol><symbol id="i-jeep" viewBox="0 0 24 24"><path d="M3 16v-4.5l2.2-4.5H15l3.5 4.5H21V16"/><path d="M3 11.5h15.5"/><circle cx="7.5" cy="17" r="2"/><circle cx="16.5" cy="17" r="2"/></symbol><symbol id="i-map" viewBox="0 0 24 24"><path d="M3 6l6-2 6 2 6-2v14l-6 2-6-2-6 2z"/><path d="M9 4v14M15 6v14"/></symbol><symbol id="i-chev" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></symbol></defs>
 </svg>
 
 <!-- ============ GATE ============ -->
@@ -435,6 +478,20 @@ textarea.field{min-height:150px; resize:vertical; line-height:1.5}
       <div id="days"></div>
     </section>
 
+    <!-- MAP -->
+    <section class="tab" id="tab-map">
+      <div id="jump-map"></div>
+      <h2 class="sec" id="sec-map">The route map</h2>
+      <p class="lead">Tap a stop or a line to see it below, then jump to that day. Or use Back and Next to walk through the trip in order.</p>
+      <div class="mapwrap"><svg id="mapsvg" class="mapsvg" viewBox="0 0 400 430" role="group" aria-label="Route map"></svg></div>
+      <div class="mapnav"><button type="button" id="map-prev">‹ Back</button><span id="map-step" aria-live="polite"></span><button type="button" id="map-next">Next ›</button></div>
+      <div class="mapcard" id="mapcard" aria-live="polite" hidden></div>
+      <h3 class="subhead" id="sec-mapdays">Pick a day</h3>
+      <div class="chips" id="mapdays"></div>
+      <h3 class="subhead" id="sec-maplegend">Key to the map</h3>
+      <div class="legend" id="maplegend"></div>
+    </section>
+
     <!-- TOOLS & INFO -->
     <section class="tab" id="tab-tools">
       <div id="jump-tools"></div>
@@ -489,6 +546,7 @@ textarea.field{min-height:150px; resize:vertical; line-height:1.5}
   <nav class="tabs" role="tablist" aria-label="Sections">
     <button role="tab" aria-selected="true" data-tab="journal">Journal</button>
     <button role="tab" aria-selected="false" data-tab="trip">The trip</button>
+    <button role="tab" aria-selected="false" data-tab="map">Map</button>
     <button role="tab" aria-selected="false" data-tab="tools">Tools &amp; info</button>
   </nav>
 </div>
@@ -542,9 +600,9 @@ textarea.field{min-height:150px; resize:vertical; line-height:1.5}
    - Guest words open the same journal read-only.
    - Booking details ("Your tour") are encrypted with a separate key that only the family words unlock.
    ===================================================================== */
-const FAM_CHECK = {"iv": "pFM1Aiem3gGAJcEO", "ct": "fgcJ79VtI8md9iaoHX6ftBxwxThHGY8y"};
-const GUEST_WRAP = {"iv": "TjnIjnHSEtV9Epaj", "ct": "4CNkhwoiW4eAWnImXqJ7Wj9+ka0jtW2I1zJGUidvuY2N4+gRxeHfUywmHYKTfGH1n/G1fo9xCtByalc1x1k="};
-const PRIV_BLOB = {"iv": "y2GfGS6aC0klyo4O", "ct": "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"};
+const FAM_CHECK = {"iv": "qqZLdqr3XQyioYIb", "ct": "3uBTxe3tero8Iq8rS69+ranIB++mhD7b"};
+const GUEST_WRAP = {"iv": "Y3EywvnVnGnR7xzW", "ct": "AXtavKTkAJjWRT6bWcpvvCPDipuy+aGM6ez8l/CsPV9guMU2lU+d6AH381BkfIbaTWZnUnBhn0KgMjyND/Q="};
+const PRIV_BLOB = {"iv": "YmKRNQDTaQXhO9nb", "ct": "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"};
 const SALT_FAM = 'monica-india-2026-journal-v1';
 const SALT_GUEST = 'monica-india-2026-guest-v1';
 const SALT_PRIV = 'monica-india-2026-private-v1';
@@ -641,12 +699,12 @@ const TRIP = [
     meals:['Breakfast'], places:[] }
 ];
 const ROUTE = [
-  { place:'Delhi', when:'Thu 5 and Fri 6 Nov', nt:'Two nights' },
-  { place:'Agra', when:'Sat 7 Nov', nt:'One night' },
-  { place:'Ranthambore', when:'Sun 8 and Mon 9 Nov', nt:'Two nights' },
-  { place:'Jaipur', when:'Tue 10 and Wed 11 Nov', nt:'Two nights' },
-  { place:'Tijara', when:'Thu 12 Nov', nt:'One night in a hilltop fort' },
-  { place:'Home', when:'Fri 13 Nov', nt:'Fly back from Delhi' }
+  { item:'delhi', place:'Delhi', when:'Thu 5 and Fri 6 Nov', nt:'Two nights' },
+  { item:'agra', place:'Agra', when:'Sat 7 Nov', nt:'One night' },
+  { item:'ranth', place:'Ranthambore', when:'Sun 8 and Mon 9 Nov', nt:'Two nights' },
+  { item:'jaipur', place:'Jaipur', when:'Tue 10 and Wed 11 Nov', nt:'Two nights' },
+  { item:'tijara', place:'Tijara', when:'Thu 12 Nov', nt:'One night in a hilltop fort' },
+  { item:'fly-home', place:'Home', when:'Fri 13 Nov', nt:'Fly back from Delhi' }
 ];
 const KNOW = [
   { h:'Before you go', items:[
@@ -821,7 +879,7 @@ function startApp(){
   renderMe();
   $('#guest-note').hidden = S.mode !== 'guest';
   $('#write').hidden = !canWrite();
-  renderStatus(); renderTour(); renderTrip(); renderKnow(); renderPhrases(); renderPack(); renderJumps();
+  renderStatus(); renderTour(); renderTrip(); renderKnow(); renderPhrases(); renderPack(); renderJumps(); renderMap();
   $$('.tab').forEach(t => t.classList.remove('on')); $('#tab-journal').classList.add('on');
   $$('.tabs button').forEach(x => x.setAttribute('aria-selected', String(x.dataset.tab === 'journal')));
   if (!appStarted) { appStarted = true; loadWeather(); initFx(); tickClocks(); startData(); setInterval(renderStatus, 60000); setInterval(tickClocks, 20000); }
@@ -891,6 +949,7 @@ function renderJumps(){
   $('#jump-trip').innerHTML = jumpBar([
     ...(fam ? [['#tour-booking','ticket','Booking'],['#tour-flights','plane','Flights'],['#tour-guide','guide','Guide'],['#tour-hotels','bed','Hotels']] : []),
     ['#sec-journey','compass','Overview'],['#sec-route','route','Route'],['#sec-days','cal','Day by day']]);
+  $('#jump-map').innerHTML = jumpBar([['#sec-map','map','Map'],['#mapcard','info','Details'],['#sec-mapdays','cal','Days'],['#sec-maplegend','compass','Key']]);
   $('#jump-tools').innerHTML = jumpBar([['#fx','coin','Money'],['#clock','clock','Clocks'],['#sec-know','info','Key info'],['#sec-phr','chat','Hindi'],['#sec-pack','check','Packing']]);
   $('#daychips').innerHTML = TRIP.map((d, i) => `<button type="button" style="--c:${d.c}" data-jump="#days .day:nth-child(${i + 1})" aria-label="Day ${i + 1}: ${esc(d.title)}">${i + 1}</button>`).join('');
 }
@@ -900,6 +959,188 @@ function renderJumps(){
   addEventListener('scroll', upd, { passive:true }); upd();
   b.addEventListener('click', () => { const rm = matchMedia('(prefers-reduced-motion:reduce)').matches; scrollTo({ top:0, behavior: rm ? 'auto' : 'smooth' }); });
 })();
+/* ---------------- route map ---------------- */
+const MAPPT = { lon:[46,50], delhi:[232,76], agra:[312,236], abh:[171,256], ranth:[160,366], jaipur:[89,266], tijara:[196,151] };
+const MODEC = { flight:SKYD, train:NAVY, coach:RUBY };
+const MAPITEMS = {
+  'fly-out': { type:'leg', mode:'flight', title:'Overnight flight to Delhi', when:'Wed 4 Nov evening to Thu 5 Nov morning', days:[0,1],
+    text:'The group meets at Heathrow in the evening and flies overnight. You land in Delhi on Thursday morning.' },
+  delhi: { type:'stop', n:1, color:RUBY, title:'Delhi', when:'2 nights, Thu 5 to Sat 7 Nov', nights:'2 nights', days:[1,2], stay:'delhi', q:'Delhi, India',
+    text:'Your first base. Old Delhi’s mosque and bazaars, the grand avenues of New Delhi, India Gate and Humayun’s Tomb.',
+    local:[['bus','Coach for sightseeing'],['bus','Cycle rickshaw through Chandni Chowk']] },
+  train: { type:'leg', mode:'train', title:'Delhi to Agra by train', when:'Sat 7 Nov', days:[3], from:'Delhi, India', to:'Agra, India', travel:'transit',
+    text:'The Gatimaan Express, one of India’s fastest trains, takes you to Agra in time for the Taj Mahal.' },
+  agra: { type:'stop', n:2, color:NAVY, title:'Agra', when:'1 night, Sat 7 to Sun 8 Nov', nights:'1 night', days:[3], stay:'agra', q:'Agra, India',
+    text:'The Taj Mahal with a guide, then the red sandstone Agra Fort.' },
+  coach1: { type:'leg', mode:'coach', title:'Agra to Ranthambore by coach', when:'Sun 8 Nov', days:[4], from:'Agra, India', to:'Ranthambore National Park', travel:'driving',
+    text:'A full day on the coach, across the border into Rajasthan. You stop at Abhaneri on the way, and have lunch at Laxmi Vilas.' },
+  abh: { type:'poi', color:GOLD, title:'Abhaneri: the Chand Baori', when:'Sun 8 Nov, a stop on the way', days:[4], q:'Chand Baori, Abhaneri, Rajasthan',
+    text:'The Moon Well, one of the oldest and deepest step wells in India. The Harshat Mata Temple is right beside it.' },
+  ranth: { type:'stop', n:3, color:GREEN, title:'Ranthambore', when:'2 nights, Sun 8 to Tue 10 Nov', nights:'2 nights', days:[4,5,6], stay:'ranth', q:'Ranthambore National Park',
+    text:'Tiger country. A naturalist’s talk and two safaris in an open-topped canter. Phones are banned inside the park, so take a camera.',
+    local:[['jeep','Open-topped canter on safari']] },
+  coach2: { type:'leg', mode:'coach', title:'Ranthambore to Jaipur by coach', when:'Tue 10 Nov', days:[6], from:'Ranthambore National Park', to:'Jaipur, India', travel:'driving',
+    text:'An early safari, then lunch at the hotel and a coach journey to Jaipur, the Pink City.' },
+  jaipur: { type:'stop', n:4, color:ROSE, title:'Jaipur', when:'2 nights, Tue 10 to Thu 12 Nov', nights:'2 nights', days:[6,7], stay:'jaipur', q:'Jaipur, Rajasthan',
+    text:'Amber Fort, the City Palace, the Jantar Mantar observatory and a drive past the Hawa Mahal.',
+    local:[['jeep','Jeep up to Amber Fort']] },
+  coach3: { type:'leg', mode:'coach', title:'Jaipur to Tijara by coach', when:'Thu 12 Nov', days:[8], from:'Jaipur, India', to:'Tijara, Rajasthan', travel:'driving',
+    text:'A coach through the countryside, arriving in the early afternoon. A jeep then takes you up to the fort.' },
+  tijara: { type:'stop', n:5, color:GOLD, title:'Tijara', when:'1 night, Thu 12 to Fri 13 Nov', nights:'1 night', days:[8], stay:'tijara', q:'Tijara, Rajasthan',
+    text:'The last night, in a 15th-century hilltop fort restored to its former grandeur. Dinner comes with a cultural dance show.',
+    local:[['jeep','Jeep up to the fort']] },
+  coach4: { type:'leg', mode:'coach', title:'Tijara back to Delhi by coach', when:'Fri 13 Nov', days:[9], from:'Tijara, Rajasthan', to:'Delhi International Airport', travel:'driving',
+    text:'An early start, with a picnic breakfast from the hotel, to reach Delhi airport.' },
+  'fly-home': { type:'leg', mode:'flight', title:'Flight home from Delhi', when:'Fri 13 Nov', days:[9],
+    text:'From Delhi airport to London Heathrow, arriving back the same day.' }
+};
+const MAPSEQ = ['fly-out','delhi','train','agra','coach1','abh','ranth','coach2','jaipur','coach3','tijara','coach4','fly-home'];
+const MAPDAY = [['fly-out'],['fly-out','delhi'],['delhi'],['train','agra'],['coach1','abh','ranth'],['ranth'],['ranth','coach2','jaipur'],['jaipur'],['coach3','tijara'],['coach4','fly-home']];
+const MAPLEGS = {
+  'fly-out': [{ a:'lon', b:'delhi', k:-.22 }],
+  'fly-home': [{ a:'delhi', b:'lon', k:-.3 }],
+  train: [{ a:'delhi', b:'agra', k:.07 }],
+  coach1: [{ a:'agra', b:'abh', k:.12 }, { a:'abh', b:'ranth', k:.05 }],
+  coach2: [{ a:'ranth', b:'jaipur', k:-.1 }],
+  coach3: [{ a:'jaipur', b:'tijara', k:.1 }],
+  coach4: [{ a:'tijara', b:'delhi', k:.12 }]
+};
+const MAPLBL = { delhi:[26,6,'start'], agra:[0,50,'middle'], ranth:[28,6,'start'], jaipur:[-26,6,'end'], tijara:[-26,6,'end'], abh:[16,26,'start'] };
+const MAPJEEP = { ranth:[30,-26], jaipur:[-28,-30], tijara:[30,28] };
+let MSEL = { primary:null, set:new Set(), day:null }, MAPBUILT = false;
+
+function mapSeg(s){
+  const A = MAPPT[s.a], B = MAPPT[s.b], dx = B[0]-A[0], dy = B[1]-A[1];
+  return { a:A, b:B, c:[(A[0]+B[0])/2 - dy*s.k, (A[1]+B[1])/2 + dx*s.k] };
+}
+const qpt = (s,t) => { const u = 1-t; return [u*u*s.a[0]+2*u*t*s.c[0]+t*t*s.b[0], u*u*s.a[1]+2*u*t*s.c[1]+t*t*s.b[1]]; };
+const qang = (s,t) => Math.atan2(2*(1-t)*(s.c[1]-s.a[1]) + 2*t*(s.b[1]-s.c[1]), 2*(1-t)*(s.c[0]-s.a[0]) + 2*t*(s.b[0]-s.c[0])) * 180 / Math.PI;
+const mapIcon = (n, x, y, size, col, sw) => `<g fill="none" stroke="${col}" stroke-width="${sw || 2}" stroke-linecap="round" stroke-linejoin="round"><use href="#i-${n}" x="${x - size/2}" y="${y - size/2}" width="${size}" height="${size}"/></g>`;
+
+function buildMap(){
+  const svg = $('#mapsvg'); if (!svg) return;
+  const f = n => Math.round(n * 10) / 10;
+  let bg = `<defs><pattern id="mp-dots" width="14" height="14" patternUnits="userSpaceOnUse"><circle cx="2" cy="2" r="1" fill="#B98A2E" opacity=".28"/></pattern></defs>
+    <rect width="400" height="430" fill="#F3E4BE"/><rect width="400" height="430" fill="url(#mp-dots)"/>
+    <ellipse cx="160" cy="366" rx="52" ry="38" fill="#9CC59A" opacity=".45"/>
+    <text class="reg" x="22" y="190">RAJASTHAN</text>
+    <text class="reg" x="382" y="340" text-anchor="end">UTTAR PRADESH</text>
+    <g transform="translate(366 42)"><circle r="17" fill="#FBF1DB" stroke="#B98A2E" stroke-width="1.5"/><path d="M0 -13 L4 0 L0 13 L-4 0Z" fill="#7A1C3A"/><path d="M0 -13 L4 0 L-4 0Z" fill="#1E3463"/><text y="-20" text-anchor="middle" font-family="Cormorant Garamond,serif" font-weight="700" font-size="13" fill="#4E1028">N</text></g>
+    <g transform="translate(296 410)"><path d="M0 0H50M0 -4V4M50 -4V4" stroke="#4E1028" stroke-width="2" fill="none"/><text x="58" y="5" font-family="Lora,serif" font-size="12" fill="#4E1028">50 km</text></g>
+    <g transform="translate(10 10)"><rect width="112" height="36" rx="10" fill="#FFFBF2" stroke="#B98A2E" stroke-width="1.5"/><text x="12" y="25" font-family="Cormorant Garamond,serif" font-weight="700" font-size="19" fill="#4E1028">London</text>${mapIcon('plane', 92, 18, 22, '#146E9C', 2)}</g>`;
+  let legs = '', stops = '';
+  Object.keys(MAPLEGS).forEach(id => {
+    const it = MAPITEMS[id], col = MODEC[it.mode], segs = MAPLEGS[id].map(mapSeg);
+    const d = segs.map(s => `M${f(s.a[0])} ${f(s.a[1])}Q${f(s.c[0])} ${f(s.c[1])} ${f(s.b[0])} ${f(s.b[1])}`).join('');
+    let line;
+    if (it.mode === 'flight') line = `<path d="${d}" fill="none" stroke="${col}" stroke-width="3.5" stroke-dasharray="9 8" stroke-linecap="round"/>`;
+    else if (it.mode === 'train') line = `<path d="${d}" fill="none" stroke="${col}" stroke-width="7"/><path d="${d}" fill="none" stroke="#fff" stroke-width="3.6" stroke-dasharray="3 7"/>`;
+    else line = `<path d="${d}" fill="none" stroke="${col}" stroke-width="4.6" stroke-linecap="round"/>`;
+    const marks = segs.map(s => {
+      const m = qpt(s, .5), e = qpt(s, .8), ang = qang(s, .8), icon = it.mode === 'flight' ? 'plane' : it.mode === 'train' ? 'train' : 'bus';
+      return `<circle cx="${f(m[0])}" cy="${f(m[1])}" r="13" fill="#FFFBF2" stroke="${col}" stroke-width="2"/>${mapIcon(icon, f(m[0]), f(m[1]), 18, col, 2.2)}<path d="M-7 -6 L7 0 L-7 6Z" fill="${col}" transform="translate(${f(e[0])} ${f(e[1])}) rotate(${f(ang)})"/>`;
+    }).join('');
+    legs += `<g class="it leg" data-id="${id}" role="button" tabindex="0" aria-label="${esc(it.title)}. ${esc(it.when)}. Tap for details.">
+      <path d="${d}" fill="none" stroke="transparent" stroke-width="30" stroke-linecap="round"/>${line}${marks}</g>`;
+  });
+  MAPSEQ.forEach(id => {
+    const it = MAPITEMS[id]; if (it.type === 'leg') return;
+    const p = MAPPT[id === 'abh' ? 'abh' : id], L = MAPLBL[id];
+    const pin = it.type === 'stop'
+      ? `<circle r="17" fill="${it.color}" stroke="#FFFBF2" stroke-width="3"/><circle r="20.5" fill="none" stroke="#B98A2E" stroke-width="1.6"/><text y="7" text-anchor="middle" font-family="Cormorant Garamond,serif" font-weight="700" font-size="22" fill="#fff">${it.n}</text>`
+      : `<path d="M0 -12 L12 0 L0 12 L-12 0Z" fill="#F6C94A" stroke="#1E3463" stroke-width="2.4"/>`;
+    const lbl = `<text class="lbl" x="${L[0]}" y="${L[1]}" text-anchor="${L[2]}">${esc(it.type === 'poi' ? 'Abhaneri' : it.title)}</text>` + (it.nights ? `<text class="sublbl" x="${L[0]}" y="${L[1] + 16}" text-anchor="${L[2]}">${it.nights}</text>` : '');
+    const jeep = MAPJEEP[id] ? `<g transform="translate(${MAPJEEP[id][0]} ${MAPJEEP[id][1]})" aria-hidden="true"><circle r="12" fill="#FFF1BF" stroke="#B97A0C" stroke-width="1.8"/>${mapIcon('jeep', 0, 0, 16, '#7A4B00', 2.3)}</g>` : '';
+    stops += `<g transform="translate(${p[0]} ${p[1]})"><g class="it stop" data-id="${id}" role="button" tabindex="0" aria-label="${esc(it.title)}${it.nights ? ', ' + it.nights : ''}. Tap for details.">
+      <circle r="30" fill="transparent"/><g class="pin">${pin}</g>${lbl}${jeep}</g></g>`;
+  });
+  svg.innerHTML = bg + legs + stops;
+  svg.setAttribute('aria-label', 'Map of the tour. Flight from London to Delhi, then by train to Agra, by coach to Ranthambore, Jaipur and Tijara, and back to Delhi for the flight home. Use the Back and Next buttons below to step through it.');
+  MAPBUILT = true;
+}
+function mapDayLinks(it){
+  return it.days.map(d => `<button type="button" class="daylink" data-open-day="${d}"><span><b>Day ${d + 1}</b>, ${esc(fmtDate(TRIP[d].date, { weekday:'short', day:'numeric', month:'short' }))}<small>${esc(TRIP[d].title)}</small></span>${IC('chev')}</button>`).join('');
+}
+function mapCardHTML(id){
+  const it = MAPITEMS[id], P = S.priv, hotel = P && P.stays && it.stay ? P.stays[it.stay] : null;
+  const col = it.type === 'leg' ? MODEC[it.mode] : it.color;
+  const badge = it.type === 'stop' ? `<b>${it.n}</b>` : IC(it.type === 'poi' ? 'compass' : it.mode === 'flight' ? 'plane' : it.mode === 'train' ? 'train' : 'bus');
+  const modeName = { flight:'Flight', train:'Train', coach:'Coach' }[it.mode];
+  const chips = (it.type === 'leg' ? [[it.mode === 'flight' ? 'plane' : it.mode === 'train' ? 'train' : 'bus', modeName]] : []).concat(it.local || []).map(c => `<span class="mchip">${IC(c[0])}${esc(c[1])}</span>`).join('');
+  let link = '';
+  if (it.q) link = `<a class="mapbtn" href="${gmap(it.q)}" target="_blank" rel="noopener">${PIN}Open in Google Maps</a>`;
+  else if (it.from) link = `<a class="mapbtn" href="https://www.google.com/maps/dir/?api=1&origin=${encodeURIComponent(it.from)}&destination=${encodeURIComponent(it.to)}&travelmode=${it.travel}" target="_blank" rel="noopener">${PIN}See the route in Google Maps</a>`;
+  return `<div class="mc-head"><span class="mc-badge" style="--c:${col}">${badge}</span><div><h3>${esc(it.title)}</h3><p class="when">${esc(it.when)}</p></div></div>
+    <p>${esc(it.text)}</p>
+    ${chips ? `<div class="mchips">${chips}</div>` : ''}
+    ${hotel ? `<p class="small" style="margin:8px 0 0">You stay at <b>${esc(hotel.name)}</b>.</p>` : ''}
+    ${link ? `<div class="btns" style="margin-top:10px">${link}</div>` : ''}
+    <h4 class="mc-sub">In the itinerary</h4>${mapDayLinks(it)}`;
+}
+function paintMap(){
+  const svg = $('#mapsvg'); if (!svg) return;
+  if (!MAPBUILT) buildMap();
+  const has = !!MSEL.primary;
+  svg.classList.toggle('has-sel', has);
+  $$('#mapsvg .it').forEach(g => { const id = g.dataset.id; g.classList.toggle('sel', id === MSEL.primary); g.classList.toggle('on', MSEL.set.has(id)); g.setAttribute('aria-pressed', String(id === MSEL.primary)); });
+  const card = $('#mapcard');
+  card.hidden = !has;
+  if (has) { const it = MAPITEMS[MSEL.primary]; card.style.setProperty('--c', it.type === 'leg' ? MODEC[it.mode] : it.color); card.innerHTML = mapCardHTML(MSEL.primary); }
+  const i = MAPSEQ.indexOf(MSEL.primary);
+  $('#map-step').textContent = has ? `Step ${i + 1} of ${MAPSEQ.length}` : 'Tap the map to begin';
+  $('#map-prev').disabled = !has || i <= 0;
+  $('#map-next').disabled = has && i >= MAPSEQ.length - 1;
+  $$('#mapdays button').forEach(b => b.setAttribute('aria-pressed', String(Number(b.dataset.mapDay) === MSEL.day)));
+}
+function mapSelect(id, day){
+  MSEL = { primary:id, day: day == null ? null : day, set:new Set(day == null ? [id] : MAPDAY[day]) };
+  paintMap();
+}
+function mapSelectDay(d){ mapSelect(MAPDAY[d][0], d); }
+function mapStep(dir){
+  const i = MAPSEQ.indexOf(MSEL.primary), n = MSEL.primary ? i + dir : 0;
+  if (n < 0 || n >= MAPSEQ.length) return;
+  mapSelect(MAPSEQ[n]);
+}
+function showOnMap(o){
+  goTab('map');
+  if (o.day != null) mapSelectDay(o.day); else mapSelect(o.item);
+  setTimeout(() => { const w = $('.mapwrap'); if (w) w.scrollIntoView({ behavior: matchMedia('(prefers-reduced-motion:reduce)').matches ? 'auto' : 'smooth', block:'start' }); }, 90);
+}
+function openDay(n){
+  goTab('trip');
+  setTimeout(() => { const det = $$('.day')[n]; if (det) { det.open = true; det.scrollIntoView({ behavior: matchMedia('(prefers-reduced-motion:reduce)').matches ? 'auto' : 'smooth', block:'start' }); } }, 90);
+}
+function legendHTML(){
+  const sw = inner => `<svg class="lg" viewBox="0 0 56 24" aria-hidden="true">${inner}</svg>`;
+  const rows = [
+    [sw(`<path d="M3 12H53" stroke="${SKYD}" stroke-width="3.5" stroke-dasharray="9 8" stroke-linecap="round" fill="none"/>`), 'Flight', 'dashed blue line'],
+    [sw(`<path d="M3 12H53" stroke="${NAVY}" stroke-width="7"/><path d="M3 12H53" stroke="#fff" stroke-width="3.6" stroke-dasharray="3 7"/>`), 'Train', 'railway line'],
+    [sw(`<path d="M3 12H53" stroke="${RUBY}" stroke-width="4.6" stroke-linecap="round"/><path d="M-1 -5 L9 0 L-1 5Z" fill="${RUBY}" transform="translate(43 12)"/>`), 'Coach', 'red line with an arrow'],
+    [sw(`<circle cx="28" cy="12" r="10" fill="${RUBY}" stroke="#FFFBF2" stroke-width="2"/><circle cx="28" cy="12" r="11.5" fill="none" stroke="#B98A2E"/><text x="28" y="17" text-anchor="middle" font-family="Cormorant Garamond,serif" font-weight="700" font-size="15" fill="#fff">1</text>`), 'Overnight stay', 'numbered circle, in order'],
+    [sw(`<path d="M28 3 L37 12 L28 21 L19 12Z" fill="#F6C94A" stroke="${NAVY}" stroke-width="2"/>`), 'Stop on the way', 'yellow diamond'],
+    [sw(`<circle cx="28" cy="12" r="10" fill="#FFF1BF" stroke="#B97A0C" stroke-width="1.8"/>${mapIcon('jeep', 28, 12, 14, '#7A4B00', 2.4)}`), 'Jeep or canter', 'for the local legs']
+  ];
+  return rows.map(r => `<div class="lg-row">${r[0]}<span><b>${r[1]}</b><small>${r[2]}</small></span></div>`).join('');
+}
+function renderMap(){
+  buildMap();
+  $('#mapdays').innerHTML = TRIP.map((d, i) => `<button type="button" style="--c:${d.c}" data-map-day="${i}" aria-pressed="false" aria-label="Day ${i + 1}: ${esc(d.title)}">${i + 1}</button>`).join('');
+  $('#maplegend').innerHTML = legendHTML();
+  const t = todayIdx();
+  if (t >= 0 && t < TRIP.length && !MSEL.primary) mapSelectDay(t); else paintMap();
+}
+$('#mapsvg').addEventListener('click', e => { const g = e.target.closest('.it'); if (g) mapSelect(g.dataset.id); });
+$('#mapsvg').addEventListener('keydown', e => { if (e.key !== 'Enter' && e.key !== ' ') return; const g = e.target.closest('.it'); if (g) { e.preventDefault(); mapSelect(g.dataset.id); } });
+$('#map-prev').addEventListener('click', () => mapStep(-1));
+$('#map-next').addEventListener('click', () => mapStep(1));
+document.addEventListener('click', e => {
+  const d = e.target.closest && e.target.closest('[data-map-day]'), it = e.target.closest && e.target.closest('[data-map-item]'), od = e.target.closest && e.target.closest('[data-open-day]');
+  if (d) { if (d.closest('#mapdays')) { mapSelectDay(Number(d.dataset.mapDay)); } else showOnMap({ day:Number(d.dataset.mapDay) }); }
+  else if (it) showOnMap({ item:it.dataset.mapItem });
+  else if (od) openDay(Number(od.dataset.openDay));
+});
+
 function goTab(name){ $(`.tabs button[data-tab="${name}"]`).click(); }
 
 /* ---------------- trip views ---------------- */
@@ -947,6 +1188,7 @@ function dayHTML(d, i, open){
     <summary><span class="dm" style="--c:${d.c}"><b>${dn}</b><i>${esc(mon)}</i></span><span class="dt"><strong>${esc(d.title)}</strong><small>${esc(d.where)}</small></span></summary>
     <div class="dbody">
       <p class="dfull">${esc(fmtDate(d.date))}, day ${i + 1} of ${TRIP.length}</p>
+      <button type="button" class="mapbtn tomap" data-map-day="${i}">${IC('map')}Show this day on the map</button>
       ${d.plan.map(p => `<p>${esc(p)}</p>`).join('')}
       ${d.places && d.places.length ? `<h5>On the map</h5><div class="places">${d.places.map(p => `<a class="place" href="${gmap(p.q)}" target="_blank" rel="noopener">${PIN}${esc(p.n)}</a>`).join('')}</div>` : ''}
       ${sleep}
@@ -956,7 +1198,7 @@ function dayHTML(d, i, open){
     </div></details>`;
 }
 function renderTrip(){
-  $('#route').innerHTML = ROUTE.map(r => `<li><b>${esc(r.place)}</b><span class="when">${esc(r.when)}</span><span class="nt">${esc(r.nt)}</span></li>`).join('');
+  $('#route').innerHTML = ROUTE.map(r => `<li><b>${esc(r.place)}</b><span class="when">${esc(r.when)}</span><span class="nt">${esc(r.nt)}</span><button type="button" class="linkbtn" data-map-item="${r.item}">${IC('map')}See on the map</button></li>`).join('');
   const t = todayIdx();
   $('#days').innerHTML = TRIP.map((d, i) => dayHTML(d, i, i === t)).join('');
 }
